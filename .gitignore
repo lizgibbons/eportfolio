@@ -1,0 +1,20 @@
+build.properties
+config
+.externalToolBuilders
+/installdeploy
+/installedPackages
+packaged
+.project
+Referenced Packages
+salesforce.schema
+.settings
+*.sublime-workspace
+*.sublime-settings
+*.sublime-project
+.*.swp
+/uninstall
+/uninstallsrc
+unpackaged/*/*/*.zip
+unpackaged/namespaced_zipped
+unpackaged/zipped
+unpackaged_stage
