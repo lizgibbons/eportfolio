@@ -160,8 +160,8 @@
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
-        <apexPage>SiteTemplate</apexPage>
-        <enabled>false</enabled>
+        <apexPage>MosaicSiteTemplate</apexPage>
+        <enabled>true</enabled>
     </pageAccesses>
     <userLicense>High Volume Customer Portal</userLicense>
     <userPermissions>
