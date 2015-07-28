@@ -1,0 +1,57 @@
+<apex:page controller="LPSignController" action="{!initFromRegistration}" showHeader="false" sideBar="false" standardStylesheets="false" docType="html-5.0" applyBodyTag="false" applyHtmlTag="false">
+<apex:composition template="{!$Site.Template}">
+<apex:define name="title">{!$Label.LBL_Page_Title}</apex:define>
+<apex:define name="body">
+	<div class="container">
+		<div class="row">
+		<div class="col-lg-4 col-lg-offset-4">
+			<h3 class="text-center">
+				<apex:image value="{!$Site.Prefix}/servlet/servlet.ImageServer?oid={!$Organization.Id}&id={!$Setup.LP_Template_Settings__c.Registration_Page_Logo__c}" rendered="{!!ISBLANK($Setup.LP_Template_Settings__c.Registration_Page_Logo__c)}"/>
+				<apex:outputPanel layout="none" rendered="{!ISBLANK($Setup.LP_Template_Settings__c.Registration_Page_Logo__c)}"><i class="fa fa-unlock-alt"></i></apex:outputPanel>
+			</h3>
+			<p class="text-center">{!$Label.LBL_Sign_up_Title}</p>
+			<hr class="clean"/>
+			<apex:form html-role="form">
+				<apex:outputPanel layout="none" rendered="{!!ISBLANK(accountId) && !ISBLANK(profileId)}">
+					<div class="form-group input-group">
+						<span class="input-group-addon"><i class="fa fa-user"></i></span>
+						<apex:inputText id="fnff" value="{!firstname}" styleClass="form-control" html-placeholder="{!$Label.LBL_Sign_up_First_Name}" onkeyup="checkfields();" required="true"/>
+					</div>
+					<div class="form-group input-group">
+						<span class="input-group-addon"><i class="fa fa-user"></i></span>
+						<apex:inputText id="lnff" value="{!lastname}" styleClass="form-control" html-placeholder="{!$Label.LBL_Sign_up_Last_Name}" onkeyup="checkfields();" required="true"/>
+					</div>
+					<div class="form-group input-group">
+						<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+						<apex:inputText id="emff" value="{!email}" styleClass="form-control" html-placeholder="{!$Label.LBL_Sign_In_Email}" onkeyup="checkfields();" required="true"/>
+					</div>
+					<div class="form-group input-group">
+						<span class="input-group-addon"><i class="fa fa-key"></i></span>
+						<apex:inputSecret id="pwff" value="{!password}" styleClass="form-control" html-placeholder="{!$Label.LBL_Sign_In_Password}" onkeyup="checkfields();" />
+					</div>
+					<apex:commandButton id="subtn" value="{!$Label.LBL_Sign_up}" action="{!createUser}" styleClass="btn btn-purple btn-block"/>
+				</apex:outputPanel>
+				<span class="a-mess">
+					<apex:pageMessages id="pageMessages"/>
+				</span>
+			</apex:form>
+			<hr/>
+			<p class="text-center text-gray">{!$Label.LBL_Sign_up_Have_Account}</p>
+			<a href="{!$Page.LPSignIn}" class="btn btn-default btn-block">{!$Label.LBL_Sign_in}</a>
+		</div>
+		</div>
+	</div>
+	<script>
+		function checkfields() {
+			var vv = true;
+			$("[id$=ff]").each(function(index) {
+				vv = $(this).val().trim() == '' ? false : vv;
+			});
+			vv ? $("[id$=subtn]").removeAttr('disabled') : $("[id$=subtn]").attr('disabled','disabled');
+		}
+		checkfields();
+		$("[id$=pwff]").attr('required','required');
+	</script>
+</apex:define>
+</apex:composition>
+</apex:page>

@@ -1,0 +1,18 @@
+<apex:page showHeader="false" sideBar="false" standardStylesheets="false" docType="html-5.0" applyBodyTag="false" applyHtmlTag="false">
+<apex:composition template="{!$Site.Template}">
+<apex:define name="title">404</apex:define>
+<apex:define name="body">
+	<div class="container">
+
+		<div class="row">
+			<div class="col-lg-6 col-lg-offset-3">
+				<h1 class="text-center" style="font-size:150px; font-weight:800;">404</h1>
+				<p class="text-center lead">The Page you requested does not exist</p>
+				<hr/>
+			</div>
+		</div>
+
+	</div>
+</apex:define>
+</apex:composition>
+</apex:page>
