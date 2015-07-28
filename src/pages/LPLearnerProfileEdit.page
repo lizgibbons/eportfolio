@@ -1,0 +1,47 @@
+<apex:page standardController="Learner_Profile__c" extensions="LPLearnerProfileController" action="{!initFromEdit}" standardStylesheets="false" showHeader="false" sideBar="false" docType="html-5.0" applyBodyTag="false" applyHtmlTag="false">
+<apex:composition template="{!$Site.Template}">
+<apex:define name="title">{!$Label.LBL_Page_Title}</apex:define>
+<apex:define name="body">
+<c:LPPreloader />
+<c:LPLeftPanel col="{!IF(ISBLANK(lp.Id), 'createlp', 'profile')}"/>
+<section class="content">
+	<c:LPHeader />
+	<div class="warper container-fluid">
+		<div class="page-header">
+			<div class="row">
+				<div class="col-md-12 text-left">
+					<h1>{!IF(ISBLANK(lp.Id), $Label.LBL_Create_Learner_Profile, $Label.LBL_Edit + ' ' + lp.Name)}</h1>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<apex:form id="cnsp1" styleClass="form-horizontal">
+							<div class="form-group">
+								<div class="col-sm-2"></div>
+								<div class="a-mess col-sm-7">
+									<apex:pageMessages id="pageMessages"/>
+								</div>
+							</div>
+							<c:LPFieldLayout fl="{!lplayout}" so="{!lp}"/>
+							<apex:actionFunction name="submitLPAction" action="{!saveLearnerProfile}"/>
+						</apex:form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<apex:outputLink value="javascript:;" onclick="submitLPAction();" styleClass="btn-u btn-primary">{!$Label.BTN_Save}</apex:outputLink>
+				&nbsp;
+				<apex:outputLink value="{!IF(ISBLANK($CurrentPage.parameters.retURL),$Page.LPMyLearnerProfiles,JSENCODE($CurrentPage.parameters.retURL))}" styleClass="btn-u btn-warning">{!$Label.BTN_Cancel}</apex:outputLink>
+			</div>
+		</div>
+	</div>
+	<c:LPFooter />
+</section>
+</apex:define>
+</apex:composition>
+</apex:page>
