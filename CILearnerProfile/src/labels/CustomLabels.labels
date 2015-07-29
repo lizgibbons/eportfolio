@@ -246,6 +246,13 @@
         <value>Inactive</value>
     </labels>
     <labels>
+        <fullName>LBL_Inactive_Asset</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Inactive Asset</shortDescription>
+        <value>Inactivating this Asset will remove it from all Learner Profiles. This action cannot be undone.</value>
+    </labels>
+    <labels>
         <fullName>LBL_Item_Items</fullName>
         <language>en_US</language>
         <protected>true</protected>

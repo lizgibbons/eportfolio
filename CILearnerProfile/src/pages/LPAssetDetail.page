@@ -53,7 +53,7 @@
 				<apex:outputPanel layout="none" rendered="{!$ObjectType.Asset__c.deletable}">
 					<a href="#confirmdelete" data-toggle="modal" role="button" class="btn-u btn-danger" onclick="performrd();">{!$Label.BTN_Delete}</a>&nbsp;
 				</apex:outputPanel>
-				<apex:outputPanel layout="none" rendered="{!$ObjectType.Asset__c.updateable}">
+				<apex:outputPanel layout="none" rendered="{!ShowMyLPbtn}">
 					<a href="#atlp" data-toggle="modal" role="button" class="btn-u btn-success" onclick="performRefresh();" title="{!$Label.LBL_Add_Remove_Asset}">{!$Label.LBL_My_Learner_Profiles}</a>&nbsp;
 				</apex:outputPanel>
 				<apex:outputLink value="{!urlForEditAsset}" rendered="{!$ObjectType.Asset__c.updateable}" styleClass="btn-u btn-primary">{!$Label.LBL_Edit_Asset}</apex:outputLink>

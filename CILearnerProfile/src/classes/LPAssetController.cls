@@ -48,7 +48,7 @@ public with sharing class LPAssetController {
 	private void init() {
 		lpMode = String.isNotBlank(ApexPages.currentPage().getParameters().get('lp'));
 		tesla = (Asset__c)stdctrl.getRecord();
-		List<String> hardFields = new List<String> {'Id', 'Name', 'Link__c', 'Category__c',
+		List<String> hardFields = new List<String> {'Id', 'Name', 'Link__c', 'Category__c', 'Status__c',
 			'(SELECT Id, IsNote, Title FROM NotesAndAttachments WHERE IsNote = false ORDER BY CreatedDate DESC LIMIT 1)'
 		};
 		flayout = new LPFieldLayout(
@@ -191,6 +191,10 @@ public with sharing class LPAssetController {
 			acdc = (eleItem.checked == true) ? true : acdc;
 		}
 		return acdc ? Label.LBL_Delete_Asset : Label.LBL_Delete_Asset_message;
+	}
+
+	public Boolean getInitialActiveStatus() {
+		return tesla.Status__c == 'Active';
 	}
 
 	// LIST MODE
