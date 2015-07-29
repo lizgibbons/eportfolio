@@ -1,0 +1,135 @@
+<apex:page controller="LPLearnerProfileController" action="{!initFromAddRemove}" showHeader="false" sideBar="false" standardStylesheets="false" docType="html-5.0" applyBodyTag="false" applyHtmlTag="false">
+<apex:composition template="{!$Site.Template}">
+<apex:define name="title">{!$Label.LBL_Page_Title}</apex:define>
+<apex:define name="body">
+<c:LPPreloader />
+<c:LPLeftPanel col="profile"/>
+<section class="content">
+	<c:LPHeader />
+	<div class="warper container-fluid">
+		<div class="page-header">
+			<div class="row">
+				<div class="col-md-12">
+					<h4>{!$Label.LBL_Check_Uncheck_Assets}</h4>
+					<h1>{!lpName}</h1>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-lg-2">
+						<div class="form-group">
+							<input type="text" class="form-control input-sm form-control-flat" placeholder="{!$Label.LBL_Search_Asset}" onkeyup="checksearch(this);"/>
+						</div>
+					</div>
+				</div>
+				<apex:form ><table class="table table-bordered">
+					<thead>
+						<tr>
+							<th class="click-header" onclick="toogleall(this);"><i class="fa fa-plus-square-o" title="{!$Label.LBL_Show_Hide_All}"></i></th>
+							<th width="60%">{!$ObjectType.Asset__c.Fields.Name.Label}</th>
+							<th>{!$ObjectType.Asset__c.Fields.LastModifiedDate.Label}</th>
+						</tr>
+					</thead>
+					<apex:variable var="index" value="{!0}" />
+					<tbody><apex:repeat value="{!categories}" var="c">
+						<tr class="category-row" id="{!c.unique}" onclick="togglerows(this);">
+							<td colspan="3"><i class="fa fa-plus-square-o"></i>&nbsp;&nbsp;<span>{!c.name}</span></td>
+						</tr>
+						<apex:repeat value="{!c.assets}" var="ca">
+							<tr id="{!index}{!c.unique}" class="category-in" style="display:none;">
+								<td>
+									<label class="cr-styled">
+										<apex:inputCheckbox value="{!ca.checked}"/>
+										<i class="fa"></i> 
+									</label>
+								</td>
+								<td class="asset-name">{!ca.name}</td>
+								<td>{!ca.lmdate}</td>
+							</tr>
+							<apex:variable var="index" value="{!index+1}" />
+						</apex:repeat>
+					</apex:repeat></tbody>
+				</table>
+				<apex:actionFunction name="submitAction" action="{!submitAddRemove}"/>
+				</apex:form>
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<button type="button" class="btn-u btn-primary" onclick="submitAction();return false;">{!$Label.BTN_OK}</button>
+						<a href="{!$Page.LPAssets}?lp={!JSENCODE($CurrentPage.parameters.lp)}" class="btn-u btn-warning">{!$Label.BTN_Cancel}</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<hr/>
+	</div>
+	<script>
+		function toogleall(el) {
+			var r = $(el).find('i.fa-plus-square-o').length > 0;
+			if (r) {
+				$(el).find('i.fa-plus-square-o').removeClass('fa-plus-square-o').addClass('fa-minus-square-o');
+			}
+			else {
+				$(el).find('i.fa-minus-square-o').removeClass('fa-minus-square-o').addClass('fa-plus-square-o');
+			}
+			$('tr.category-row').each(function(index,el2) {
+				togglerows(el2,true,r);
+			});
+		}
+		function togglerows(el,fm,fp) {
+			if ((fm != true && $(el).find('i.fa-plus-square-o').length > 0) || fp == true) {
+				$(el).find('i.fa-plus-square-o').removeClass('fa-plus-square-o').addClass('fa-minus-square-o');
+				$('[id$=' + el.id + '].category-in').show();
+			}
+			else {
+				$(el).find('i.fa-minus-square-o').removeClass('fa-minus-square-o').addClass('fa-plus-square-o');
+				$('[id$=' + el.id + '].category-in').hide();
+			}
+		}
+		var searchMode = false;
+		var beforeSearchState = new Map();
+		function checksearch(el) {
+			var vl = el.value.trim();
+			var searchWords = vl.match(/(\w){2,}/g);
+			if (searchWords) {
+				var reText = '';
+				for (var i = 0; i < searchWords.length; i++) {
+					reText += '(?=.*'+searchWords[i]+')';
+				}
+				var re = new RegExp(reText, "ig");
+				$('tr.category-row').each(function(index,el2) {
+					if (!searchMode) {
+						beforeSearchState.set(el2.id, ($(el2).find('i.fa-plus-square-o').length == 0));
+					}
+					var shar = false;
+					if ($(el2).find('i.fa-plus-square-o').length > 0) {
+						$(el2).find('i.fa-plus-square-o').removeClass('fa-plus-square-o').addClass('fa-minus-square-o');
+					}
+					$('[id$=' + el2.id + '].category-in').each(function(index,el3) {
+						if ($(el3).find('td.asset-name').text().match(re) != null) {
+							shar = true;
+							$(el3).show();
+						}
+						else $(el3).hide();
+					});
+					shar ? $(el2).show() : $(el2).hide();
+				});
+				if (!searchMode) {
+					searchMode = true;
+				}
+			}
+			else if (searchMode && vl.length == 0) {
+				searchMode = false;
+				$('tr.category-row').show().each(function(index,el4) {
+					togglerows(el4,true,beforeSearchState.get(el4.id));
+				});
+				beforeSearchState = new Map();
+			}
+		}
+	</script>
+	<c:LPFooter />
+</section>
+</apex:define>
+</apex:composition>
+</apex:page>

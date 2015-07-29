@@ -1,0 +1,72 @@
+<apex:page controller="LPLearnerProfileController" showHeader="false" sideBar="false" standardStylesheets="false" docType="html-5.0" applyBodyTag="false" applyHtmlTag="false">
+<apex:composition template="{!$Site.Template}">
+<apex:define name="title">{!$Label.LBL_Page_Title}</apex:define>
+<apex:define name="body">
+<c:LPPreloader />
+<c:LPLeftPanel col="profile"/>
+
+<section class="content">
+	<c:LPHeader />
+	<div class="warper container-fluid">
+		<div class="page-header">
+			<div class="row">
+				<div class="col-md-4 text-left">
+					<h1>{!$Label.LBL_My_Learner_Profiles}</h1>
+				</div>
+			</div>
+		</div>
+		<apex:outputPanel layout="block" styleClass="row" rendered="{!LPcrowd.lps.size != 0}">
+			<div class="col-sm-12">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<table id="basic-datatable" class="table no-margn">
+							<thead>
+								<tr>
+									<th>{!$ObjectType.Learner_Profile__c.Fields.Name.Label}</th>
+									<apex:outputPanel layout="none" rendered="{!LPcrowd.showURL}"><th>{!$Label.LBL_URL}</th></apex:outputPanel>
+									<apex:outputPanel layout="none" rendered="{!LPcrowd.showStatus}"><th>{!$ObjectType.Learner_Profile__c.Fields.Status__c.Label}</th></apex:outputPanel>
+									<th>{!$ObjectType.Learner_Profile__c.Fields.LastModifiedDate.Label}</th>
+								</tr>
+							</thead>
+							<tbody>
+								<apex:repeat value="{!LPcrowd.lps}" var="lpi">
+									<tr class="{!lpi.rowColor}">
+										<td><a href="{!$Page.LPAssets}?lp={!lpi.id}">{!lpi.name}</a></td>
+										<apex:outputPanel layout="none" rendered="{!LPcrowd.showURL}"><td>
+											<apex:outputLink value="{!lpi.PublicLink}" title="{!lpi.PublicLink}" target="_blank" rendered="{!lpi.ShowLink}">{!$Label.LBL_Link}</apex:outputLink>
+										</td></apex:outputPanel>
+										<apex:outputPanel layout="none" rendered="{!LPcrowd.showStatus}"><td>{!lpi.status}</td></apex:outputPanel>
+										<td>{!lpi.lmdate}</td>
+									</tr>
+								</apex:repeat>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</apex:outputPanel>
+		<apex:outputPanel layout="block" styleClass="filemanager" rendered="{!LPcrowd.lps.size == 0}">
+			<div class="nothingfound" style="display:block;">
+				<br/><br/>
+				<i class="fa fa-folder-open-o fa-5x"></i>
+				<br/>
+				<span>{!$Label.LBL_No_Portfolio}</span>
+			</div>
+		</apex:outputPanel>
+		<hr/>
+	</div>
+	<c:LPFooter />
+</section>
+<script>
+	$(document).ready(function() {
+		$.extend( $.fn.dataTable.defaults, {
+			"searching": false,
+			"paging": false,
+			"info": false
+		} );
+		$('#basic-datatable').dataTable();
+	});
+</script>
+</apex:define>
+</apex:composition>
+</apex:page>
