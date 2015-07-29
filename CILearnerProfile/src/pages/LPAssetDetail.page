@@ -50,10 +50,12 @@
 		</div>
 		<div class="row">
 			<div class="col-md-12 text-center">
-				<apex:outputLink value="#atlp" html-data-toggle="modal" html-role="button" styleClass="btn-u btn-success" rendered="{!ShowMyLPbtn}" onclick="performRefresh();" title="{!$Label.LBL_Add_Remove_Asset}">
-					{!$Label.LBL_My_Learner_Profiles}
-				</apex:outputLink>
-				&nbsp;
+				<apex:outputPanel layout="none" rendered="{!$ObjectType.Asset__c.deletable}">
+					<a href="#confirmdelete" data-toggle="modal" role="button" class="btn-u btn-danger" onclick="performrd();">{!$Label.BTN_Delete}</a>&nbsp;
+				</apex:outputPanel>
+				<apex:outputPanel layout="none" rendered="{!$ObjectType.Asset__c.updateable}">
+					<a href="#atlp" data-toggle="modal" role="button" class="btn-u btn-success" onclick="performRefresh();" title="{!$Label.LBL_Add_Remove_Asset}">{!$Label.LBL_My_Learner_Profiles}</a>&nbsp;
+				</apex:outputPanel>
 				<apex:outputLink value="{!urlForEditAsset}" rendered="{!$ObjectType.Asset__c.updateable}" styleClass="btn-u btn-primary">{!$Label.LBL_Edit_Asset}</apex:outputLink>
 			</div>
 		</div>
@@ -124,6 +126,44 @@
 		function completeARLP() {
 			$('[id$=atbtn]').removeAttr('disabled');
 			$('#atlp').modal('hide');
+		}
+	</script>
+	</apex:outputPanel>
+	<apex:outputPanel layout="none" rendered="{!$ObjectType.Asset__c.deletable}">
+		<div class="modal fade" id="confirmdelete" aria-live="assertive" role="dialog" tabindex="-1" aria-labelledby="cdlbl" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button id="closemodal" aria-hidden="true" data-dismiss="modal" class="close" type="button">&times;</button>
+					<h4 id="cdlbl" class="modal-title">
+						&nbsp;
+						<apex:actionStatus id="gosha2">
+							<apex:facet name="start">&nbsp;<i class="fa fa-spinner fa-pulse"></i></apex:facet>
+						</apex:actionStatus>
+					</h4>
+				</div>
+				<apex:outputPanel id="confirmbody" layout="block" styleClass="modal-body">
+					{!DeleteConfirmMessage}
+				</apex:outputPanel>
+				<div class="modal-footer">
+					<button id="datbtn" type="button" class="btn-u btn-primary" onclick="deleteaa();return false;">{!$Label.BTN_OK}</button>
+					<button id="cdatbtn" type="button" class="btn-u btn-warning" data-dismiss="modal">{!$Label.BTN_Cancel}</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<apex:form >
+		<apex:actionFunction name="deleteAction" action="{!deleteAsset}" status="gosha2"/>
+		<apex:actionFunction name="refreshDelete" status="gosha2" rerender="confirmbody"/>
+	</apex:form>
+	<script>
+		function performrd() {
+			$('[id$=confirmbody]').hide();
+			refreshDelete();
+		}
+		function deleteaa() {
+			$('[id$=atbtn]').attr('disabled','disabled');
+			deleteAction();
 		}
 	</script>
 	</apex:outputPanel>

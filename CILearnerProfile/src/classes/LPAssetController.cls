@@ -169,6 +169,30 @@ public with sharing class LPAssetController {
 		return resultList;
 	}
 
+	public PageReference deleteAsset() {
+		PageReference pr;
+		try {
+			delete tesla;
+			pr = Page.LPAssets;
+			if (lpMode) {
+				pr.getParameters().put('lp', Id.valueOf(ApexPages.currentPage().getParameters().get('lp')));
+			}
+			pr.setRedirect(true);
+		}
+		catch (Exception e) {
+			ApexPages.addMessages(e);
+		}
+		return pr;
+	}
+
+	public String getDeleteConfirmMessage() {
+		Boolean acdc = false;
+		for (LPLearnerProfileController.Eliforp eleItem : efp.lps) {
+			acdc = (eleItem.checked == true) ? true : acdc;
+		}
+		return acdc ? Label.LBL_Delete_Asset : Label.LBL_Delete_Asset_message;
+	}
+
 	// LIST MODE
 
 	private Boolean listMode;

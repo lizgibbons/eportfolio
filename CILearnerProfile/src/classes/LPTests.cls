@@ -57,6 +57,7 @@ private class LPTests {
 			lpac4.getUrlForNewAsset();
 			lpac4.getInactiveProfile();
 			lpac4.getLearnerProfilePageLink();
+			lpac4.getLPStatusColorStyle();
 			lpac4.getShowLPbtns();
 			lpac4.getUrlForEditLearnerProfile();
 			lpac4.getLearnerProfileLink();
@@ -67,6 +68,9 @@ private class LPTests {
 			lpac7.getLearnerProfileName();
 			lpac7.efp.lps[0].checked = false;
 			lpac7.submitAddRemoveLP();
+			lpac7.getDeleteConfirmMessage();
+			PageReference pr = lpac7.deleteAsset();
+			System.assert(pr != NULL, true);
 
 			LPAssetController lpac5 = new LPAssetController();
 			lpac5.initFromPage();

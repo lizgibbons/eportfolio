@@ -29,6 +29,13 @@
         <value>Create New Asset</value>
     </labels>
     <labels>
+        <fullName>BTN_Delete</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>BTN Delete</shortDescription>
+        <value>Delete</value>
+    </labels>
+    <labels>
         <fullName>BTN_OK</fullName>
         <language>en_US</language>
         <protected>true</protected>
@@ -153,6 +160,20 @@
         <protected>true</protected>
         <shortDescription>LBL Create and Add Asset</shortDescription>
         <value>Create and Add Asset</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Delete_Asset</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Delete Asset</shortDescription>
+        <value>Your Asset is part of a Learner Profile. If you delete the asset, it will also be removed from your Learner Profile.</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Delete_Asset_message</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL_Delete_Asset_message</shortDescription>
+        <value>Are you sure you want to delete this Asset? This action cannot be undone.</value>
     </labels>
     <labels>
         <fullName>LBL_Draft</fullName>
