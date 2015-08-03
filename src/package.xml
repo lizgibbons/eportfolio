@@ -35,7 +35,7 @@
         <members>LPRegistration</members>
         <members>LPSignIn</members>
         <members>LearnerProfile</members>
-        <members>MosaicSiteTemplate</members>
+        <members>SiteTemplate</members>
         <name>ApexPage</name>
     </types>
     <types>
