@@ -232,7 +232,7 @@
         <label>All</label>
     </listViews>
     <listViews>
-        <fullName>All1</fullName>
+        <fullName>All</fullName>
         <filterScope>Everything</filterScope>
         <label>All</label>
     </listViews>
