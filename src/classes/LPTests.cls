@@ -57,9 +57,12 @@ private class LPTests {
 			lpac4.getUrlForNewAsset();
 			lpac4.getInactiveProfile();
 			lpac4.getLearnerProfilePageLink();
+			lpac4.getLPStatusColorStyle();
 			lpac4.getShowLPbtns();
 			lpac4.getUrlForEditLearnerProfile();
 			lpac4.getLearnerProfileLink();
+			lpac4.getAddFromCategoryBtn();
+			lpac4.getUrlForAddFromCategory();
 
 			LPAssetController lpac7 = new LPAssetController(new ApexPages.StandardController(lpac6.tesla));
 			lpac7.initFromView();
@@ -67,6 +70,9 @@ private class LPTests {
 			lpac7.getLearnerProfileName();
 			lpac7.efp.lps[0].checked = false;
 			lpac7.submitAddRemoveLP();
+			lpac7.getDeleteConfirmMessage();
+			PageReference pr = lpac7.deleteAsset();
+			System.assert(pr != NULL, true);
 
 			LPAssetController lpac5 = new LPAssetController();
 			lpac5.initFromPage();
@@ -136,6 +142,7 @@ private class LPTests {
 			lplpc.initFromAddRemove();
 			lplpc.categories[0].assets[0].checked = true;
 			lplpc.submitAddRemove();
+			lplpc.cancelAddRemove();
 
 			LPLearnerProfileController lplpc2 = new LPLearnerProfileController(new ApexPages.StandardController(lp));
 			lplpc2.initFromEdit();

@@ -78,7 +78,7 @@ public without sharing class LPSignController {
 
 	public void resetPasswordAction() {
 		if (resetPasswordMode == 2 && String.IsNotBlank(emailToReset)) {
-			List<User> userList = [SELECT Id FROM User WHERE Email = :emailToReset AND isActive = true AND IsPortalEnabled = true LIMIT 1];
+			List<User> userList = [SELECT Id, Username FROM User WHERE Email = :emailToReset AND isActive = true AND IsPortalEnabled = true LIMIT 1];
 			if (userList.size() > 0) {
 				System.resetPassword(userList[0].Id, true);
 			}

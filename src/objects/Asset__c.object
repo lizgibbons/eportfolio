@@ -46,7 +46,6 @@
     </actionOverrides>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
-    <deprecated>false</deprecated>
     <enableActivities>true</enableActivities>
     <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
@@ -54,7 +53,6 @@
     <enableReports>true</enableReports>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>ReadWrite</externalSharingModel>
     <fieldSets>
         <fullName>Edit_Assets</fullName>
         <availableFields>
@@ -97,7 +95,6 @@
     </fieldSets>
     <fields>
         <fullName>Category__c</fullName>
-        <deprecated>false</deprecated>
         <externalId>false</externalId>
         <label>Category</label>
         <picklist>
@@ -145,7 +142,6 @@
     </fields>
     <fields>
         <fullName>Description__c</fullName>
-        <deprecated>false</deprecated>
         <externalId>false</externalId>
         <label>Description</label>
         <length>32768</length>
@@ -156,7 +152,6 @@
     </fields>
     <fields>
         <fullName>Link__c</fullName>
-        <deprecated>false</deprecated>
         <externalId>false</externalId>
         <label>Link</label>
         <required>false</required>
@@ -166,7 +161,6 @@
     </fields>
     <fields>
         <fullName>Status__c</fullName>
-        <deprecated>false</deprecated>
         <externalId>false</externalId>
         <label>Status</label>
         <picklist>
@@ -186,7 +180,6 @@
     </fields>
     <fields>
         <fullName>Type__c</fullName>
-        <deprecated>false</deprecated>
         <externalId>false</externalId>
         <label>Type</label>
         <picklist>
@@ -215,7 +208,6 @@
     <fields>
         <fullName>User__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
-        <deprecated>false</deprecated>
         <externalId>false</externalId>
         <label>User</label>
         <referenceTo>User</referenceTo>
@@ -236,6 +228,11 @@
         <columns>Link__c</columns>
         <columns>User__c</columns>
         <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>All1</fullName>
         <filterScope>Everything</filterScope>
         <label>All</label>
     </listViews>

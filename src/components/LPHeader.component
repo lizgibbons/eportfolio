@@ -1,5 +1,5 @@
-<apex:component >
-	<apex:outputPanel rendered="{!ISPICKVAL($User.UserType,'Guest')}">
+<apex:component layout="none">
+	<apex:outputPanel rendered="{!ISPICKVAL($User.UserType,'Guest')}" layout="none">
 		<script type="text/javascript">
 			(function() {
 				window.location.href = '{!$Page.LPSignIn}?startURL={!URLENCODE($CurrentPage.URL)}';

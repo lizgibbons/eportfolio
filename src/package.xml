@@ -32,6 +32,7 @@
         <members>LPLearnerProfileEdit</members>
         <members>LPMyAssets</members>
         <members>LPMyLearnerProfiles</members>
+        <members>LPPickNewPassword</members>
         <members>LPRegistration</members>
         <members>LPSignIn</members>
         <members>LearnerProfile</members>

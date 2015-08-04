@@ -46,7 +46,6 @@
     </actionOverrides>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
-    <deprecated>false</deprecated>
     <enableActivities>true</enableActivities>
     <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>
@@ -54,7 +53,6 @@
     <enableReports>true</enableReports>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>ReadWrite</externalSharingModel>
     <fieldSets>
         <fullName>Edit_Learner_Profiles</fullName>
         <description>to be used on learner profile edit page</description>
@@ -77,7 +75,6 @@
     </fieldSets>
     <fields>
         <fullName>Description__c</fullName>
-        <deprecated>false</deprecated>
         <externalId>false</externalId>
         <label>Description</label>
         <length>32768</length>
@@ -88,7 +85,6 @@
     </fields>
     <fields>
         <fullName>Status__c</fullName>
-        <deprecated>false</deprecated>
         <externalId>false</externalId>
         <label>Status</label>
         <picklist>

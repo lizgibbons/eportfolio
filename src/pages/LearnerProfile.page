@@ -100,7 +100,6 @@
 													<img src="{!$Resource.assets}/images/avtar/user.png" alt=""/>
 												</div-->
 												<h3>{!PortfolioOwnerName}</h3>
-												<h5>Class of 2015</h5>
 											</div>
 										</li><!-- mini profile end-->
 										<apex:repeat value="{!CategoriesWithAssets}" var="cwa1">

@@ -140,9 +140,11 @@ public with sharing class LPLearnerProfileController {
 
 	public List<CategoryAsset> categories { get; set; }
 	public transient String lpName { get; set; }
+	public Boolean withoutCategory { get { return withoutCategory == NULL ? true : withoutCategory; } set; }
 
 	public void initFromAddRemove() {
 		String arparam = ApexPages.currentPage().getParameters().get('lp');
+		Schema.PicklistEntry categoryParam = checkCategoryParameter();
 		List<Learner_Profile__c> checkLPlist = [
 			SELECT Id, Name FROM Learner_Profile__c
 			WHERE Id = :String.escapeSingleQuotes(arparam)
@@ -166,9 +168,10 @@ public with sharing class LPLearnerProfileController {
 				}
 				assemblyCategoryMap.get(catUnique).assets.add(new AssetProfile(aItem, checkedAssets.contains(aItem.Id)));
 			}
+			withoutCategory = categoryParam == NULL;
 			for (Schema.PicklistEntry pe : SObjectType.Asset__c.fields.Category__c.getPicklistValues()) {
 				String tc3 = pe.getValue().replace(' ','').toLowerCase();
-				if (assemblyCategoryMap.containsKey(tc3)) {
+				if (assemblyCategoryMap.containsKey(tc3) && (withoutCategory || pe.getValue() == categoryParam.getValue())) {
 					categories.add(assemblyCategoryMap.get(tc3));
 				}
 			}
@@ -197,10 +200,28 @@ public with sharing class LPLearnerProfileController {
 		if (deleteAssetProfile.size() > 0) {
 			delete [SELECT Id FROM Asset_Learner_Profile__c WHERE Learner_Profile__c = :lpId AND Asset__c IN :deleteAssetProfile];
 		}
+		return createRetUrl(lpId);
+	}
+
+	public PageReference cancelAddRemove() {
+		Id lpId = ApexPages.currentPage().getParameters().get('lp');
+		return createRetUrl(lpId);
+	}
+
+	private PageReference createRetUrl(Id inLpId) {
 		PageReference pr = Page.LPAssets;
-		pr.getParameters().put('lp', lpId);
+		pr.getParameters().put('lp', inLpId);
+		Schema.PicklistEntry cp = checkCategoryParameter();
+		if (cp != NULL) {
+			pr.getParameters().put('c', cp.getValue());
+		}
 		pr.setRedirect(true);
 		return pr;
+	}
+
+	private Schema.PicklistEntry checkCategoryParameter() {
+		LPAssetController bro = new LPAssetController();
+		return bro.getCategoryParam();
 	}
 
 	public class CategoryAsset {

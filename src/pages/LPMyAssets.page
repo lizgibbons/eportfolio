@@ -54,10 +54,11 @@
 				</table>
 				<apex:actionFunction name="submitAction" action="{!submitAddRemove}"/>
 				</apex:form>
+				<apex:form ><apex:actionFunction name="cancelAction" action="{!cancelAddRemove}"/></apex:form>
 				<div class="row">
 					<div class="col-md-12 text-center">
 						<button type="button" class="btn-u btn-primary" onclick="submitAction();return false;">{!$Label.BTN_OK}</button>
-						<a href="{!$Page.LPAssets}?lp={!JSENCODE($CurrentPage.parameters.lp)}" class="btn-u btn-warning">{!$Label.BTN_Cancel}</a>
+						<button type="button" class="btn-u btn-warning" onclick="cancelAction();return false;">{!$Label.BTN_Cancel}</button>
 					</div>
 				</div>
 			</div>
@@ -128,6 +129,11 @@
 			}
 		}
 	</script>
+	<apex:outputPanel layout="none" rendered="{!!withoutCategory}"><script>
+		$(document).ready(function(){
+			toogleall($('th.click-header')[0]);
+		});
+	</script></apex:outputPanel>
 	<c:LPFooter />
 </section>
 </apex:define>

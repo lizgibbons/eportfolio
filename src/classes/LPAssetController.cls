@@ -48,7 +48,7 @@ public with sharing class LPAssetController {
 	private void init() {
 		lpMode = String.isNotBlank(ApexPages.currentPage().getParameters().get('lp'));
 		tesla = (Asset__c)stdctrl.getRecord();
-		List<String> hardFields = new List<String> {'Id', 'Name', 'Link__c', 'Category__c',
+		List<String> hardFields = new List<String> {'Id', 'Name', 'Link__c', 'Category__c', 'Status__c',
 			'(SELECT Id, IsNote, Title FROM NotesAndAttachments WHERE IsNote = false ORDER BY CreatedDate DESC LIMIT 1)'
 		};
 		flayout = new LPFieldLayout(
@@ -169,6 +169,34 @@ public with sharing class LPAssetController {
 		return resultList;
 	}
 
+	public PageReference deleteAsset() {
+		PageReference pr;
+		try {
+			delete tesla;
+			pr = Page.LPAssets;
+			if (lpMode) {
+				pr.getParameters().put('lp', Id.valueOf(ApexPages.currentPage().getParameters().get('lp')));
+			}
+			pr.setRedirect(true);
+		}
+		catch (Exception e) {
+			ApexPages.addMessages(e);
+		}
+		return pr;
+	}
+
+	public String getDeleteConfirmMessage() {
+		Boolean acdc = false;
+		for (LPLearnerProfileController.Eliforp eleItem : efp.lps) {
+			acdc = (eleItem.checked == true) ? true : acdc;
+		}
+		return acdc ? Label.LBL_Delete_Asset : Label.LBL_Delete_Asset_message;
+	}
+
+	public Boolean getInitialActiveStatus() {
+		return tesla.Status__c == 'Active';
+	}
+
 	// LIST MODE
 
 	private Boolean listMode;
@@ -214,6 +242,14 @@ public with sharing class LPAssetController {
 
 	public Boolean getShowLPbtns() {
 		return lpMode && !categoryMode;
+	}
+
+	public Boolean getAddFromCategoryBtn() {
+		return lpMode && categoryMode && SObjectType.Asset_Learner_Profile__c.isCreateable();
+	}
+
+	public String getUrlForAddFromCategory() {
+		return prepareUrl(Page.LPMyAssets.getUrl()) + addCategoryLPParam('?');
 	}
 
 	public String getUrlForNewAsset() {

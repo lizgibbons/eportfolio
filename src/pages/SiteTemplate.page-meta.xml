@@ -3,5 +3,6 @@
     <apiVersion>34.0</apiVersion>
     <availableInTouch>false</availableInTouch>
     <confirmationTokenRequired>false</confirmationTokenRequired>
+    <description>Default Force.com template for site pages</description>
     <label>SiteTemplate</label>
 </ApexPage>
