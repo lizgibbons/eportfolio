@@ -136,8 +136,8 @@
         <name>CustomLabels</name>
     </types>
     <types>
-        <members>Asset_Learner_Profile__c</members>
         <members>Asset__c</members>
+        <members>Asset_Learner_Profile__c</members>
         <members>LP_Template_Settings__c</members>
         <members>Learner_Profile__c</members>
         <name>CustomObject</name>
