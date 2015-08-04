@@ -53,6 +53,10 @@
 						<apex:outputLink value="{!urlForNewAsset}" rendered="{!$ObjectType.Asset__c.createable && !inactiveProfile}" styleClass="btn-u btn-primary">
 							{!IF(lpMode,$Label.LBL_Create_and_Add_Asset,$Label.BTN_Create_New_Asset)}
 						</apex:outputLink>
+						<apex:outputPanel layout="none" rendered="{!AddFromCategoryBtn && !inactiveProfile}">
+							&nbsp;
+							<a href="{!UrlForAddFromCategory}" class="btn-u btn-primary">{!$Label.BTN_Add_Remove_from_MyAssets_in_this_Category}</a>
+						</apex:outputPanel>
 						<apex:outputPanel layout="none" rendered="{!ShowLPbtns}">
 							&nbsp;
 							<apex:outputLink value="{!$Page.LPMyAssets}?lp={!JSENCODE($CurrentPage.parameters.lp)}" rendered="{!$ObjectType.Asset_Learner_Profile__c.createable && !inactiveProfile}" styleClass="btn-u btn-primary">
@@ -89,6 +93,10 @@
 					<apex:outputLink value="{!urlForNewAsset}" rendered="{!$ObjectType.Asset__c.createable && !inactiveProfile}" styleClass="btn-u btn-primary">
 						{!IF(lpMode,$Label.LBL_Create_and_Add_Asset,$Label.BTN_Create_New_Asset)}
 					</apex:outputLink>
+					<apex:outputPanel layout="none" rendered="{!AddFromCategoryBtn && !inactiveProfile}">
+						&nbsp;
+						<a href="{!UrlForAddFromCategory}" class="btn-u btn-primary">{!$Label.BTN_Add_Remove_from_MyAssets_in_this_Category}</a>
+					</apex:outputPanel>
 					<apex:outputPanel layout="none" rendered="{!ShowLPbtns}">
 						&nbsp;
 						<apex:outputLink value="{!$Page.LPMyAssets}?lp={!JSENCODE($CurrentPage.parameters.lp)}" rendered="{!$ObjectType.Asset_Learner_Profile__c.createable && !inactiveProfile}" styleClass="btn-u btn-primary">

@@ -1,4 +1,4 @@
-<apex:component >
+<apex:component layout="none">
 	<!-- JS Global Compulsory -->
 	<apex:includeScript value="{!$Resource.assets}/js/jquery/jquery-1.9.1.min.js"/>
 

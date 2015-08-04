@@ -2,7 +2,6 @@
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
     <fields>
         <fullName>LPLink__c</fullName>
-        <deprecated>false</deprecated>
         <description>(deprecated) stores link to Learner Profile</description>
         <externalId>false</externalId>
         <label>zz_LPLink</label>
@@ -12,7 +11,6 @@
     </fields>
     <fields>
         <fullName>Registration_Completed__c</fullName>
-        <deprecated>false</deprecated>
         <externalId>false</externalId>
         <label>Registration Completed</label>
         <required>false</required>

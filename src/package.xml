@@ -32,6 +32,7 @@
         <members>LPLearnerProfileEdit</members>
         <members>LPMyAssets</members>
         <members>LPMyLearnerProfiles</members>
+        <members>LPPickNewPassword</members>
         <members>LPRegistration</members>
         <members>LPSignIn</members>
         <members>LearnerProfile</members>
@@ -61,14 +62,18 @@
     </types>
     <types>
         <members>BTN_Add_or_Remove_from_My_Assets</members>
+        <members>BTN_Add_Remove_from_MyAssets_in_this_Category</members>
         <members>BTN_Browse</members>
         <members>BTN_Cancel</members>
+        <members>BTN_Change_password</members>    
         <members>BTN_Create_New_Asset</members>
+        <members>BTN_Delete</members>
         <members>BTN_OK</members>
         <members>BTN_Reset_Password</members>
         <members>BTN_Save</members>
         <members>BTN_Save_Add_Learner_Profile</members>
         <members>BTN_Upload_Asset</members>
+        <members>ERR_Password_no_match</members>
         <members>LBL_Active</members>
         <members>LBL_Add_Remove_Asset</members>
         <members>LBL_Add_Remove_Learner_Profile_Title</members>
@@ -83,6 +88,8 @@
         <members>LBL_Create_Learner_Profile</members>
         <members>LBL_Create_and_Add_Asset</members>
         <members>LBL_Draft</members>
+        <members>LBL_Delete_Asset_message</members>
+        <members>LBL_Delete_Asset</members>
         <members>LBL_Edit</members>
         <members>LBL_Edit_Asset</members>
         <members>LBL_Edit_Asset_Required_Field</members>
@@ -91,15 +98,18 @@
         <members>LBL_File_Browser_Page_Title</members>
         <members>LBL_File_Upload_Size_Limit</members>
         <members>LBL_Forgot_Password</members>
+        <members>LBL_Inactive_Asset</members>
         <members>LBL_Inactive</members>
         <members>LBL_Item_Items</members>
         <members>LBL_LP_Link</members>
         <members>LBL_Learner_Proflie_Message_1</members>
         <members>LBL_Link</members>
         <members>LBL_My_Learner_Profiles</members>
+        <members>LBL_New_password</members>
         <members>LBL_No_Portfolio</members>
         <members>LBL_No_assets_found</members>
         <members>LBL_Page_Title</members>
+        <members>LBL_Pick_new_password</members>
         <members>LBL_Save_Add_Learner_Profile_Message</members>
         <members>LBL_Search_Asset</members>
         <members>LBL_Show_Hide_All</members>
@@ -115,6 +125,7 @@
         <members>LBL_Sign_up_Last_Name</members>
         <members>LBL_Sign_up_Profile_Error</members>
         <members>LBL_Sign_up_Title</members>
+        <members>LBL_Type_it_again</members>
         <members>LBL_URL</members>
         <members>LBL_Upload</members>
         <members>LBL_Upload_File</members>

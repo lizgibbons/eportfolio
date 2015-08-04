@@ -46,7 +46,6 @@
     </actionOverrides>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
-    <deprecated>false</deprecated>
     <description>junction object between Asset__c and Learner_Profile__c objects</description>
     <enableActivities>true</enableActivities>
     <enableBulkApi>true</enableBulkApi>
@@ -55,10 +54,8 @@
     <enableReports>true</enableReports>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>ControlledByParent</externalSharingModel>
     <fields>
         <fullName>Asset__c</fullName>
-        <deprecated>false</deprecated>
         <externalId>false</externalId>
         <label>Asset</label>
         <referenceTo>Asset__c</referenceTo>
@@ -72,7 +69,6 @@
     </fields>
     <fields>
         <fullName>Learner_Profile__c</fullName>
-        <deprecated>false</deprecated>
         <externalId>false</externalId>
         <label>Learner Profile</label>
         <referenceTo>Learner_Profile__c</referenceTo>
