@@ -58,6 +58,16 @@
         <style>CustomLinks</style>
     </layoutSections>
     <relatedLists>
+        <fields>NAME</fields>
+        <fields>Asset__c.NAME</fields>
+        <fields>Asset__c.Type__c</fields>
+        <fields>Asset__c.Category__c</fields>
+        <fields>Asset__c.Status__c</fields>
+        <relatedList>Asset_Learner_Profile__c.Learner_Profile__c</relatedList>
+        <sortField>Asset__c.NAME</sortField>
+        <sortOrder>Asc</sortOrder>
+    </relatedLists>
+    <relatedLists>
         <fields>TASK.SUBJECT</fields>
         <fields>TASK.WHO_NAME</fields>
         <fields>ACTIVITY.TASK</fields>
@@ -79,19 +89,13 @@
     <relatedLists>
         <relatedList>RelatedNoteList</relatedList>
     </relatedLists>
-    <relatedLists>
-        <fields>NAME</fields>
-        <fields>Asset__c.NAME</fields>
-        <fields>Asset__c.Type__c</fields>
-        <relatedList>Asset_Learner_Profile__c.Learner_Profile__c</relatedList>
-    </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>
     <showInteractionLogPanel>false</showInteractionLogPanel>
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h1a0000013Ghe</masterLabel>
+        <masterLabel>00h370000013JtK</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

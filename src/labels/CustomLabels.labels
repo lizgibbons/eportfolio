@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
     <labels>
+        <fullName>BTN_Add_Remove_from_MyAssets_in_this_Category</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>BTN Add Remove from MyAssets in this Category</shortDescription>
+        <value>Add Remove from MyAssets in this Category</value>
+    </labels>
+    <labels>
         <fullName>BTN_Add_or_Remove_from_My_Assets</fullName>
         <language>en_US</language>
         <protected>true</protected>
@@ -22,11 +29,25 @@
         <value>Cancel</value>
     </labels>
     <labels>
+        <fullName>BTN_Change_password</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>BTN Change password</shortDescription>
+        <value>Change password</value>
+    </labels>
+    <labels>
         <fullName>BTN_Create_New_Asset</fullName>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>BTN Create New Asset</shortDescription>
         <value>Create New Asset</value>
+    </labels>
+    <labels>
+        <fullName>BTN_Delete</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>BTN Delete</shortDescription>
+        <value>Delete</value>
     </labels>
     <labels>
         <fullName>BTN_OK</fullName>
@@ -62,6 +83,13 @@
         <protected>true</protected>
         <shortDescription>BTN Upload Asset</shortDescription>
         <value>Upload Asset</value>
+    </labels>
+    <labels>
+        <fullName>ERR_Password_no_match</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ERR Password no match</shortDescription>
+        <value>Passwords do not match</value>
     </labels>
     <labels>
         <fullName>LBL_Active</fullName>
@@ -155,6 +183,20 @@
         <value>Create and Add Asset</value>
     </labels>
     <labels>
+        <fullName>LBL_Delete_Asset</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Delete Asset</shortDescription>
+        <value>Your Asset is part of a Learner Profile. If you delete the asset, it will also be removed from your Learner Profile.</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Delete_Asset_message</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL_Delete_Asset_message</shortDescription>
+        <value>Are you sure you want to delete this Asset? This action cannot be undone.</value>
+    </labels>
+    <labels>
         <fullName>LBL_Draft</fullName>
         <language>en_US</language>
         <protected>true</protected>
@@ -225,6 +267,13 @@
         <value>Inactive</value>
     </labels>
     <labels>
+        <fullName>LBL_Inactive_Asset</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Inactive Asset</shortDescription>
+        <value>Inactivating this Asset will remove it from all Learner Profiles. This action cannot be undone.</value>
+    </labels>
+    <labels>
         <fullName>LBL_Item_Items</fullName>
         <language>en_US</language>
         <protected>true</protected>
@@ -260,6 +309,13 @@
         <value>My Learner Profiles</value>
     </labels>
     <labels>
+        <fullName>LBL_New_password</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL New password</shortDescription>
+        <value>New password</value>
+    </labels>
+    <labels>
         <fullName>LBL_No_Portfolio</fullName>
         <language>en_US</language>
         <protected>true</protected>
@@ -279,6 +335,13 @@
         <protected>true</protected>
         <shortDescription>LBL Page Title</shortDescription>
         <value>Mosaic</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Pick_new_password</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Pick new password</shortDescription>
+        <value>Pick a new password</value>
     </labels>
     <labels>
         <fullName>LBL_Save_Add_Learner_Profile_Message</fullName>
@@ -384,6 +447,13 @@
         <protected>true</protected>
         <shortDescription>LBL Sign up Title</shortDescription>
         <value>Sign up for your Learner Profile</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Type_it_again</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Type it again</shortDescription>
+        <value>Type it again</value>
     </labels>
     <labels>
         <fullName>LBL_URL</fullName>
