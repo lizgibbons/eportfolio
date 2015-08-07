@@ -71,7 +71,8 @@ public with sharing class LPLearnerProfileController {
 				if (eleItem.getShowLink()) {
 					firstQueue.add(eleItem);
 				}
-				/*else {
+				/*this second queue for inactive items
+					else {
 					secondQueue.add(eleItem);
 				}*/
 			}
