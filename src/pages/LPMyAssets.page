@@ -24,10 +24,22 @@
 						</div>
 					</div>
 				</div>
-				<apex:form ><table class="table table-bordered">
+
+				<apex:form >
+					<apex:commandLink action="{!ChangeAllCheckbox}" value="{!$Label.LBL_Select_All}" reRender="tableAssets, columnSort" oncomplete="loadColumnSort();">
+						<apex:param assignTo="{!allCheckboxState}" value="true" />
+					</apex:commandLink>
+					<span> | </span>
+					<apex:commandLink action="{!ChangeAllCheckbox}" value="{!$Label.LBL_Deselect_All}" reRender="tableAssets, columnSort" oncomplete="loadColumnSort();">
+						<apex:param assignTo="{!allCheckboxState}" value="false" />
+					</apex:commandLink>
+				</apex:form>
+
+				<apex:form id="tableAssets">
+				<table id="basic-datatable" class="table table-bordered">
 					<thead>
 						<tr>
-							<th class="click-header" onclick="toogleall(this);"><i class="fa fa-plus-square-o" title="{!$Label.LBL_Show_Hide_All}"></i></th>
+							<th id="first-th" class="click-header" onclick="toogleall(this);"><i class="fa fa-plus-square-o" title="{!$Label.LBL_Show_Hide_All}"></i></th>
 							<th width="60%">{!$ObjectType.Asset__c.Fields.Name.Label}</th>
 							<th>{!$ObjectType.Asset__c.Fields.LastModifiedDate.Label}</th>
 						</tr>
@@ -35,7 +47,9 @@
 					<apex:variable var="index" value="{!0}" />
 					<tbody><apex:repeat value="{!categories}" var="c">
 						<tr class="category-row" id="{!c.unique}" onclick="togglerows(this);">
+							<td class="hidden"><label></label></td>
 							<td colspan="3"><i class="fa fa-plus-square-o"></i>&nbsp;&nbsp;<span>{!c.name}</span></td>
+							<td class="hidden"><span></span></td>
 						</tr>
 						<apex:repeat value="{!c.assets}" var="ca">
 							<tr id="{!index}{!c.unique}" class="category-in" style="display:none;">
@@ -45,13 +59,14 @@
 										<i class="fa"></i> 
 									</label>
 								</td>
-								<td class="asset-name">{!ca.name}</td>
-								<td>{!ca.lmdate}</td>
+								<td class="asset-name"><span>{!ca.name}</span></td>
+								<td><span>{!ca.lmdate}</span></td>
 							</tr>
 							<apex:variable var="index" value="{!index+1}" />
 						</apex:repeat>
 					</apex:repeat></tbody>
 				</table>
+
 				<apex:actionFunction name="submitAction" action="{!submitAddRemove}"/>
 				</apex:form>
 				<apex:form ><apex:actionFunction name="cancelAction" action="{!cancelAddRemove}"/></apex:form>
@@ -128,14 +143,110 @@
 				beforeSearchState = new Map();
 			}
 		}
+
+		function toogleTableResults() {
+			toogleall($('#first-th'));
+			var r = $($('#first-th')).find('i.fa-plus-square-o').length > 0;
+			if (r) {
+				toogleall($('#first-th'));
+			}
+		}
+
+		function loadColumnSort() {
+			$.fn.dataTable.ext.order['dom-text-label'] = function (setting, col) {
+				toogleTableResults();
+				return this.api().column(col, { order:'index' } ).nodes().map( function (td, i) {
+					var curElem = $('label', td)[0];
+					var tdElem = curElem.parentNode.parentNode;
+					return { className: tdElem.className, unique: tdElem.id, value: curElem.innerHTML };
+				});
+			};
+			$.fn.dataTable.ext.order['dom-text-span'] = function (setting, col) {
+				toogleTableResults();
+				return this.api().column(col, { order:'index' } ).nodes().map( function (td, i) {
+					var curElem = $('span', td)[0];
+					var tdElem = curElem.parentNode.parentNode;
+					return { className: tdElem.className, unique: tdElem.id, value: curElem.innerHTML };
+				});
+			};
+			$.extend( $.fn.dataTable.defaults, {
+				"searching": false,
+				"paging": false,
+				"info": false
+			} );
+
+			$.extend( $.fn.dataTableExt.oSort, {
+				"unique-html-asc": function (a, b) {
+					if (a.unique.replace(/[0-9]/g, '') != b.unique.replace(/[0-9]/g, '')
+						|| a.className.search('category-in') == -1 || b.className.search('category-in') == -1) {
+						return 0;
+					}
+					var a = a.value.toLowerCase();
+					var b = b.value.toLowerCase();
+					return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+				}, 
+				"unique-html-desc": function (a, b) {
+					if (a.unique.replace(/[0-9]/g, '') != b.unique.replace(/[0-9]/g, '')
+						|| a.className.search('category-in') == -1 || b.className.search('category-in') == -1) {
+						return 0;
+					}
+					var a = a.value.toLowerCase();
+					var b = b.value.toLowerCase();
+					return ((a < b) ? 1 : ((a > b) ? -1 : 0));
+				},
+				"unique-html-date-asc": function (a, b) {
+					if (a.unique.replace(/[0-9]/g, '') != b.unique.replace(/[0-9]/g, '')
+						|| a.className.search('category-in') == -1 || b.className.search('category-in') == -1) {
+						return 0;
+					}
+					var a = new Date(a.value);
+					var b = new Date(b.value);
+					return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+				}, 
+				"unique-html-date-desc": function (a, b) {
+					if (a.unique.replace(/[0-9]/g, '') != b.unique.replace(/[0-9]/g, '')
+						|| a.className.search('category-in') == -1 || b.className.search('category-in') == -1) {
+						return 0;
+					}
+					var a = new Date(a.value);
+					var b = new Date(b.value);
+					return ((a < b) ? 1 : ((a > b) ? -1 : 0));
+				}
+			} );
+
+			$("#basic-datatable").dataTable({
+				"order": [[ 1, "asc" ]],
+				"columnDefs": [ { "targets": 0, "orderable": false }],
+				"aoColumns": [
+					{ "orderDataType": "dom-text-label", "sType": "unique-html"},
+					{ "orderDataType": "dom-text-span", "sType": "unique-html"},
+					{ "orderDataType": "dom-text-span", "sType": "unique-html-date"}
+				]
+			});
+
+			//fix width first table header after dataTable fload
+			$("#first-th")[0].style.width = "";
+		}
+
+
 	</script>
 	<apex:outputPanel layout="none" rendered="{!!withoutCategory}"><script>
 		$(document).ready(function(){
 			toogleall($('th.click-header')[0]);
 		});
 	</script></apex:outputPanel>
+
 	<c:LPFooter />
 </section>
+
+<script>
+	$(document).ready(function(){
+		//after init load sort and collapse all categories
+		loadColumnSort();
+		toogleall($('#first-th'));
+	});
+</script>
+
 </apex:define>
 </apex:composition>
 </apex:page>

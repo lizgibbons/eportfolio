@@ -12,6 +12,7 @@ public with sharing class LPLearnerProfileController {
 
 	public Learner_Profile__c lp { get; set; }
 	public LPFieldLayout lplayout { get; set; }
+	public Boolean allCheckboxState { get; set; }
 
 	public void initFromEdit() {
 		lp = (Learner_Profile__c)stdctrl.getRecord();
@@ -161,7 +162,7 @@ public with sharing class LPLearnerProfileController {
 				checkedAssets.add(alpItem.Asset__c);
 			}
 			Map<String, CategoryAsset> assemblyCategoryMap = new Map<String, CategoryAsset>();
-			for (Asset__c aItem : [SELECT Id, Name, Category__c, LastModifiedDate FROM Asset__c WHERE Status__c = 'Active' AND User__c = :UserInfo.getUserId()]) {
+			for (Asset__c aItem : [SELECT Id, Name, Category__c, LastModifiedDate FROM Asset__c WHERE Status__c = 'Active' AND User__c = :UserInfo.getUserId() ORDER BY Name ASC]) {
 				String catUnique = String.isBlank(aItem.Category__c) ? 'none' : aItem.Category__c;
 				catUnique = catUnique.replace(' ', '').toLowerCase();
 				if (!assemblyCategoryMap.containsKey(catUnique)) {
@@ -208,6 +209,15 @@ public with sharing class LPLearnerProfileController {
 		Id lpId = ApexPages.currentPage().getParameters().get('lp');
 		return createRetUrl(lpId);
 	}
+
+	public void ChangeAllCheckbox() {
+		for (CategoryAsset caItem : categories) {
+			for (AssetProfile apItem : caItem.assets) {
+				apItem.checked = allCheckboxState;
+			}
+		}
+	}
+
 
 	private PageReference createRetUrl(Id inLpId) {
 		PageReference pr = Page.LPAssets;
