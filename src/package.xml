@@ -90,6 +90,7 @@
         <members>LBL_Draft</members>
         <members>LBL_Delete_Asset_message</members>
         <members>LBL_Delete_Asset</members>
+        <members>LBL_Deselect_All</members>
         <members>LBL_Edit</members>
         <members>LBL_Edit_Asset</members>
         <members>LBL_Edit_Asset_Required_Field</members>
@@ -112,6 +113,7 @@
         <members>LBL_Pick_new_password</members>
         <members>LBL_Save_Add_Learner_Profile_Message</members>
         <members>LBL_Search_Asset</members>
+        <members>LBL_Select_All</members>
         <members>LBL_Show_Hide_All</members>
         <members>LBL_Sign_In</members>
         <members>LBL_Sign_In_Email</members>
