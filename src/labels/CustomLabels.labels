@@ -5,7 +5,7 @@
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>BTN Add Remove from MyAssets in this Category</shortDescription>
-        <value>Add Remove from MyAssets in this Category</value>
+        <value>Add or Remove from My Assets in this Category</value>
     </labels>
     <labels>
         <fullName>BTN_Add_or_Remove_from_My_Assets</fullName>
@@ -197,6 +197,13 @@
         <value>Are you sure you want to delete this Asset? This action cannot be undone.</value>
     </labels>
     <labels>
+        <fullName>LBL_Deselect_All</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Deselect All</shortDescription>
+        <value>Deselect All</value>
+    </labels>
+    <labels>
         <fullName>LBL_Draft</fullName>
         <language>en_US</language>
         <protected>true</protected>
@@ -356,6 +363,13 @@
         <protected>true</protected>
         <shortDescription>LBL Search Asset</shortDescription>
         <value>Search asset here...</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Select_All</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Select All</shortDescription>
+        <value>Select All</value>
     </labels>
     <labels>
         <fullName>LBL_Show_Hide_All</fullName>
