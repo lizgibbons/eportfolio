@@ -3,7 +3,7 @@
 	<aside class="left-panel">
 		<div class="user text-center">
 			<!--img src="{!$Resource.assets}/images/avtar/user.png" class="img-circle" alt="..."/-->
-			<h4 class="user-name">{!$User.FirstName}&nbsp;{!$User.LastName}</h4>
+			<h4 class="user-name">{!$User.FirstName} {!$User.LastName}</h4>
 			<div class="dropdown user-login">
 				<button class="btn btn-xs dropdown-toggle btn-rounded" type="button" data-toggle="dropdown" aria-expanded="true">
 					<i class="fa fa-circle status-icon available"></i> Available <i class="fa fa-angle-down"></i>
