@@ -4,6 +4,14 @@
     <customSettingsVisibility>Protected</customSettingsVisibility>
     <enableFeeds>false</enableFeeds>
     <fields>
+        <fullName>Custom_Package_Header__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Custom Package Header</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
         <fullName>Header_Logo__c</fullName>
         <description>id of document that contains image for learner profile logo in header</description>
         <externalId>false</externalId>

@@ -1,4 +1,4 @@
-<apex:component layout="none">
+<apex:component layout="none" rendered="{!$Setup.LP_Template_Settings__c.Custom_Package_Header__c != TRUE}">
 	<apex:outputPanel rendered="{!ISPICKVAL($User.UserType,'Guest')}" layout="none">
 		<script type="text/javascript">
 			(function() {
@@ -7,8 +7,8 @@
 			})();
 		</script>
 	</apex:outputPanel>
-	<header class="top-head container-fluid">
-		<button type="button" class="navbar-toggle pull-left">
+	<header class="top-head container-fluid lp-header">
+		<button type="button" class="visible-xs navbar-toggle pull-left">
 			<span class="sr-only">Toggle navigation</span>
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>

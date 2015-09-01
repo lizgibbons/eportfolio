@@ -30,7 +30,7 @@
 					<li>{!$Label.LBL_Categories}</li>
 				</apex:outputPanel>
 			</ol>
-			<apex:outputPanel layout="block" styleClass="col-md-12" rendered="{!ShowLPbtns}">
+			<apex:outputPanel layout="block" styleClass="col-md-12 after-bot-mrgn" rendered="{!ShowLPbtns}">
 				<apex:outputPanel layout="block" styleClass="row" rendered="{!!inactiveProfile}">
 					<div class="col-md-3 text-left"><strong>{!$Label.LBL_LP_Link}</strong></div>
 					<div class="col-md-9 text-left"><a href="{!LearnerProfilePageLink}" target="_blank">{!LearnerProfilePageLink}</a></div>
