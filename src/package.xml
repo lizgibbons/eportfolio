@@ -120,6 +120,7 @@
         <members>LBL_Sign_In_Email</members>
         <members>LBL_Sign_In_Password</members>
         <members>LBL_Sign_In_Title</members>
+        <members>LBL_Sign_Out</members>
         <members>LBL_Sign_up</members>
         <members>LBL_Sign_up_Account_Error</members>
         <members>LBL_Sign_up_Email_Error</members>

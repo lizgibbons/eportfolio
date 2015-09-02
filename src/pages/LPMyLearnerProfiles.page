@@ -10,6 +10,11 @@
 	<div class="warper container-fluid">
 		<div class="page-header">
 			<div class="row">
+				<div class="col-md-12 text-right">
+					<a href="{!$Site.Prefix}/secur/logout.jsp"><span>{!$Label.LBL_Sign_Out}</span></a>
+				</div>
+			</div>
+			<div class="row">
 				<div class="col-md-4 text-left">
 					<h1>{!$Label.LBL_My_Learner_Profiles}</h1>
 				</div>

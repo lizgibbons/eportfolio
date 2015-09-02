@@ -4,16 +4,14 @@
 		<div class="user text-center">
 			<!--img src="{!$Resource.assets}/images/avtar/user.png" class="img-circle" alt="..."/-->
 			<h4 class="user-name">{!$User.FirstName} {!$User.LastName}</h4>
-			<div class="dropdown user-login">
+			<!-- <div class="dropdown user-login">
 				<button class="btn btn-xs dropdown-toggle btn-rounded" type="button" data-toggle="dropdown" aria-expanded="true">
 					<i class="fa fa-circle status-icon available"></i> Available <i class="fa fa-angle-down"></i>
 				</button>
 				<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-					<!--li role="presentation"><a role="menuitem" href="#"><i class="fa fa-circle status-icon busy"></i> Busy</a></li>
-					<li role="presentation"><a role="menuitem" href="#"><i class="fa fa-circle status-icon invisibled"></i> Invisible</a></li-->
 					<li role="presentation"><a role="menuitem" href="{!$Site.Prefix}/secur/logout.jsp"><i class="fa fa-circle status-icon signout"></i> Sign out</a></li>
 				</ul>
-			</div>
+			</div> -->
 		</div>
 		<nav class="navigation">
 			<ul class="list-unstyled">
@@ -40,6 +38,11 @@
 				<apex:outputPanel layout="none" rendered="{!$ObjectType.Asset__c.createable}">
 					<li class="{!IF(col == 'createlp','active','')}"><a href="{!$Page.LPLearnerProfileEdit}">
 						<i class="fa fa-plus-square-o"></i><span class="nav-label">{!$Label.LBL_Create_Learner_Profile}</span>
+					</a></li>
+				</apex:outputPanel>
+				<apex:outputPanel layout="none">
+					<li><a href="{!$Site.Prefix}/secur/logout.jsp">
+						<i class="fa fa-sign-out"></i><span class="nav-label">{!$Label.LBL_Sign_Out}</span>
 					</a></li>
 				</apex:outputPanel>
 			</ul>

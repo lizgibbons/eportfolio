@@ -9,6 +9,11 @@
 	<div class="warper container-fluid">
 		<div class="page-header">
 			<div class="row">
+				<div class="col-md-12 text-right">
+					<a href="{!$Site.Prefix}/secur/logout.jsp"><span>{!$Label.LBL_Sign_Out}</span></a>
+				</div>
+			</div>
+			<div class="row">
 				<div class="col-md-12 text-left">
 					<h1>{!IF(ISBLANK(tesla.Id), $Label.LBL_Create_Asset, $Label.LBL_Edit_Asset)}</h1>
 				</div>
