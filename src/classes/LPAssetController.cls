@@ -33,6 +33,7 @@ public with sharing class LPAssetController {
 	public String imgContentType { get; set; }
 	public String linkText { get; set; }
 	public LPFieldLayout flayout { get; set; }
+	public Boolean isDel { get { return isDel == true; } set; }
 
 	public void initFromEdit() {
 		init();
@@ -47,10 +48,15 @@ public with sharing class LPAssetController {
 
 	private void init() {
 		lpMode = String.isNotBlank(ApexPages.currentPage().getParameters().get('lp'));
-		tesla = (Asset__c)stdctrl.getRecord();
-		List<String> hardFields = new List<String> {'Id', 'Name', 'Link__c', 'Category__c', 'Status__c',
+		
+		List<Asset__c> check = [SELECT Id, IsDeleted FROM Asset__c WHERE Id = :stdctrl.getId() ALL ROWS];
+		isDel = (!check.isEmpty() && check[0].IsDeleted == false) ? false : true;
+		tesla = isDel ? new Asset__c() : (Asset__c)stdctrl.getRecord();
+
+		List<String> hardFields = new List<String> {'Id', 'Name', 'Link__c', 'Category__c', 'Status__c', 
 			'(SELECT Id, IsNote, Title FROM NotesAndAttachments WHERE IsNote = false ORDER BY CreatedDate DESC LIMIT 1)'
 		};
+
 		flayout = new LPFieldLayout(
 			tesla.Id,
 			SObjectType.Asset__c.FieldSets.Edit_Assets,
@@ -58,6 +64,7 @@ public with sharing class LPAssetController {
 			hardFields,
 			LPUtils.getPackagePrefix()
 		);
+
 		if (tesla.Id != NULL) {
 			tesla = (Asset__c)flayout.getRecord();
 		}
