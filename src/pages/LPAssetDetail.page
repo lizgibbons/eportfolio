@@ -7,6 +7,7 @@
 <apex:outputPanel layout="none" rendered="{!isDel}" >
 	<script type="text/javascript">
 		(function() {
+			history.replaceState(null, document.title, '{!$Page.LPAssets}');
 			window.location.href = '{!$Page.LPAssets}';
 			$('body').hide();
 		})();
@@ -176,6 +177,7 @@
 		}
 		function deleteaa() {
 			$('[id$=atbtn]').attr('disabled','disabled');
+			history.replaceState(null, document.title, '{!$Page.LPAssets}{!IF(!ISBLANK(delRedirectParam), "?" + delRedirectParam, '' )}');
 			deleteAction();
 		}
 	</script>

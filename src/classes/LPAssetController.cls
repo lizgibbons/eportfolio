@@ -76,6 +76,13 @@ public with sharing class LPAssetController {
 		}
 	}
 
+	public String getDelRedirectParam() {
+		String c = (tesla == NULL) ? '' : tesla.Category__c;
+		String lp = lpMode ? ApexPages.currentPage().getParameters().get('lp') : '';
+		return ((String.isNotBlank(c)) ? 'c='+c : '') + ((String.isNotBlank(lp) && String.isNotBlank(lp)) ? '&' : '') + ((String.isNotBlank(lp)) ? 'lp='+lp : '');
+	}
+
+
 	public PageReference saveAsset() {
 		PageReference pr;
 		if (tesla.Id == NULL && tesla.User__c == NULL) {

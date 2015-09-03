@@ -48,6 +48,7 @@ private class LPTests {
 			lpac6.initFromEdit();
 			lpac6.tesla.Name = 't';
 			lpac6.tesla.Category__c = 'Resume';
+			System.assert(lpac6.getDelRedirectParam() != NULL);
 			lpac6.linkText = 'www.tut.by';
 			lpac6.saveAndAddAsset();
 
