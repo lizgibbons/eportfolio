@@ -163,4 +163,12 @@ private class LPTests {
 		a.Status__c = 'Inactive';
 		update a;
 	}
+
+	static testMethod void test_LPLeftPanelController() {
+		LPLeftPanelController lpc = new LPLeftPanelController();
+		String photoUrl = lpc.getProfilePhotoUrl();
+		String expectedUrl = Schema.sObjectType.User.fields.getMap().containsKey('FullPhotoUrl') ? photoUrl : NULL;
+		System.assert(photoUrl == expectedUrl);
+	}
+
 }
