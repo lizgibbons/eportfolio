@@ -9,6 +9,11 @@
 	<c:LPHeader />
 	<apex:outputPanel layout="block" styleClass="warper container-fluid" rendered="{!!wrongProfile}">
 		<div class="page-header">
+			<div class="row">
+				<div class="col-md-12 text-right">
+					<a href="{!$Site.Prefix}/secur/logout.jsp"><span>{!$Label.LBL_Sign_Out}</span></a>
+				</div>
+			</div>
 			<apex:outputPanel layout="block" styleClass="row" rendered="{!!lpMode}">
 				<div class="col-md-12 text-left">
 					<h1>{!$Label.LBL_File_Browser_Page_Title}</h1>
@@ -128,7 +133,7 @@
 	</apex:outputPanel>
 	<c:LPFooter />
 </section>
-</apex:define>
 
+</apex:define>
 </apex:composition>
 </apex:page>

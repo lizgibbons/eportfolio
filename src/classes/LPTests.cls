@@ -48,6 +48,7 @@ private class LPTests {
 			lpac6.initFromEdit();
 			lpac6.tesla.Name = 't';
 			lpac6.tesla.Category__c = 'Resume';
+			System.assert(lpac6.getDelRedirectParam() != NULL);
 			lpac6.linkText = 'www.tut.by';
 			lpac6.saveAndAddAsset();
 
@@ -162,4 +163,12 @@ private class LPTests {
 		a.Status__c = 'Inactive';
 		update a;
 	}
+
+	static testMethod void test_LPLeftPanelController() {
+		LPLeftPanelController lpc = new LPLeftPanelController();
+		String photoUrl = lpc.getProfilePhotoUrl();
+		String expectedUrl = Schema.sObjectType.User.fields.getMap().containsKey('FullPhotoUrl') ? photoUrl : NULL;
+		System.assert(photoUrl == expectedUrl);
+	}
+
 }
