@@ -7,6 +7,7 @@
         <members>LPAssetController</members>
         <members>LPFieldLayout</members>
         <members>LPLearnerProfileController</members>
+		<members>LPLeftPanelController</members>
         <members>LPSignController</members>
         <members>LPTests</members>
         <members>LPUtils</members>
@@ -56,6 +57,7 @@
         <members>Contact.Registration_Completed__c</members>
         <members>LP_Template_Settings__c.Custom_Package_Header__c</members>
         <members>LP_Template_Settings__c.Header_Logo__c</members>
+        <members>LP_Template_Settings__c.Hero_Image__c</members>
         <members>LP_Template_Settings__c.Registration_Page_Logo__c</members>
         <members>Learner_Profile__c.Description__c</members>
         <members>Learner_Profile__c.Status__c</members>
@@ -120,6 +122,7 @@
         <members>LBL_Sign_In_Email</members>
         <members>LBL_Sign_In_Password</members>
         <members>LBL_Sign_In_Title</members>
+        <members>LBL_Sign_Out</members>
         <members>LBL_Sign_up</members>
         <members>LBL_Sign_up_Account_Error</members>
         <members>LBL_Sign_up_Email_Error</members>

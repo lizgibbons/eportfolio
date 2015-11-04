@@ -4,10 +4,24 @@
 <apex:define name="body">
 <c:LPPreloader />
 <c:LPLeftPanel col="asset"/>
+<apex:outputPanel layout="none" rendered="{!isDel}" >
+	<script type="text/javascript">
+		(function() {
+			history.replaceState(null, document.title, '{!$Page.LPAssets}');
+			window.location.href = '{!$Page.LPAssets}';
+			$('body').hide();
+		})();
+	</script>
+</apex:outputPanel>
 <section class="content">
 	<c:LPHeader />
 	<div class="warper container-fluid">
 		<div class="page-header">
+			<div class="row">
+				<div class="col-md-12 text-right">
+					<a href="{!$Site.Prefix}/secur/logout.jsp"><span>{!$Label.LBL_Sign_Out}</span></a>
+				</div>
+			</div>
 			<div class="row">
 				<div class="col-md-12 text-left">
 					<h1>{!$Label.LBL_Asset_Detail_Title}</h1>
@@ -163,6 +177,7 @@
 		}
 		function deleteaa() {
 			$('[id$=atbtn]').attr('disabled','disabled');
+			history.replaceState(null, document.title, '{!$Page.LPAssets}{!IF(!ISBLANK(delRedirectParam), "?" + delRedirectParam, '' )}');
 			deleteAction();
 		}
 	</script>

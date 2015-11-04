@@ -407,6 +407,13 @@
         <value>Sign In to your Learner Profile</value>
     </labels>
     <labels>
+        <fullName>LBL_Sign_Out</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Sign Out</shortDescription>
+        <value>Logout</value>
+    </labels>
+    <labels>
         <fullName>LBL_Sign_up</fullName>
         <language>en_US</language>
         <protected>true</protected>

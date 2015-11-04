@@ -24,6 +24,18 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Hero_Image__c</fullName>
+        <description>id of document that contains hero image</description>
+        <externalId>false</externalId>
+        <inlineHelpText>id of document that contains hero image</inlineHelpText>
+        <label>Hero Image</label>
+        <length>18</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Registration_Page_Logo__c</fullName>
         <description>id of document that contains image for registration page logo in header</description>
         <externalId>false</externalId>
