@@ -79,6 +79,9 @@ private class LPTests {
 			lpac5.initFromPage();
 			lpac5.getCategoriesWithAssets();
 			lpac5.getLogoUrl();
+
+			LPAssetController.getHeroImageId();
+			LPAssetController.getHasCustomHeroImage();
 		}
 	}
 
