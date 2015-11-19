@@ -112,6 +112,13 @@ public with sharing class LPAssetController {
 		return pr;
 	}
 
+	public static String getHeroImageId() {
+		return LP_Template_Settings__c.getInstance().Hero_Image__c;
+	}
+	public static Boolean getHasCustomHeroImage() {
+		return String.isNotBlank(LP_Template_Settings__c.getInstance().Hero_Image__c);
+	}
+
 	public PageReference saveAndAddAsset() {
 		Boolean createMode = getShowCreateAddBtn();
 		PageReference pr = saveAsset();
