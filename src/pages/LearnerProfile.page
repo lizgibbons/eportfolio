@@ -306,10 +306,10 @@
 	<script src="{!$Resource.page}/js/common.js"></script>
 	<script src="{!$Resource.page}/js/main.js"></script>
 
-<apex:outputPanel layout="none" rendered="{!!ISBLANK($Setup.LP_Template_Settings__c.Hero_Image__c)}" >
+<apex:outputPanel layout="none" rendered="{!HasCustomHeroImage}" >
 	<style>
 		#home {
-			background: url("{!$Site.Prefix}/servlet/servlet.ImageServer?oid={!$Organization.Id}&amp;id={!$Setup.LP_Template_Settings__c.Hero_Image__c}") no-repeat fixed center center / cover !important;
+			background: url("{!$Site.Prefix}/servlet/servlet.ImageServer?oid={!$Organization.Id}&amp;id={!HeroImageId}") no-repeat fixed center center / cover !important;
 		}
 	</style>
 
