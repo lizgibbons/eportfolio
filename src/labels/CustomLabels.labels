@@ -112,6 +112,13 @@
         <shortDescription>LBL Add Remove Learner Profile Title</shortDescription>
         <value>Add or Remove from Learner Profile</value>
     </labels>
+	<labels>
+        <fullName>LBL_Admin_Title_Page</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Admin Title Page</shortDescription>
+        <value>Learner Profile Admin</value>
+    </labels>
     <labels>
         <fullName>LBL_All_Assets</fullName>
         <language>en_US</language>
