@@ -1,7 +1,7 @@
 <apex:page controller="LPAdminController">
 
 <apex:form id="mainform">
-	<apex:sectionHeader title="Mosaic Admin"/>
+	<apex:sectionHeader title="{!$Label.LBL_Admin_Title_Page}"/>
 	<apex:pageBlock >
 		<apex:pageMessages id="pageMessages"/>
 		<apex:pageBlockSection id="tssection" title="{!$ObjectType.LP_Template_Settings__c.Label}" columns="1">
