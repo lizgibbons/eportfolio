@@ -198,6 +198,7 @@ public with sharing class LPAssetController {
 			if (lpMode) {
 				pr.getParameters().put('lp', Id.valueOf(ApexPages.currentPage().getParameters().get('lp')));
 			}
+			pr.getParameters().put('c', tesla.Category__c);
 			pr.setRedirect(true);
 		}
 		catch (Exception e) {
