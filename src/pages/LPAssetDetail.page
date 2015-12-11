@@ -74,6 +74,7 @@
 			</div>
 		</div>
 		<apex:form>
+			<c:LPVideoPopUp link="{!AssetLink[1]}"/>
 			<c:LPUploadAsset lt="{!linkText}" fn="{!imgFileName}" ft="{!imgContentType}" fb="{!imgBody}"/>
 			<apex:actionFunction name="submitAsset" action="{!saveAsset}"/>
 		</apex:form>

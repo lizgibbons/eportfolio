@@ -21,8 +21,8 @@
         <members>LPHeader</members>
         <members>LPLeftPanel</members>
         <members>LPPreloader</members>
-        <members>LPUploadAsset</members>
 		<members>LPVideoPopUp</members>
+        <members>LPUploadAsset</members>
         <name>ApexComponent</name>
     </types>
     <types>
