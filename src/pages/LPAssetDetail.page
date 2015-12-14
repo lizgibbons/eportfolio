@@ -73,7 +73,8 @@
 				</apex:outputPanel>
 			</div>
 		</div>
-		<apex:form >
+		<apex:form>
+			<c:LPVideoPopUp link="{!AssetLink[1]}"/>
 			<c:LPUploadAsset lt="{!linkText}" fn="{!imgFileName}" ft="{!imgContentType}" fb="{!imgBody}"/>
 			<apex:actionFunction name="submitAsset" action="{!saveAsset}"/>
 		</apex:form>
@@ -183,6 +184,17 @@
 	</script>
 	</apex:outputPanel>
 	<c:LPFooter />
+	<script>
+		jQuery(document).ready(function($) {
+			var link = $('#resblock').find(':first-child')[0];
+			var linkText = link.href;
+			if (((linkText.indexOf('https://') + 1) || (linkText.indexOf('https://') + 1)) && (linkText.indexOf('youtube.com') + 1)) {
+				link.outerHTML = '<a href="#" data-toggle="modal" data-target="#videoDialog" onclick="playVideo()">' +
+										'<i class="fa fa-youtube-play fa-3x" style="vertical-align: middle;"></i>' +
+								 '</a>';
+			}
+		});
+	</script>
 </section>
 </apex:define>
 </apex:composition>

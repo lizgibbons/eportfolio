@@ -22,7 +22,6 @@
         <members>LPLeftPanel</members>
         <members>LPPreloader</members>
         <members>LPUploadAsset</members>
-		<members>LPVideoPopUp</members>
         <name>ApexComponent</name>
     </types>
     <types>
@@ -81,7 +80,6 @@
         <members>LBL_Active</members>
         <members>LBL_Add_Remove_Asset</members>
         <members>LBL_Add_Remove_Learner_Profile_Title</members>
-		<members>LBL_Admin_Title_Page</members>
         <members>LBL_All_Assets</members>
         <members>LBL_All_Learner_Profiles</members>
         <members>LBL_Asset_Detail_Title</members>
