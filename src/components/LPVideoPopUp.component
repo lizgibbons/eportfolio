@@ -23,7 +23,7 @@
 					firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 				}
 
-				
+				var player;
 				function onYouTubeIframeAPIReady() {
 					var videoId = getVideoId();
 					player = new YT.Player('player', {
