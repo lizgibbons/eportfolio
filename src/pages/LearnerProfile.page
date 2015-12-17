@@ -383,6 +383,14 @@
 			});
 		}
 
+		document.addEventListener("webkitfullscreenchange", function(e) {
+			if (e.eventPhase === 3) {
+				$('#videoDialog')[0].className = "";
+			} else {
+				$('#videoDialog')[0].className = "modal fade in";
+			}
+		}, false);
+
 		function onPlayerReady(event) {
 			document.getElementById("videoDialogLabel").textContent = event.target.getVideoData().title;
 		}
