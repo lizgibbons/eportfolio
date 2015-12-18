@@ -52,7 +52,6 @@
         <description>This setting will be used to store the Site Template API Name that will be used to display the look and feel on all Learner Profile pages</description>
         <defaultValue>"SiteTemplate"</defaultValue>
         <externalId>false</externalId>
-        <inlineHelpText></inlineHelpText>
         <label>Site Template Label</label>
         <length>100</length>
         <required>false</required>
