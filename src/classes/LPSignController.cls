@@ -40,6 +40,10 @@ public without sharing class LPSignController {
 		}
 	}
 
+	public String getTemplate() {
+		return LPUtils.getTemplate();
+	}
+
 	public PageReference createUser() {
 		PageReference pr;
 		Savepoint sp = Database.setSavepoint();

@@ -1,5 +1,5 @@
 <apex:page standardController="Asset__c" extensions="LPAssetController" action="{!initFromView}" standardStylesheets="false" showHeader="false" sideBar="false" docType="html-5.0" applyBodyTag="false" applyHtmlTag="false">
-<apex:composition template="{!$Site.Template}">
+<apex:composition template="{!Template}">
 <apex:define name="title">{!$Label.LBL_Page_Title}</apex:define>
 <apex:define name="body">
 <c:LPPreloader />

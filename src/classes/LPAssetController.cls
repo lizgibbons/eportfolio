@@ -415,6 +415,10 @@ public with sharing class LPAssetController {
 		return (lpts == NULL || String.isBlank(lpts.Header_Logo__c)) ? NULL : lpts.Header_Logo__c;
 	}
 
+	public String getTemplate() {
+		return LPUtils.getTemplate();
+	}
+
 	// WRAPPER CLASSES
 
 	public class Tessa {
