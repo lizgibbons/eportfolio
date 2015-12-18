@@ -59,6 +59,7 @@
         <members>LP_Template_Settings__c.Header_Logo__c</members>
         <members>LP_Template_Settings__c.Hero_Image__c</members>
         <members>LP_Template_Settings__c.Registration_Page_Logo__c</members>
+		<members>LP_Template_Settings__c.Site_Template_Label__c</members>
         <members>Learner_Profile__c.Description__c</members>
         <members>Learner_Profile__c.Status__c</members>
         <name>CustomField</name>
