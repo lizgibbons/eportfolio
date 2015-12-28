@@ -1,4 +1,4 @@
-public with sharing class LPAssetController {
+public without sharing class LPAssetController {
 
 	public LPAssetController() {
 	}
@@ -34,6 +34,7 @@ public with sharing class LPAssetController {
 	public String linkText { get; set; }
 	public LPFieldLayout flayout { get; set; }
 	public Boolean isDel { get { return isDel == true; } set; }
+	public String attachmentId { get; set; }
 
 	public void initFromEdit() {
 		init();
@@ -85,6 +86,7 @@ public with sharing class LPAssetController {
 
 	public PageReference saveAsset() {
 		PageReference pr;
+		system.debug('Anydatatype_msg!!!!11');
 		if (tesla.Id == NULL && tesla.User__c == NULL) {
 			tesla.User__c = UserInfo.getUserId();
 		}
@@ -98,6 +100,13 @@ public with sharing class LPAssetController {
 				upsert tesla;
 				Attachment aTemp = new Attachment(Name=imgFileName, Body=imgBody, ParentId=tesla.Id, ContentType=imgContentType);
 				insert aTemp;
+			} else if (String.isNotBlank(attachmentId)) {
+				tesla.Link__c = NULL;
+				upsert tesla;
+				Attachment attachContact = [SELECT Id, Name, Body, ContentType, ParentId FROM Attachment WHERE id= :attachmentId][0];
+				Attachment attachAsset = new Attachment(Name=attachContact.Name, Body=attachContact.Body, ParentId=tesla.Id, ContentType=attachContact.ContentType);
+				insert attachAsset;
+				delete attachContact;
 			}
 			else {
 				upsert tesla;
@@ -198,6 +207,7 @@ public with sharing class LPAssetController {
 			if (lpMode) {
 				pr.getParameters().put('lp', Id.valueOf(ApexPages.currentPage().getParameters().get('lp')));
 			}
+			pr.getParameters().put('c', tesla.Category__c);
 			pr.setRedirect(true);
 		}
 		catch (Exception e) {
@@ -412,6 +422,10 @@ public with sharing class LPAssetController {
 	public String getLogoUrl() {
 		LP_Template_Settings__c lpts = LP_Template_Settings__c.getOrgDefaults();
 		return (lpts == NULL || String.isBlank(lpts.Header_Logo__c)) ? NULL : lpts.Header_Logo__c;
+	}
+
+	public String getTemplate() {
+		return LPUtils.getTemplate();
 	}
 
 	// WRAPPER CLASSES

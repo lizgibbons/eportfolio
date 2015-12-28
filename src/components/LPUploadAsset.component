@@ -4,6 +4,119 @@
 <apex:attribute name="ft" type="String" required="true" description="File Type" />
 <apex:attribute name="fn" type="String" required="true" description="File Name" />
 <apex:attribute name="cm" type="Boolean" required="false" default="false" description="Create Mode" />
+<apex:attribute name="idAsset" type="String" required="false" default="false" description="Asset id" />
+<apex:attribute name="attachmentId" type="String" required="false" default="false" description="Attachment id to transfer to controller" />
+
+<style>
+/*clearfixes*/
+
+.cf:before,
+.cf:after {
+  content: " ";
+  display: table;
+}
+
+.cf:after {
+  clear: both;
+}
+
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/*drag onto website specific styles*/
+
+.dnd-onto-website .container {
+  width: 48%;
+  float: left;
+  margin: 0% 1% 2% 1%;
+}
+
+.dnd-onto-website .container-drop {
+  min-height: 185px;
+  background: #eee;
+  border: solid 2px #ddd;
+  padding: 15px;
+  -webkit-transition: all 300ms ease-in;
+  -moz-transition: all 300ms ease-in;
+  -o-transition: all 300ms ease-in;
+  transition: all 300ms ease-in;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.dnd-onto-website .container-drop.drop-active {
+  border: dashed 2px #ccc;
+  background: #efefef;
+}
+
+.dnd-onto-website .container-drop:before {
+  content: '\f019';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  top: calc(50% - 32px);
+  left: calc(50% - 32px);
+  font-family: fontawesome;
+  width: 64px;
+  height: 64px;
+  font-size: 64px;
+  line-height: 64px;
+  color: #ccc;
+  -webkit-transition: all 300ms ease-in;
+  -moz-transition: all 300ms ease-in;
+  -o-transition: all 300ms ease-in;
+  transition: all 300ms ease-in;
+  z-index: 1;
+}
+
+.dnd-onto-website .container-drop.drop-active:before {
+  color: #aaa;
+}
+
+.dnd-onto-website .container-drop img {
+  max-width: 100%;
+  height: auto;
+  position: relative;
+  z-index: 2;
+}
+
+.dnd-onto-website .message-container {
+  word-break: break-all;
+  margin-bottom: 20px;
+}
+
+.dnd-onto-website .message-container.active p {
+  text-align: center;
+}
+
+.ie-message {
+  display: none;
+  padding: 15px;
+  background: #e74c3c;
+  color: #fff;
+  border: dashed 2px #c0392b;
+  margin-bottom: 15px;
+}
+.fileupload label.center-block {
+	text-align: center;
+}
+.fileupload-progress {
+  display: none;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+</style>
+<!--<style src="{!$Resource.page}/css/uploadComponent.css"></style>-->
+
+<script type="text/javascript">
+	var __sfdcSessionId = '{!GETSESSIONID()}';
+</script>
+<script src="/soap/ajax/29.0/connection.js" type="text/javascript"></script>
 <div class="modal fade" id="uploadAssetDialog" aria-live="assertive" role="dialog" tabindex="-1" aria-labelledby="uploadAssetDialogLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -26,18 +139,41 @@
 					</div>
 					<div class="col-xs-12 col-sm-2"></div>
 				</div>
-				<section id="updf" style="display:none;" class="form-group has-feedback row">
-					<label class="col-xs-12 col-sm-3 control-label">
-						<i class="fa fa-asterisk require" title="required"></i>&nbsp;
-						{!$Label.LBL_Upload_File}
-					</label>
-					<label for="file" class="input input-file col-xs-11 col-sm-8">
-						<div class="btn-u btn-primary">
-							<apex:inputFile id="updfit265" value="{!fb}" fileName="{!fn}" contentType="{!ft}" onchange="validateInput();"/>
-							{!$Label.BTN_Browse}
-						</div><input id="fit265" type="text" class="form-control"/>
-					</label>
+				<section id="updf" style="display:none;" class="form-group has-feedback fileupload">
+					
+					<article class="dnd-onto-website cf">
+						<label class="ie-message">You are using Internet Explorer. IE only supports the 'text' and 'URL' transfer types so your experience may be limited. Also IE9 and below have no support for dragging images from your desktop to the page</label>
+						<div class="container-drop drop">
+							<label class="center-block">{!$Label.LBL_Drag_and_Drop_Files_here}</label>
+							<div style="margin-top: 115px; opacity: .65; text-align: center;">{!$Label.LBL_Upload_One_File}</div>
+						</div>
+						<div class="fileupload-progress">
+							<div class="progress">
+								<div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 00%">
+									<span class="sr-only">20% Complete</span>
+								</div>
+							</div>
+						</div>
+						<div class="message-container"></div>
+					</article>
+					<div class="browse-from-desktop">
+						<label class="center-block" style="margin-bottom: 20px;">
+							{!$Label.LBL_Select_Files_from_Computer}
+						</label>
+						<label class="col-xs-12 col-sm-3 control-label">
+							<i class="fa fa-asterisk require" title="required"></i>&nbsp;
+							{!$Label.LBL_Upload_File}
+						</label>
+						<label for="file" class="input input-file col-xs-11 col-sm-8">
+							<div class="btn-u btn-primary">
+								<apex:inputFile id="updfit265" value="{!fb}" fileName="{!fn}" contentType="{!ft}" onchange="validateInput();"/>
+								{!$Label.BTN_Browse}
+								<apex:inputText id="attachmentId" value="{!attachmentId}" style="display:none" />
+							</div><input id="fit265" type="text" class="form-control"/>
+						</label>
+					</div>
 				</section>
+
 				<section id="updl" style="display:none;" class="form-group has-feedback row">
 					<label class="col-sm-2 control-label">
 						<i class="fa fa-asterisk require" title="required"></i>&nbsp;
@@ -54,16 +190,36 @@
 				<button type="button" class="btn-u btn-warning" onclick="cancelDialog();return false;" data-dismiss="modal">{!$Label.BTN_Cancel}</button>
 			</div>
 			<script>
+				var att;
 				var LPCREATEMODE = {!cm};
 				var FSERROR = '{!$Label.LBL_File_Upload_Size_Limit}';
 				var REQERROR = '{!$Label.LBL_Edit_Asset_Required_Field}';
+				var statusProgressBar = 0;
+				var intervalID;
+				var downIntervalID;
+				var dataSizeDragDrop;
+				var dataNameDragDrop;
+				var dragAndDrop = false;
+				var hasParentAttachmentContact = false;
+				var Attachment;
+				var parentIdAttachment;
 				function showSection(sid) {
-					$('#upd1').hide();
+					clearError();
+					$('.progress-bar')[0].style.width = '0%';
+					$('#updl').hide();
+					$('#updf').hide();
 					$('#'+sid).show();
 					$('#updb').show();
 					$('[id$='+sid+'it265]').attr('required','required');
+					$('.browse-from-desktop').show();
+					$('.fileupload-progress').hide();
+					$('#fileInfo').hide();
+					jQuery('input[id*="updlit265"]').val('');
+					//jQuery('input[id*="updfit265"]')[0].files = new fileList();
+					dragAndDrop = false;
 				}
 				function cancelDialog() {
+					$('.progress-bar')[0].style.width = '0%';
 					$('section[id*=upd]').hide();
 					$('#updb').hide();
 					$('#upd1').show();
@@ -76,7 +232,11 @@
 				}
 				function submitDialog() {
 					if (validateInput()) {
-						LPCREATEMODE ? $('#closemodal').click() : submitAsset();
+						if (dragAndDrop) {
+							dragAndDropFileUpload();
+						} else {
+							LPCREATEMODE ? $('#closemodal').click() : submitAsset();
+						}
 					}
 				}
 				function validateInput() {
@@ -94,6 +254,13 @@
 								ei = 'srf265';
 							}
 						}
+						else if (dragAndDrop) {
+							et = dataNameDragDrop;
+							if (dataSizeDragDrop > 10485760) {
+								et = FSERROR;
+								ei = 'srf265';
+							}
+						} 
 						else {
 							et = REQERROR;
 							ei = 'rf265';
@@ -114,8 +281,14 @@
 						return true;
 					}
 					else {
-						cr.closest('section').addClass('has-error');
-						cr.closest('[class*=col-sm]').append('<small class="help-block" id="'+ei+'" class="note note-error">'+et+'</small>');
+						
+						if (dragAndDrop) {
+							$('.message-container').closest('section').addClass('has-error');
+							$('.message-container').append('<small class="help-block" id="'+ei+'" class="note note-error">'+et+'</small>');
+						} else {
+							cr.closest('section').addClass('has-error');
+							cr.closest('[class*=col-sm]').append('<small class="help-block" id="'+ei+'" class="note note-error">'+et+'</small>');
+						}
 						return false;
 					}
 				}
@@ -123,7 +296,198 @@
 					$('[id$=rf265]').remove();
 					$('section.has-error').removeClass('has-error');
 				}
+
+				function dragAndDropFileUpload() {
+					//if (!LPCREATEMODE) {
+						statusProgressBar = 0;
+						downIntervalID = setInterval(runProgressBar, dataSizeDragDrop / 10000);
+					//}
+					sforce.connection.create([Attachment], {
+						onSuccess : function(result, source) {
+							if (result[0].getBoolean("success")) {
+								console.log("new attachment created with id " + result[0].id);
+								if (hasParentAttachmentContact) {
+									jQuery('input[id*="attachmentId"]').val(result[0].id);
+									$('#closemodal').click();
+								}
+								statusProgressBar = 100;
+								if (!LPCREATEMODE) {
+									submitAsset();
+								}
+							}
+							else {
+								console.log("failed to create attachment " + result[0]);
+							}
+						},
+						onFailure : function(error, source) {
+							console.log("An error has occurred " + error);
+						}
+					});
+					dragAndDrop = false;
+				}
+
+				function runProgressBar() {
+					if (statusProgressBar !== 100) {
+						statusProgressBar++;
+						$('.progress-bar')[0].style.width = statusProgressBar + '%';
+					} else {
+						$('.progress-bar')[0].style.width = '100%';
+						clearInterval(intervalID);
+					}
+				}
+				function downProgressBar() {
+					if (statusProgressBar !== 0) {
+						statusProgressBar--;
+						$('.progress-bar')[0].style.width = statusProgressBar + '%';
+					} else {
+						$('.progress-bar')[0].style.width = '0%';
+						clearInterval(downIntervalID);
+					}
+				}
+
+				function getParentIdAttachment() {
+					if (LPCREATEMODE && ('{!idAsset}' === 'false')) {
+						sforce.connection.sessionId = '{!GETSESSIONID()}';
+						var contactId = sforce.connection.query("SELECT ContactId FROM User WHERE id =" + "'{!$User.Id}'");
+						parentIdAttachment = contactId.getArray("records")[0]["ContactId"];
+						hasParentAttachmentContact = true;
+					} else {
+						parentIdAttachment = '{!idAsset}';
+					}
+				}
+
 			</script>
+
+<script>
+
+jQuery(document).ready(function($) {
+	var drop_items = $('.dnd-onto-website').find('.drop');
+	//get user agent, test for IE, if show display warning
+	var userAgent = window.navigator.userAgent;
+	if (userAgent.indexOf('MSIE') != -1) {
+		$('.ie-message').show();
+	}
+
+	getParentIdAttachment();
+
+	//set up event listeners for the drop item
+	function setUpEventListeners() {
+		drop_items.each(function() {
+			var thisDrop = $(this);
+			thisDrop[0].addEventListener('dragenter', dragEnter);
+			thisDrop[0].addEventListener('dragover', dragOver);
+			thisDrop[0].addEventListener('dragleave', dragLeave);
+			thisDrop[0].addEventListener('drop', drop);
+		});
+	}
+	setUpEventListeners();
+
+	//called as the draggable enters a droppable 
+	//needs to return false to make droppable area valid
+	function dragEnter(event) {
+		var drop = this;
+		$(drop).addClass('drop-active');
+		event.preventDefault();
+	}
+
+	//called continually while the draggable is over a droppable 
+	//needs to return false to make droppable area valid
+	function dragOver(event) {
+		var drop = this;
+		$(drop).addClass('drop-active');
+		event.preventDefault();
+	}
+
+	//called when the draggable was inside a droppable but then left
+	function dragLeave(event) {
+		var drop = this;
+		$(drop).removeClass('drop-active');
+	}
+
+	//called when draggable is dropped on droppable 
+	//final process, used to copy data or update UI on successful drop
+	function drop(event) {
+		event.stopPropagation();
+		event.preventDefault();
+		dragAndDrop = true;
+		$('.progress-bar')[0].style.width = '0%';
+		//main drop container
+		drop = $(this);
+		//remove class from drop zone
+		drop.removeClass('drop-active');
+
+		var dataList, dataText, dataType;
+		try {
+			dataValue = event.dataTransfer.getData('text/uri-list');
+			dataType = 'text/uri-list';
+		} catch (e) {
+			dataValue = event.dataTransfer.getData('URL');
+			dataType = 'URL';
+		}
+
+		if (dataValue) {
+			console.log('Your dropped element from an external window. It has this data');
+
+			//if we have access to the URI list
+			if (dataType == 'text/uri-list' || dataType == 'URL') {
+				cosole.log('dataType: ' + dataType + '     dataValue: ' + dataValue);
+			}
+		}
+		else {
+			var dataFiles = event.dataTransfer.files;
+			var dataOutput = [];
+			if (dataFiles.length < 2) {
+				$('.browse-from-desktop').hide();
+				$('.fileupload-progress').show();
+				var messageContainer = $('.message-container');
+				messageContainer.empty();
+				messageContainer.addClass('active');
+
+				for (i = 0; i < dataFiles.length; i++) {
+					var dataItem = dataFiles[i];
+					dataSizeDragDrop = dataFiles[i].size;
+
+					var dataLastModified = dataFiles[i].lastModified;
+					var dataLastModifiedDate = dataFiles[i].lastModifiedDate;
+					dataNameDragDrop = dataFiles[i].name;
+					dataSizeDragDrop = dataFiles[i].size;
+					var dataType = dataFiles[i].type;
+
+					console.log('Name: ' + dataNameDragDrop + '    Data Size: ' + dataSizeDragDrop + '    Data Type: ' + dataType);
+					var p = document.createElement('p');
+					p.textContent = 'Name: ' + dataNameDragDrop + '    Data Size: ' + dataSizeDragDrop + '    Data Type: ' + dataType;
+					p.id = 'fileInfo';
+					$('.message-container')[0].appendChild(p);
+					if (validateInput()) {
+						var reader = new FileReader();
+						intervalID = setInterval(runProgressBar, dataSizeDragDrop / 500000);
+						reader.onload = (function(theFile) {
+							return function(e) {
+								sforce.connection.sessionId = '{!GETSESSIONID()}';
+								Attachment = new sforce.SObject('Attachment');
+								Attachment.Name = theFile.name;
+								Attachment.ContentType = theFile.type;
+								Attachment.Body  = new sforce.Base64Binary(e.target.result).toString();
+								Attachment.ParentId = parentIdAttachment;
+								statusProgressBar = 100;
+							};
+						})(dataItem);
+					}
+					reader.readAsBinaryString(dataItem);
+				}
+			}
+			else {
+				var messageContainer = $('.message-container');
+				messageContainer.empty();
+				messageContainer.addClass('active');
+				messageContainer.append('<p>{!$Label.ERR_Upload_Only_One_File}<p>');
+			}
+		}
+	}
+});
+</script>
+
+
 		</div>
 	</div>
 </div>
