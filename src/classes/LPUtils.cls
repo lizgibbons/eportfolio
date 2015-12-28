@@ -29,4 +29,13 @@ public with sharing class LPUtils {
 		}
 		return inUrl;
 	}
+
+	public static String getTemplate() {
+		LP_Template_Settings__c templCustomSettings = LP_Template_Settings__c.getOrgDefaults();
+		if (templCustomSettings.Site_Template_Label__c != NULL) {
+			return templCustomSettings.Site_Template_Label__c;
+		} else {
+			return Site.getTemplate().getUrl().replace('/site/','').replace('.apexp','');
+		}
+	}
 }
