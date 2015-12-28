@@ -136,6 +136,11 @@
         <members>LBL_URL</members>
         <members>LBL_Upload</members>
         <members>LBL_Upload_File</members>
+		<members>LBL_Upload_One_File</members>
+		<members>LBL_Select_Files_from_Computer</members>
+		<members>LBL_Drag_and_Drop_Files_here</members>
+		<members>LBL_Admin_Title_Page</members>
+		<members>LBL_Upload_Progress</members>
         <name>CustomLabel</name>
     </types>
     <types>
