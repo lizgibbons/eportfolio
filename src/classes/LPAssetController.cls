@@ -1,7 +1,6 @@
-public with sharing class LPAssetController {
+public without sharing class LPAssetController {
 
-	public LPAssetController() {
-	}
+	public LPAssetController() {}
 
 	private ApexPages.StandardController stdctrl;
 	public LPAssetController(ApexPages.StandardController stdController) {
@@ -34,6 +33,7 @@ public with sharing class LPAssetController {
 	public String linkText { get; set; }
 	public LPFieldLayout flayout { get; set; }
 	public Boolean isDel { get { return isDel == true; } set; }
+	public String attachmentId { get; set; }
 
 	public void initFromEdit() {
 		init();
@@ -85,6 +85,7 @@ public with sharing class LPAssetController {
 
 	public PageReference saveAsset() {
 		PageReference pr;
+		system.debug('Anydatatype_msg!!!!11');
 		if (tesla.Id == NULL && tesla.User__c == NULL) {
 			tesla.User__c = UserInfo.getUserId();
 		}
@@ -98,6 +99,13 @@ public with sharing class LPAssetController {
 				upsert tesla;
 				Attachment aTemp = new Attachment(Name=imgFileName, Body=imgBody, ParentId=tesla.Id, ContentType=imgContentType);
 				insert aTemp;
+			} else if (String.isNotBlank(attachmentId)) {
+				tesla.Link__c = NULL;
+				upsert tesla;
+				Attachment attachContact = [SELECT Id, Name, Body, ContentType, ParentId FROM Attachment WHERE id= :attachmentId][0];
+				Attachment attachAsset = new Attachment(Name=attachContact.Name, Body=attachContact.Body, ParentId=tesla.Id, ContentType=attachContact.ContentType);
+				insert attachAsset;
+				delete attachContact;
 			}
 			else {
 				upsert tesla;
