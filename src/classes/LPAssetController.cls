@@ -1,7 +1,6 @@
 public without sharing class LPAssetController {
 
-	public LPAssetController() {
-	}
+	public LPAssetController() {}
 
 	private ApexPages.StandardController stdctrl;
 	public LPAssetController(ApexPages.StandardController stdController) {
