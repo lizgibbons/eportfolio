@@ -141,6 +141,7 @@
 		<members>LBL_Drag_and_Drop_Files_here</members>
 		<members>LBL_Admin_Title_Page</members>
 		<members>LBL_Upload_Progress</members>
+		<members>ERR_Upload_Only_One_File</members>		 
         <name>CustomLabel</name>
     </types>
     <types>
