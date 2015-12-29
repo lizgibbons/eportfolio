@@ -32,11 +32,21 @@ public with sharing class LPUtils {
 
 	public static String getTemplate() {
 		LP_Template_Settings__c templCustomSettings = LP_Template_Settings__c.getOrgDefaults();
+		String namespacePrefix = '';
+		List<Apexpage> lst;
 		if (templCustomSettings.Site_Template_Label__c != NULL) {
-			String siteTemplate = templCustomSettings.Site_Template_Label__c;
-			List<Apexpage> lst=[select id,name from Apexpage where name=:siteTemplate];
+			String template = templCustomSettings.Site_Template_Label__c;
+			String namespacePrefixAfter = template.substringAfter('__');
+			if (namespacePrefixAfter.length() > 0) {
+				namespacePrefix = template.substringBefore('__');
+			}
+			if (namespacePrefix.length() > 0) {
+				lst=[SELECT id,name FROM Apexpage WHERE name=:template AND namespacePrefix=:namespacePrefix];
+			} else {
+				lst=[SELECT id,name FROM Apexpage WHERE name=:template];
+			}
 			if (lst.size() > 0) {
-				return siteTemplate;
+				return template;
 			} else {
 				return Site.getTemplate().getUrl().replace('/site/','').replace('.apexp','');
 			}
