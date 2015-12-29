@@ -33,9 +33,16 @@ public with sharing class LPUtils {
 	public static String getTemplate() {
 		LP_Template_Settings__c templCustomSettings = LP_Template_Settings__c.getOrgDefaults();
 		if (templCustomSettings.Site_Template_Label__c != NULL) {
-			return templCustomSettings.Site_Template_Label__c;
+			String siteTemplate = templCustomSettings.Site_Template_Label__c;
+			List<Apexpage> lst=[select id,name from Apexpage where name=:siteTemplate];
+			if (lst.size() > 0) {
+				return siteTemplate;
+			} else {
+				return Site.getTemplate().getUrl().replace('/site/','').replace('.apexp','');
+			}
 		} else {
 			return Site.getTemplate().getUrl().replace('/site/','').replace('.apexp','');
 		}
 	}
+
 }
