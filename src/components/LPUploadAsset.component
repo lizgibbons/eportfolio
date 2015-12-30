@@ -202,12 +202,14 @@
 								console.log("new attachment created with id " + result[0].id);
 								if (hasParentAttachmentContact) {
 									jQuery('input[id*="attachmentId"]').val(result[0].id);
-									$('#closemodal').click();
+								} else {
+									jQuery('input[id*="attachmentId"]').val('');
 								}
 								statusProgressBar = 100;
 								if (!LPCREATEMODE) {
 									submitAsset();
 								}
+								$('#closemodal').click();
 							}
 							else {
 								console.log("failed to create attachment " + result[0]);
