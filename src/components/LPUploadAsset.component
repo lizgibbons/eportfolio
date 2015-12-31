@@ -334,7 +334,7 @@ jQuery(document).ready(function($) {
 		else {
 			var dataFiles = event.dataTransfer.files;
 			var dataOutput = [];
-			if (dataFiles.length < 2) {
+			if ((dataFiles.length < 2) && (dataFiles.length !== 0)) {
 				$('.browse-from-desktop').hide();
 				$('.fileupload-progress').show();
 				var messageContainer = $('.message-container');
@@ -365,6 +365,7 @@ jQuery(document).ready(function($) {
 							$('#fileInfo').remove();
 							dragAndDrop = false;
 						}
+
 						reader.onloadend = (function(theFile) {
 							return function(e) {
 								var binary = "";
@@ -385,6 +386,13 @@ jQuery(document).ready(function($) {
 					}
 					reader.readAsArrayBuffer(dataItem);
 				}
+			}
+			else if (dataFiles.length === 0) {
+				errorFolder = true;
+				$('.fileupload-progress').hide();
+				$('.browse-from-desktop').show();
+				$('#fileInfo').remove();
+				dragAndDrop = false;
 			}
 			else {
 				var messageContainer = $('.message-container');
