@@ -152,9 +152,12 @@
 							}
 						}
 						else if (dragAndDrop) {
+							//it.parentNode.nextSibling.value = dataNameDragDrop;
 							et = dataNameDragDrop;
-							if ((dataSizeDragDrop > 10485760) || errorFolder) {
-								et = FSERROR;
+							$('#reslname').text(et);
+							if (dataSizeDragDrop > 10485760) {
+								//et = FSERROR;
+								$('.container-drop').children()[1].textContent = 'File size may not exceed 10 MB!';
 								ei = 'srf265';
 							}
 						} 
@@ -179,10 +182,10 @@
 					}
 					else {
 						if (dragAndDrop) {
-							$('.container-drop').children()[1].textContent = 'File size may not exceed 10 MB!';
-							if (errorFolder) {
-								$('.container-drop').children()[1].textContent = 'You can upload only one file!';
-							}
+							//$('.container-drop').children()[1].textContent = 'File size may not exceed 10 MB!';
+							//if (errorFolder) {
+							//	$('.container-drop').children()[1].textContent = 'You can upload only one file!';
+							//}
 							$('.container-drop').children()[1].style.cssText += 'color:red;';
 						} else {
 							cr.closest('section').addClass('has-error');
@@ -199,6 +202,7 @@
 				function dragAndDropFileUpload() {
 					statusProgressBar = 0;
 					downIntervalID = setInterval(runProgressBar, dataSizeDragDrop / 10000);
+					jQuery('input[id*="updfit265"]').val('');
 					sforce.connection.create([Attachment], {
 						onSuccess : function(result, source) {
 							if (result[0].getBoolean("success")) {
@@ -231,7 +235,7 @@
 						$('.progress-bar')[0].style.width = statusProgressBar + '%';
 					} else {
 						$('.progress-bar')[0].style.width = '100%';
-						clearInterval(intervalID);
+						clearInterval(downIntervalID);
 					}
 				}
 
@@ -304,6 +308,7 @@ jQuery(document).ready(function($) {
 		$('.progress-bar')[0].style.width = '0%';
 		$('.container-drop').children()[1].textContent = 'Please upload only one file';
 		$('.container-drop').children()[1].style.color = '';
+		jQuery('input[id*="updfit265"]').val('');
 		//main drop container
 		drop = $(this);
 		//remove class from drop zone
@@ -348,29 +353,37 @@ jQuery(document).ready(function($) {
 
 					console.log('Name: ' + dataNameDragDrop + '    Data Size: ' + dataSizeDragDrop + '    Data Type: ' + dataType);
 					var p = document.createElement('p');
-					p.textContent = 'Name: ' + dataNameDragDrop + '    Data Size: ' + (dataSizeDragDrop / 1000000).toFixed(2) + ' Mb';
+					p.textContent = 'Name: ' + dataNameDragDrop + '    Data Size: ' + (dataSizeDragDrop / 1000).toFixed(2) + ' kb';
 					p.id = 'fileInfo';
 					$('.message-container')[0].appendChild(p);
 					if (validateInput()) {
 						var reader = new FileReader();
 						reader.onerror = function(e) {
-							$('.container-drop').children()[1].textContent = 'You can upload only one file!';
-							$('.container-drop').children()[1].style.cssText += 'color:red;';
 							errorFolder = true;
+							$('.fileupload-progress').hide();
+							$('.browse-from-desktop').show();
+							$('#fileInfo').remove();
+							dragAndDrop = false;
 						}
-						reader.onload = (function(theFile) {
+						reader.onloadend = (function(theFile) {
 							return function(e) {
+								var binary = "";
+								var bytes = new Uint8Array(e.target.result);
+								var length = bytes.byteLength;
+								for (var i = 0; i < length; i++) {
+									binary += String.fromCharCode(bytes[i]);
+								}
 								sforce.connection.sessionId = '{!GETSESSIONID()}';
 								Attachment = new sforce.SObject('Attachment');
 								Attachment.Name = theFile.name;
 								Attachment.ContentType = theFile.type;
-								Attachment.Body  = new sforce.Base64Binary(e.target.result).toString();
+								Attachment.Body  = new sforce.Base64Binary(binary).toString();
 								Attachment.ParentId = parentIdAttachment;
-								statusProgressBar = 100;
+								//statusProgressBar = 100;
 							};
 						})(dataItem);
 					}
-					reader.readAsBinaryString(dataItem);
+					reader.readAsArrayBuffer(dataItem);
 				}
 			}
 			else {
