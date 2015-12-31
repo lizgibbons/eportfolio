@@ -95,6 +95,7 @@
 				var dataNameDragDrop;
 				var dragAndDrop = false;
 				var hasParentAttachmentContact = false;
+				var errorFolder = false;
 				var Attachment;
 				var parentIdAttachment;
 				function showSection(sid) {
@@ -117,6 +118,8 @@
 					$('section[id*=upd]').hide();
 					$('#updb').hide();
 					$('#upd1').show();
+					$('.container-drop').children()[1].textContent = 'Please upload only one file';
+					$('.container-drop').children()[1].style.color = '';
 					clearError();
 					$('[id$=it265]').removeAttr('required').val('');
 					if (LPCREATEMODE) {
@@ -150,7 +153,7 @@
 						}
 						else if (dragAndDrop) {
 							et = dataNameDragDrop;
-							if (dataSizeDragDrop > 10485760) {
+							if ((dataSizeDragDrop > 10485760) || errorFolder) {
 								et = FSERROR;
 								ei = 'srf265';
 							}
@@ -175,10 +178,12 @@
 						return true;
 					}
 					else {
-						
 						if (dragAndDrop) {
-							$('.message-container').closest('section').addClass('has-error');
-							$('.message-container').append('<small class="help-block" id="'+ei+'" class="note note-error">'+et+'</small>');
+							$('.container-drop').children()[1].textContent = 'File size may not exceed 10 MB!';
+							if (errorFolder) {
+								$('.container-drop').children()[1].textContent = 'You can upload only one file!';
+							}
+							$('.container-drop').children()[1].style.cssText += 'color:red;';
 						} else {
 							cr.closest('section').addClass('has-error');
 							cr.closest('[class*=col-sm]').append('<small class="help-block" id="'+ei+'" class="note note-error">'+et+'</small>');
@@ -192,10 +197,8 @@
 				}
 
 				function dragAndDropFileUpload() {
-					//if (!LPCREATEMODE) {
-						statusProgressBar = 0;
-						downIntervalID = setInterval(runProgressBar, dataSizeDragDrop / 10000);
-					//}
+					statusProgressBar = 0;
+					downIntervalID = setInterval(runProgressBar, dataSizeDragDrop / 10000);
 					sforce.connection.create([Attachment], {
 						onSuccess : function(result, source) {
 							if (result[0].getBoolean("success")) {
@@ -231,7 +234,7 @@
 						clearInterval(intervalID);
 					}
 				}
-				
+
 				function getParentIdAttachment() {
 					if (LPCREATEMODE && ('{!idAsset}' === 'false')) {
 						sforce.connection.sessionId = '{!GETSESSIONID()}';
@@ -296,8 +299,11 @@ jQuery(document).ready(function($) {
 	function drop(event) {
 		event.stopPropagation();
 		event.preventDefault();
-		dragAndDrop = true;
+		dragAndDrop = true; 
+		errorFolder = false;
 		$('.progress-bar')[0].style.width = '0%';
+		$('.container-drop').children()[1].textContent = 'Please upload only one file';
+		$('.container-drop').children()[1].style.color = '';
 		//main drop container
 		drop = $(this);
 		//remove class from drop zone
@@ -342,12 +348,16 @@ jQuery(document).ready(function($) {
 
 					console.log('Name: ' + dataNameDragDrop + '    Data Size: ' + dataSizeDragDrop + '    Data Type: ' + dataType);
 					var p = document.createElement('p');
-					p.textContent = 'Name: ' + dataNameDragDrop + '    Data Size: ' + dataSizeDragDrop + '    Data Type: ' + dataType;
+					p.textContent = 'Name: ' + dataNameDragDrop + '    Data Size: ' + (dataSizeDragDrop / 1000000).toFixed(2) + ' Mb';
 					p.id = 'fileInfo';
 					$('.message-container')[0].appendChild(p);
 					if (validateInput()) {
 						var reader = new FileReader();
-						intervalID = setInterval(runProgressBar, dataSizeDragDrop / 500000);
+						reader.onerror = function(e) {
+							$('.container-drop').children()[1].textContent = 'You can upload only one file!';
+							$('.container-drop').children()[1].style.cssText += 'color:red;';
+							errorFolder = true;
+						}
 						reader.onload = (function(theFile) {
 							return function(e) {
 								sforce.connection.sessionId = '{!GETSESSIONID()}';
