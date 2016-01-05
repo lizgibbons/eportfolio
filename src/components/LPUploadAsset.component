@@ -100,6 +100,7 @@
 				var parentIdAttachment;
 				var attachmentObject = {};
 				var countFileError = false;
+				var createdAttachId;
 				function showSection(sid) {
 					clearError();
 					$('.progress-bar')[0].style.width = '0%';
@@ -161,6 +162,11 @@
 								$('#reslname').text(et);
 								if (dataSizeDragDrop > 10485760) {
 									$('.container-drop').children()[1].textContent = 'File size may not exceed 10 MB!';
+									$('.container-drop').children()[1].style.cssText += 'color:#a94442;';
+									$('[id$=updfit265]').attr('required','required');
+									$('.fileupload-progress').hide();
+									$('.browse-from-desktop').show();
+									$('#fileInfo').remove();
 									ei = 'srf265';
 									attachmentObject = {};
 								}
@@ -190,6 +196,7 @@
 					else {
 						if (dragAndDrop) {
 							$('.container-drop').children()[1].style.cssText += 'color:#a94442;';
+							dragAndDrop = false;
 						} else {
 							cr.closest('section').addClass('has-error');
 							cr.closest('[class*=col-sm]').append('<small class="help-block" id="'+ei+'" class="note note-error">'+et+'</small>');
@@ -212,12 +219,14 @@
 						Attachment.ContentType = attachmentObject.ContentType;
 						Attachment.Body = attachmentObject.Body;
 						Attachment.ParentId = attachmentObject.ParentId;
+						Attachment.Description = 'CreatedByAsset';
 						downIntervalID = setInterval(runProgressBar, dataSizeDragDrop / 10000);
 						jQuery('input[id*="updfit265"]').val('');
 						sforce.connection.create([Attachment], {
 							onSuccess : function(result, source) {
 								if (result[0].getBoolean("success")) {
 									console.log("new attachment created with id " + result[0].id);
+									createdAttachId = result[0].id;
 									if (hasParentAttachmentContact) {
 										jQuery('input[id*="attachmentId"]').val(result[0].id);
 									} else {
@@ -414,6 +423,8 @@ jQuery(document).ready(function($) {
 			else {
 				$('.container-drop').children()[1].textContent = '{!$Label.ERR_Upload_Only_One_File}';
 				$('.container-drop').children()[1].style.cssText += 'color:#a94442;';
+				$('[id$=updfit265]').attr('required','required');
+				dragAndDrop = false;
 				attachmentObject = {};
 				countFileError = true;
 			}

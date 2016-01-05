@@ -1,6 +1,7 @@
 public without sharing class LPAssetController {
 
-	public LPAssetController() {}
+	public LPAssetController() {
+	}
 
 	private ApexPages.StandardController stdctrl;
 	public LPAssetController(ApexPages.StandardController stdController) {
@@ -99,13 +100,16 @@ public without sharing class LPAssetController {
 				upsert tesla;
 				Attachment aTemp = new Attachment(Name=imgFileName, Body=imgBody, ParentId=tesla.Id, ContentType=imgContentType);
 				insert aTemp;
-			} else if (String.isNotBlank(attachmentId)) {
+			} else if ((attachmentId != 'false') || (attachmentId != NULL)) {
 				tesla.Link__c = NULL;
 				upsert tesla;
-				Attachment attachContact = [SELECT Id, Name, Body, ContentType, ParentId FROM Attachment WHERE id= :attachmentId][0];
-				Attachment attachAsset = new Attachment(Name=attachContact.Name, Body=attachContact.Body, ParentId=tesla.Id, ContentType=attachContact.ContentType);
-				insert attachAsset;
-				delete attachContact;
+				List<Attachment> attachContactList = [SELECT Id, Name, Body, ContentType, ParentId FROM Attachment WHERE id= :attachmentId];
+				if (attachContactList.size() > 0) {
+					Attachment attachContact = attachContactList[0];
+					Attachment attachAsset = new Attachment(Name=attachContact.Name, Body=attachContact.Body, ParentId=tesla.Id, ContentType=attachContact.ContentType);
+					insert attachAsset;
+					delete attachContact;
+				}
 			}
 			else {
 				upsert tesla;
@@ -117,6 +121,19 @@ public without sharing class LPAssetController {
 		catch (Exception e) {
 			ApexPages.addMessages(e);
 		}
+		return pr;
+	}
+
+	public PageReference clearAttachAsset() {
+		String contactId = [SELECT ContactId FROM User WHERE id = :UserInfo.getUserId()][0].ContactId;
+		System.debug('contactId ' + contactId);
+		List<Attachment> attachToDelete = [SELECT id FROM Attachment WHERE Description = 'CreatedByAsset' AND ParentId = :contactId];
+		if (attachToDelete.size() > 0) {
+			delete attachToDelete;
+		}
+		String retURLParametr = ApexPages.currentPage().getParameters().get('retURL');
+		PageReference pr = new PageReference(retURLParametr);
+		pr.setRedirect(true);
 		return pr;
 	}
 
