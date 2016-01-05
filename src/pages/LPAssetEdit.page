@@ -45,6 +45,7 @@
 							<c:LPUploadAsset lt="{!linkText}" fn="{!imgFileName}" ft="{!imgContentType}" fb="{!imgBody}" idAsset="{!Asset__c.id}" cm="true" attachmentId="{!attachmentId}"/>
 							<apex:actionFunction name="submitAssetAction" action="{!saveAsset}"/>
 							<apex:actionFunction name="submitAndAddAssetAction" action="{!saveAndAddAsset}"/>
+							<apex:actionFunction name="clearAttachAssetAction" action="{!clearAttachAsset}" immediate="true"/>
 						</apex:form>
 					</div>
 				</div>
@@ -58,7 +59,7 @@
 				</apex:outputPanel>
 				<button type="button" class="btn-u btn-primary" onclick="submitAsset(false);return false;">{!$Label.BTN_Save}</button>
 				&nbsp;
-				<apex:outputLink value="{!IF(ISBLANK($CurrentPage.parameters.retURL),$Page.LPAssets,JSENCODE($CurrentPage.parameters.retURL))}" styleClass="btn-u btn-warning">{!$Label.BTN_Cancel}</apex:outputLink>
+				<apex:outputLink onclick="clearAttachAssetAction();return false;" styleClass="btn-u btn-warning">{!$Label.BTN_Cancel}</apex:outputLink>
 			</div>
 		</div>
 		<script>
