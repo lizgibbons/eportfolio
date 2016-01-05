@@ -108,7 +108,7 @@ public without sharing class LPAssetController {
 					Attachment attachContact = attachContactList[0];
 					Attachment attachAsset = new Attachment(Name=attachContact.Name, Body=attachContact.Body, ParentId=tesla.Id, ContentType=attachContact.ContentType);
 					insert attachAsset;
-					delete attachContact;
+					clearAttachAsset();
 				}
 			}
 			else {
