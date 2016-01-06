@@ -73,9 +73,9 @@
 				</apex:outputPanel>
 			</div>
 		</div>
-		<apex:form>
+		<apex:form >
 			<c:LPVideoPopUp link="{!AssetLink[1]}"/>
-			<c:LPUploadAsset lt="{!linkText}" fn="{!imgFileName}" ft="{!imgContentType}" fb="{!imgBody}" idAsset="{!Asset__c.id}"/>
+			<c:LPUploadAsset lt="{!linkText}" fn="{!imgFileName}" ft="{!imgContentType}" fb="{!imgBody}" idAsset="{!Asset__c.id}" fileIndicator="{!fileIndicator}"/>
 			<apex:actionFunction name="submitAsset" action="{!saveAsset}"/>
 		</apex:form>
 	</div>
