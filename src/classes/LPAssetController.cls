@@ -35,6 +35,7 @@ public without sharing class LPAssetController {
 	public LPFieldLayout flayout { get; set; }
 	public Boolean isDel { get { return isDel == true; } set; }
 	public String attachmentId { get; set; }
+	public Boolean fileIndicator { get; set; }
 
 	public void initFromEdit() {
 		init();
@@ -98,22 +99,24 @@ public without sharing class LPAssetController {
 			else if (imgBody != NULL && String.isNotBlank(imgFileName)) {
 				tesla.Link__c = NULL;
 				upsert tesla;
-				Attachment aTemp = new Attachment(Name=imgFileName, Body=imgBody, ParentId=tesla.Id, ContentType=imgContentType);
+				Attachment aTemp = new Attachment(Name=imgFileName, Body=imgBody, ParentId=tesla.Id, ContentType=imgContentType, Description='CreatedByAsset');
 				insert aTemp;
-			} else if ((attachmentId != 'false') || (attachmentId != NULL)) {
+			} else if (attachmentId != 'false' && attachmentId != NULL && String.isNotBlank(attachmentId)) {
 				tesla.Link__c = NULL;
 				upsert tesla;
 				List<Attachment> attachContactList = [SELECT Id, Name, Body, ContentType, ParentId FROM Attachment WHERE id= :attachmentId];
 				if (attachContactList.size() > 0) {
 					Attachment attachContact = attachContactList[0];
-					Attachment attachAsset = new Attachment(Name=attachContact.Name, Body=attachContact.Body, ParentId=tesla.Id, ContentType=attachContact.ContentType);
+					Attachment attachAsset = new Attachment(Name=attachContact.Name, Body=attachContact.Body, ParentId=tesla.Id, ContentType=attachContact.ContentType, Description='CreatedByAsset');
 					insert attachAsset;
-					clearAttachAsset();
 				}
-			}
-			else {
+			} else if (fileIndicator) {
+				tesla.Link__c = NULL;
+				upsert tesla;
+			} else {
 				upsert tesla;
 			}
+			clearAttachSave();
 			pr = Page.LPAssetDetail;
 			pr.getParameters().put('id', tesla.Id);
 			pr.setRedirect(true);
@@ -124,17 +127,44 @@ public without sharing class LPAssetController {
 		return pr;
 	}
 
-	public PageReference clearAttachAsset() {
+	public PageReference clearAttach() {
+		clearAttachContact();
+		clearAttachAsset(true);
+		String retURLParametr = ApexPages.currentPage().getParameters().get('retURL');
+		if (retURLParametr != NULL) {
+			PageReference pr = new PageReference(retURLParametr);
+			pr.setRedirect(true);
+			System.debug('url1 ' + tesla.Link__c);
+			return pr;
+		} else {
+			return null;
+		}
+	}
+	
+	public void clearAttachSave() {
+		clearAttachContact();
+		clearAttachAsset(false);
+	}
+
+	public void clearAttachContact() {
 		String contactId = [SELECT ContactId FROM User WHERE id = :UserInfo.getUserId()][0].ContactId;
-		System.debug('contactId ' + contactId);
 		List<Attachment> attachToDelete = [SELECT id FROM Attachment WHERE Description = 'CreatedByAsset' AND ParentId = :contactId];
 		if (attachToDelete.size() > 0) {
 			delete attachToDelete;
 		}
-		String retURLParametr = ApexPages.currentPage().getParameters().get('retURL');
-		PageReference pr = new PageReference(retURLParametr);
-		pr.setRedirect(true);
-		return pr;
+	}
+
+	public void clearAttachAsset(Boolean cancel) {
+		List<Attachment> attachToDelete;
+		if (!cancel) {
+			attachToDelete = [SELECT id FROM Attachment WHERE Description = 'CreatedByAsset' AND ParentId = :tesla.Id ORDER BY CreatedDate desc];
+		} else {
+			attachToDelete = [SELECT id FROM Attachment WHERE Description = 'CreatedByAsset' AND ParentId = :tesla.Id ORDER BY CreatedDate asc];
+		}
+		if (attachToDelete.size() > 0) {
+			attachToDelete.remove(0);
+			delete attachToDelete;
+		}
 	}
 
 	public static String getHeroImageId() {

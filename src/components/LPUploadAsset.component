@@ -6,6 +6,7 @@
 <apex:attribute name="cm" type="Boolean" required="false" default="false" description="Create Mode" />
 <apex:attribute name="idAsset" type="String" required="false" default="false" description="Asset id" />
 <apex:attribute name="attachmentId" type="String" required="false" default="false" description="Attachment id to transfer to controller" />
+<apex:attribute name="fileIndicator" type="Boolean" required="false" default="false" description="File Indicator" />
 
 <script type="text/javascript">
 	var __sfdcSessionId = '{!GETSESSIONID()}';
@@ -63,6 +64,7 @@
 								<apex:inputFile id="updfit265" value="{!fb}" fileName="{!fn}" contentType="{!ft}" onchange="validateInput();"/>
 								{!$Label.BTN_Browse}
 								<apex:inputText id="attachmentId" value="{!attachmentId}" style="display:none" />
+								<apex:inputText id="fileIndicator" value="{!fileIndicator}" style="display:none" />
 							</div><input id="fit265" type="text" class="form-control"/>
 						</label>
 					</div>
@@ -143,11 +145,12 @@
 				}
 				function validateInput() {
 					var cr = $('[id$=it265][required=required]');
+					var lnk = jQuery('input[id*="updlit265"]')[0].value;
 					var it = cr[0];
 					var et = '';
 					var ei = '';
 					clearError();
-					if (it.type == 'file') {
+					if ((it.type === 'file') && (lnk === '')) {
 						if (it.files.length > 0) {
 							it.parentNode.nextSibling.value = it.files[0].name;
 							et = it.files[0].name;
@@ -179,11 +182,12 @@
 							ei = 'rf265';
 						}
 					}
-					else if (it.value.trim() == '') {
+					else if (lnk === '') {
 						et = REQERROR;
 						ei = 'rf265';
 					}
 					else {
+						jQuery('input[id*="fileIndicator"]').val(false);
 						et = it.value;
 					}
 					if (ei == '') {
@@ -225,6 +229,7 @@
 						sforce.connection.create([Attachment], {
 							onSuccess : function(result, source) {
 								if (result[0].getBoolean("success")) {
+									jQuery('input[id*="fileIndicator"]').val(true);
 									console.log("new attachment created with id " + result[0].id);
 									createdAttachId = result[0].id;
 									if (hasParentAttachmentContact) {
