@@ -429,7 +429,13 @@ public without sharing class LPAssetController {
 				WHERE Id = :ApexPages.currentPage().getParameters().get('lp')
 				AND (Status__c = 'Active' OR (Status__c = 'Draft' AND OwnerId = :UserInfo.getUserId()))
 					];
-			portfolioOwnerName = checklp.Owner.Name;
+			String contactId = [SELECT ContactId FROM User WHERE id = :UserInfo.getUserId()][0].ContactId;
+			List<Contact> contactList  = [SELECT Id, FirstName, LastName FROM Contact WHERE id = :contactId];
+			if (contactList.size() > 0) {
+				portfolioOwnerName = contactList[0].FirstName + ' ' + contactList[0].LastName;
+			} else {
+				portfolioOwnerName = checklp.Owner.Name;
+			}
 			portfolioDescription = checklp.Description__c;
 			portfolioFound = true;
 		}
