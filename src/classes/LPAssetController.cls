@@ -156,13 +156,15 @@ public without sharing class LPAssetController {
 
 	public void clearAttachAsset(Boolean cancel) {
 		List<Attachment> attachToDelete;
-		if (!cancel) {
-			attachToDelete = [SELECT id FROM Attachment WHERE Description = 'CreatedByAsset' AND ParentId = :tesla.Id ORDER BY CreatedDate desc];
-		} else {
-			attachToDelete = [SELECT id FROM Attachment WHERE Description = 'CreatedByAsset' AND ParentId = :tesla.Id ORDER BY CreatedDate asc];
-		}
+		Attachment attachWithDescription;
+		attachToDelete = [SELECT id FROM Attachment WHERE Description = 'CreatedByAsset' AND ParentId = :tesla.Id ORDER BY CreatedDate desc];
 		if (attachToDelete.size() > 0) {
-			attachToDelete.remove(0);
+			if (!cancel) {
+				attachWithDescription = attachToDelete[0];
+				attachWithDescription.description = '';
+				update attachWithDescription;
+				attachToDelete.remove(0);
+			}
 			delete attachToDelete;
 		}
 	}

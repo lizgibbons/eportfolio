@@ -223,7 +223,9 @@
 						Attachment.ContentType = attachmentObject.ContentType;
 						Attachment.Body = attachmentObject.Body;
 						Attachment.ParentId = attachmentObject.ParentId;
-						Attachment.Description = 'CreatedByAsset';
+						if (LPCREATEMODE) {
+							Attachment.Description = 'CreatedByAsset';
+						}
 						downIntervalID = setInterval(runProgressBar, dataSizeDragDrop / 10000);
 						jQuery('input[id*="updfit265"]').val('');
 						sforce.connection.create([Attachment], {
