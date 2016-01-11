@@ -188,7 +188,7 @@
 					}
 					else {
 						jQuery('input[id*="fileIndicator"]').val(false);
-						et = it.value;
+						et = lnk;
 					}
 					if (ei == '') {
 						if (LPCREATEMODE) {

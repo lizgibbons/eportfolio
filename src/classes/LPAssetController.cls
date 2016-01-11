@@ -159,7 +159,7 @@ public without sharing class LPAssetController {
 		Attachment attachWithDescription;
 		attachToDelete = [SELECT id FROM Attachment WHERE Description = 'CreatedByAsset' AND ParentId = :tesla.Id ORDER BY CreatedDate desc];
 		if (attachToDelete.size() > 0) {
-			if (!cancel) {
+			if ((!cancel) && (String.isBlank(linkText))) {
 				attachWithDescription = attachToDelete[0];
 				attachWithDescription.description = '';
 				update attachWithDescription;
