@@ -55,12 +55,17 @@
 				}
 
 				function getVideoId() {
-					return getUrlVars()["v"];
+					var link = "{!link}"
+					if (link.indexOf('youtu.be') + 1) {
+						return link.split('/')[3];
+					} else {
+						return getUrlVars(link)["v"];
+					}
 				}
 
-				function getUrlVars() {
+				function getUrlVars(link) {
 					var vars = {};
-					var videoURL = "{!link}";
+					var videoURL = link;
 					var parts = videoURL.replace(/[?&]+([^=&]+)=([^&]*)/gi, 
 						function(m,key,value) {
 							vars[key] = value;

@@ -351,7 +351,7 @@
 			$('.valign-wrapper').each(function(index, element) {
 				var link = $(element).find(':first-child')[0];
 				var linkText = link.href;
-				if (((linkText.indexOf('https://') + 1) || (linkText.indexOf('https://') + 1)) && (linkText.indexOf('youtube.com') + 1)) {
+				if (((linkText.indexOf('https://') + 1) || (linkText.indexOf('https://') + 1)) && ((linkText.indexOf('youtube.com') + 1) || (linkText.indexOf('youtu.be') + 1))) {
 					link.outerHTML = '<a href="#" data-toggle="modal" data-target="#videoDialog" onclick="createPlayer(\'' + linkText + '\')">' +
 											'<i class="fa fa-youtube-play fa-3x" style="vertical-align: middle;"></i>' +
 									'</a>';
@@ -400,7 +400,11 @@
 		}
 
 		function getVideoId(link) {
-			return getUrlVars(link)["v"];
+			if (link.indexOf('youtu.be') + 1) {
+				return link.split('/')[3];
+			} else {
+				return getUrlVars(link)["v"];
+			}
 		}
 
 		function getUrlVars(link) {
