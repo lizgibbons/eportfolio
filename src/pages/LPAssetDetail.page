@@ -188,7 +188,7 @@
 		jQuery(document).ready(function($) {
 			var link = $('#resblock').find(':first-child')[0];
 			var linkText = link.href;
-			if (((linkText.indexOf('https://') + 1) || (linkText.indexOf('https://') + 1)) && (linkText.indexOf('youtube.com') + 1)) {
+			if (((linkText.indexOf('https://') + 1) || (linkText.indexOf('https://') + 1)) && ((linkText.indexOf('youtube.com') + 1) || (linkText.indexOf('youtu.be') + 1))) {
 				link.outerHTML = '<a href="#" data-toggle="modal" data-target="#videoDialog" onclick="playVideo()">' +
 										'<i class="fa fa-youtube-play fa-3x" style="vertical-align: middle;"></i>' +
 								 '</a>';
