@@ -1,5 +1,5 @@
 <apex:page controller="LPSignController" showHeader="false" sideBar="false" standardStylesheets="false" docType="html-5.0" applyBodyTag="false" applyHtmlTag="false">
-<apex:composition template="{!$Site.Template}">
+<apex:composition template="{!Template}">
 <apex:define name="title">{!$Label.LBL_Page_Title}</apex:define>
 <apex:define name="body">
 	<div class="container">

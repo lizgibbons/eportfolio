@@ -1,4 +1,4 @@
-public with sharing class LPAssetController {
+public without sharing class LPAssetController {
 
 	public LPAssetController() {
 	}
@@ -34,6 +34,8 @@ public with sharing class LPAssetController {
 	public String linkText { get; set; }
 	public LPFieldLayout flayout { get; set; }
 	public Boolean isDel { get { return isDel == true; } set; }
+	public String attachmentId { get; set; }
+	public Boolean fileIndicator { get; set; }
 
 	public void initFromEdit() {
 		init();
@@ -85,6 +87,7 @@ public with sharing class LPAssetController {
 
 	public PageReference saveAsset() {
 		PageReference pr;
+		system.debug('Anydatatype_msg!!!!11');
 		if (tesla.Id == NULL && tesla.User__c == NULL) {
 			tesla.User__c = UserInfo.getUserId();
 		}
@@ -96,12 +99,24 @@ public with sharing class LPAssetController {
 			else if (imgBody != NULL && String.isNotBlank(imgFileName)) {
 				tesla.Link__c = NULL;
 				upsert tesla;
-				Attachment aTemp = new Attachment(Name=imgFileName, Body=imgBody, ParentId=tesla.Id, ContentType=imgContentType);
+				Attachment aTemp = new Attachment(Name=imgFileName, Body=imgBody, ParentId=tesla.Id, ContentType=imgContentType, Description='CreatedByAsset');
 				insert aTemp;
-			}
-			else {
+			} else if (attachmentId != 'false' && attachmentId != NULL && String.isNotBlank(attachmentId)) {
+				tesla.Link__c = NULL;
+				upsert tesla;
+				List<Attachment> attachContactList = [SELECT Id, Name, Body, ContentType, ParentId FROM Attachment WHERE id= :attachmentId];
+				if (attachContactList.size() > 0) {
+					Attachment attachContact = attachContactList[0];
+					Attachment attachAsset = new Attachment(Name=attachContact.Name, Body=attachContact.Body, ParentId=tesla.Id, ContentType=attachContact.ContentType, Description='CreatedByAsset');
+					insert attachAsset;
+				}
+			} else if (fileIndicator) {
+				tesla.Link__c = NULL;
+				upsert tesla;
+			} else {
 				upsert tesla;
 			}
+			clearAttachSave();
 			pr = Page.LPAssetDetail;
 			pr.getParameters().put('id', tesla.Id);
 			pr.setRedirect(true);
@@ -110,6 +125,48 @@ public with sharing class LPAssetController {
 			ApexPages.addMessages(e);
 		}
 		return pr;
+	}
+
+	public PageReference clearAttach() {
+		clearAttachContact();
+		clearAttachAsset(true);
+		String retURLParametr = ApexPages.currentPage().getParameters().get('retURL');
+		if (retURLParametr != NULL) {
+			PageReference pr = new PageReference(retURLParametr);
+			pr.setRedirect(true);
+			System.debug('url1 ' + tesla.Link__c);
+			return pr;
+		} else {
+			return null;
+		}
+	}
+	
+	public void clearAttachSave() {
+		clearAttachContact();
+		clearAttachAsset(false);
+	}
+
+	public void clearAttachContact() {
+		String contactId = [SELECT ContactId FROM User WHERE id = :UserInfo.getUserId()][0].ContactId;
+		List<Attachment> attachToDelete = [SELECT id FROM Attachment WHERE Description = 'CreatedByAsset' AND ParentId = :contactId];
+		if (attachToDelete.size() > 0) {
+			delete attachToDelete;
+		}
+	}
+
+	public void clearAttachAsset(Boolean cancel) {
+		List<Attachment> attachToDelete;
+		Attachment attachWithDescription;
+		attachToDelete = [SELECT id FROM Attachment WHERE Description = 'CreatedByAsset' AND ParentId = :tesla.Id ORDER BY CreatedDate desc];
+		if (attachToDelete.size() > 0) {
+			if ((!cancel) && (String.isBlank(linkText))) {
+				attachWithDescription = attachToDelete[0];
+				attachWithDescription.description = '';
+				update attachWithDescription;
+				attachToDelete.remove(0);
+			}
+			delete attachToDelete;
+		}
 	}
 
 	public static String getHeroImageId() {
@@ -198,6 +255,7 @@ public with sharing class LPAssetController {
 			if (lpMode) {
 				pr.getParameters().put('lp', Id.valueOf(ApexPages.currentPage().getParameters().get('lp')));
 			}
+			pr.getParameters().put('c', tesla.Category__c);
 			pr.setRedirect(true);
 		}
 		catch (Exception e) {
@@ -373,7 +431,13 @@ public with sharing class LPAssetController {
 				WHERE Id = :ApexPages.currentPage().getParameters().get('lp')
 				AND (Status__c = 'Active' OR (Status__c = 'Draft' AND OwnerId = :UserInfo.getUserId()))
 					];
-			portfolioOwnerName = checklp.Owner.Name;
+			String contactId = [SELECT ContactId FROM User WHERE id = :UserInfo.getUserId()][0].ContactId;
+			List<Contact> contactList  = [SELECT Id, FirstName, LastName FROM Contact WHERE id = :contactId];
+			if (contactList.size() > 0) {
+				portfolioOwnerName = contactList[0].FirstName + ' ' + contactList[0].LastName;
+			} else {
+				portfolioOwnerName = checklp.Owner.Name;
+			}
 			portfolioDescription = checklp.Description__c;
 			portfolioFound = true;
 		}
@@ -412,6 +476,10 @@ public with sharing class LPAssetController {
 	public String getLogoUrl() {
 		LP_Template_Settings__c lpts = LP_Template_Settings__c.getOrgDefaults();
 		return (lpts == NULL || String.isBlank(lpts.Header_Logo__c)) ? NULL : lpts.Header_Logo__c;
+	}
+
+	public String getTemplate() {
+		return LPUtils.getTemplate();
 	}
 
 	// WRAPPER CLASSES

@@ -22,6 +22,7 @@
         <members>LPLeftPanel</members>
         <members>LPPreloader</members>
         <members>LPUploadAsset</members>
+		<members>LPVideoPopUp</members>
         <name>ApexComponent</name>
     </types>
     <types>
@@ -59,6 +60,7 @@
         <members>LP_Template_Settings__c.Header_Logo__c</members>
         <members>LP_Template_Settings__c.Hero_Image__c</members>
         <members>LP_Template_Settings__c.Registration_Page_Logo__c</members>
+		<members>LP_Template_Settings__c.Site_Template_Label__c</members>
         <members>Learner_Profile__c.Description__c</members>
         <members>Learner_Profile__c.Status__c</members>
         <name>CustomField</name>
@@ -80,6 +82,7 @@
         <members>LBL_Active</members>
         <members>LBL_Add_Remove_Asset</members>
         <members>LBL_Add_Remove_Learner_Profile_Title</members>
+		<members>LBL_Admin_Title_Page</members>
         <members>LBL_All_Assets</members>
         <members>LBL_All_Learner_Profiles</members>
         <members>LBL_Asset_Detail_Title</members>
@@ -135,6 +138,12 @@
         <members>LBL_URL</members>
         <members>LBL_Upload</members>
         <members>LBL_Upload_File</members>
+		<members>LBL_Upload_One_File</members>
+		<members>LBL_Select_Files_from_Computer</members>
+		<members>LBL_Drag_and_Drop_Files_here</members>
+		<members>LBL_Admin_Title_Page</members>
+		<members>LBL_Upload_Progress</members>
+		<members>ERR_Upload_Only_One_File</members>		 
         <name>CustomLabel</name>
     </types>
     <types>

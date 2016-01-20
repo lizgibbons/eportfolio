@@ -1,5 +1,5 @@
 <apex:page standardController="Asset__c" extensions="LPAssetController" action="{!initFromView}" standardStylesheets="false" showHeader="false" sideBar="false" docType="html-5.0" applyBodyTag="false" applyHtmlTag="false">
-<apex:composition template="{!$Site.Template}">
+<apex:composition template="{!Template}">
 <apex:define name="title">{!$Label.LBL_Page_Title}</apex:define>
 <apex:define name="body">
 <c:LPPreloader />
@@ -74,7 +74,8 @@
 			</div>
 		</div>
 		<apex:form >
-			<c:LPUploadAsset lt="{!linkText}" fn="{!imgFileName}" ft="{!imgContentType}" fb="{!imgBody}"/>
+			<c:LPVideoPopUp link="{!AssetLink[1]}"/>
+			<c:LPUploadAsset lt="{!linkText}" fn="{!imgFileName}" ft="{!imgContentType}" fb="{!imgBody}" idAsset="{!Asset__c.id}" fileIndicator="{!fileIndicator}"/>
 			<apex:actionFunction name="submitAsset" action="{!saveAsset}"/>
 		</apex:form>
 	</div>
@@ -183,6 +184,17 @@
 	</script>
 	</apex:outputPanel>
 	<c:LPFooter />
+	<script>
+		jQuery(document).ready(function($) {
+			var link = $('#resblock').find(':first-child')[0];
+			var linkText = link.href;
+			if (((linkText.indexOf('https://') + 1) || (linkText.indexOf('https://') + 1)) && ((linkText.indexOf('youtube.com') + 1) || (linkText.indexOf('youtu.be') + 1))) {
+				link.outerHTML = '<a href="#" data-toggle="modal" data-target="#videoDialog" onclick="playVideo()">' +
+										'<i class="fa fa-youtube-play fa-3x" style="vertical-align: middle;"></i>' +
+								 '</a>';
+			}
+		});
+	</script>
 </section>
 </apex:define>
 </apex:composition>

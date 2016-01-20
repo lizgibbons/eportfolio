@@ -180,6 +180,10 @@ public with sharing class LPLearnerProfileController {
 		}
 	}
 
+	public String getTemplate() {
+		return LPUtils.getTemplate();
+	}
+
 	public PageReference submitAddRemove() {
 		Set<Id> deleteAssetProfile = new Set<Id>();
 		List<Asset_Learner_Profile__c> createAssetProfile = new List<Asset_Learner_Profile__c>();

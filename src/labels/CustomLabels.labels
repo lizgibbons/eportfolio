@@ -112,6 +112,13 @@
         <shortDescription>LBL Add Remove Learner Profile Title</shortDescription>
         <value>Add or Remove from Learner Profile</value>
     </labels>
+	<labels>
+        <fullName>LBL_Admin_Title_Page</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Admin Title Page</shortDescription>
+        <value>Learner Profile Admin</value>
+    </labels>
     <labels>
         <fullName>LBL_All_Assets</fullName>
         <language>en_US</language>
@@ -209,6 +216,14 @@
         <protected>true</protected>
         <shortDescription>LBL Draft</shortDescription>
         <value>Draft</value>
+    </labels>
+	<labels>
+        <fullName>LBL_Drag_and_Drop_Files_here</fullName>
+        <categories>LPAssetEdit</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Drag and Drop Files here</shortDescription>
+        <value>Drag and Drop Files here</value>
     </labels>
     <labels>
         <fullName>LBL_Edit</fullName>
@@ -371,6 +386,14 @@
         <shortDescription>LBL Select All</shortDescription>
         <value>Select All</value>
     </labels>
+	<labels>
+        <fullName>LBL_Select_Files_from_Computer</fullName>
+        <categories>LPAssetEdit</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Select Files from Computer</shortDescription>
+        <value>Or Select Files from your Computer</value>
+    </labels>
     <labels>
         <fullName>LBL_Show_Hide_All</fullName>
         <language>en_US</language>
@@ -496,5 +519,29 @@
         <protected>true</protected>
         <shortDescription>LBL Upload File</shortDescription>
         <value>Upload File</value>
+    </labels>
+	<labels>
+        <fullName>LBL_Upload_One_File</fullName>
+        <categories>LPAssetEdit</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Upload One File</shortDescription>
+        <value>Please upload only one file</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Upload_Progress</fullName>
+        <categories>LPAssetEdit</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Upload Progress</shortDescription>
+        <value>Upload Progress</value>
+    </labels>
+	<labels>
+        <fullName>ERR_Upload_Only_One_File</fullName>
+        <categories>LPAssetEdit</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ERR Upload Only One File</shortDescription>
+        <value>You can only upload one file</value>
     </labels>
 </CustomLabels>

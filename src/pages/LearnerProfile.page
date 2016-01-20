@@ -3,7 +3,7 @@
 <head>
 	<link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700"/>
 	<style type="text/css">.gm-style .gm-style-cc span,.gm-style .gm-style-cc a,.gm-style .gm-style-mtc div{font-size:10px}</style>
-	<style type="text/css">@media print {	.gm-style .gmnoprint, .gmnoprint {		display:none	}}@media screen {	.gm-style .gmnoscreen, .gmnoscreen {		display:none	}}</style>
+	<style type="text/css">@media print {.gm-style .gmnoprint, .gmnoprint {display:none}}@media screen {.gm-style .gmnoscreen, .gmnoscreen {display:none}}</style>
 	<style type="text/css">.gm-style{font-family:Roboto,Arial,sans-serif;font-size:11px;font-weight:400;text-decoration:none}.gm-style img{max-width:none}</style>
 	<meta charset="utf-8"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -13,12 +13,11 @@
 
 	<!-- Favicon-->
 	<link rel="shortcut icon" href="{!$Resource.page}/img/favicon.png"/>
-
 	<!-- Stylesheets -->
 	<link rel="stylesheet" href="{!$Resource.page}/css/normalize.css"/>
 	<link rel="stylesheet" href="{!$Resource.page}/font/font-awesome/css/font-awesome.min.css"/>
 	<link rel="stylesheet" href="{!$Resource.page}/libs/materialize/css/materialize.min.css" media="screen,projection"/>
-	<link rel="stylesheet" href="{!$Resource.page}/css/bootstrap.css" media="screen,projection"/>
+	<!--<link rel="stylesheet" href="{!$Resource.page}/css/bootstrap.css" media="screen,projection"/>-->
 
 	<link rel="stylesheet" href="{!$Resource.page}/css/animate.min.css" media="screen,projection"/>
 	<link rel="stylesheet" href="{!$Resource.page}/libs/sweetalert/sweet-alert.css" media="screen,projection"/>
@@ -29,9 +28,16 @@
 
 	<link rel="stylesheet" href="{!$Resource.page}/css/main.css"/>
 	<link rel="stylesheet" href="{!$Resource.page}/css/responsive.css"/>
+	<link rel="stylesheet" href="{!$Resource.assets}/css/bootstrap/bootstrap.css"/>
+	<link rel="stylesheet" href="{!$Resource.assets}/css/plugins/bootstrap-chosen/chosen.css"/>
 
 	<!-- Choose your default colors -->
 	<link rel="stylesheet" href="{!$Resource.page}/css/colors/color1.css"/>
+	<!--<link rel="stylesheet" href="{!$Resource.assets}/css/plugins/filebrowser/filebrowser.css"/>-->
+	<!--<link rel="stylesheet" href="{!$Resource.assets}/css/plugins/datatables/jquery.dataTables.css"/>-->
+	<!--<link rel="stylesheet" href="{!$Resource.assets}/css/plugins/bootstrap-chosen/chosen.css"/>-->
+	<!--<link rel="stylesheet" href="{!$Resource.assets}/css/app/app.v1.css"/>
+	<link rel="stylesheet" href="{!$Resource.assets}/css/app/custom.css"/>-->
 	<!-- <link rel="stylesheet" href="{!$Resource.page}/css/colors/color2.css"/> -->
 	<!-- <link rel="stylesheet" href="{!$Resource.page}/css/colors/color3.css"/> -->
 	<!-- <link rel="stylesheet" href="{!$Resource.page}/css/colors/color4.css"/> -->
@@ -130,7 +136,6 @@
 			<!-- .container end -->
 		</header>
 		<!-- #header navigation end -->
-
 		<!-- Home Section start -->
 		<apex:outputPanel layout="none" rendered="{!portfolioFound}">
 		<section id="home" class="scroll-section root-sec grey lighten-5 home-wrap">
@@ -166,6 +171,35 @@
 		</section>
 		</apex:outputPanel>
 		<!-- #home Section end -->
+
+		<!--<div id="modal" class="modal">
+			<div class="modal-header">
+				<h2>Lorem Ipsum</h2>
+			</div>
+			<div class="modal-body">
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+				Donec placerat sem ipsum, ut faucibus nulla. Nullam mattis volutpat
+				dolor, eu porta magna facilisis ut. In ultricies, purus sed pellentesque
+				mollis, nibh tortor semper elit, eget rutrum purus nulla id quam.</p>
+			</div>
+		</div>-->
+
+		<div class="modal fade" id="videoDialog" aria-live="assertive" role="dialog" tabindex="-1" aria-labelledby="videoDialogLabel" aria-hidden="true" style="width: 600px;padding:0;background-color:rgba(0,0,0,0);box-shadow: 0 0 0 0;overflow-y:hidden;min-height: 560px;">
+			<div class="modal-dialog">
+				<div class="modal-content" id="modalContent" style="padding: 0;">
+					<div class="modal-header">
+						<button id="closemodal" aria-hidden="true" data-dismiss="modal" class="close" type="button" onclick="closePopUp()">&times;</button>
+						<h4 id="videoDialogLabel" class="modal-title"></h4>
+					</div>
+					<div class="modal-body form-horizontal">
+						<div id="upd1" class="row" style="margin-bottom:20px">
+							<div id="player"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<apex:variable var="rc" value="{!2 < 1}" />
 		<apex:repeat value="{!CategoriesWithAssets}" var="cwa2">
 			<section id="{!cwa2.catid}" class="root-sec padd-tb-120 {!IF(rc,'brand-bg','grey lighten-5')} experience-wrap">
@@ -305,17 +339,84 @@
 	<script src="{!$Resource.page}/libs/sweetalert/sweet-alert.min.js"></script>
 	<script src="{!$Resource.page}/js/common.js"></script>
 	<script src="{!$Resource.page}/js/main.js"></script>
+	<script src="{!$Resource.assets}/js/bootstrap/bootstrap.js"></script>
 
-<apex:outputPanel layout="none" rendered="{!!ISBLANK($Setup.LP_Template_Settings__c.Hero_Image__c)}" >
-	<style>
-		#home {
-			background: url("{!$Site.Prefix}/servlet/servlet.ImageServer?oid={!$Organization.Id}&amp;id={!$Setup.LP_Template_Settings__c.Hero_Image__c}") no-repeat fixed center center / cover !important;
-		}
-	</style>
-
-
+<apex:outputPanel layout="none" rendered="{!hasCustomHeroImage}">
+	<style>#home {background: url("{!$Site.Prefix}/servlet/servlet.ImageServer?oid={!$Organization.Id}&amp;id={!heroImageId}") no-repeat fixed center center / cover !important;} </style>
 </apex:outputPanel>
 
 </body>
+<script>
+		jQuery(document).ready(function($) {
+			$('.valign-wrapper').each(function(index, element) {
+				var link = $(element).find(':first-child')[0];
+				var linkText = link.href;
+				if (((linkText.indexOf('https://') + 1) || (linkText.indexOf('https://') + 1)) && ((linkText.indexOf('youtube.com') + 1) || (linkText.indexOf('youtu.be') + 1))) {
+					link.outerHTML = '<a href="#" data-toggle="modal" data-target="#videoDialog" onclick="createPlayer(\'' + linkText + '\')">' +
+											'<i class="fa fa-youtube-play fa-3x" style="vertical-align: middle;"></i>' +
+									'</a>';
+				}
+			});
+			createIFrame();
+		});
+
+		function createIFrame() {
+			var tag = document.createElement('script');
+			tag.src = "https://www.youtube.com/iframe_api";
+			tag.id = "youtube";
+			var firstScriptTag = document.getElementsByTagName('script')[0];
+			firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+		}
+
+		var player;
+		function createPlayer(link) {
+			var videoId = getVideoId(link);
+			player = null;
+			player = new YT.Player('player', {
+				height: '390',
+				width: '598',
+				videoId: videoId,
+				playerVars: { 'autoplay': 1, 'controls': 1,'autohide':1,'wmode':'opaque' },
+				events: {
+							'onReady': onPlayerReady
+						}
+			});
+		}
+
+		document.addEventListener("webkitfullscreenchange", function(e) {
+			if (e.eventPhase === 3) {
+				$('#videoDialog')[0].className = "";
+			} else {
+				$('#videoDialog')[0].className = "modal fade in";
+			}
+		}, false);
+
+		function onPlayerReady(event) {
+			document.getElementById("videoDialogLabel").textContent = event.target.getVideoData().title;
+		}
+
+		function closePopUp() {
+			$('<div id="player"></div>').replaceAll('#player');
+		}
+
+		function getVideoId(link) {
+			if (link.indexOf('youtu.be') + 1) {
+				return link.split('/')[3];
+			} else {
+				return getUrlVars(link)["v"];
+			}
+		}
+
+		function getUrlVars(link) {
+			var vars = {};
+			var videoURL = link;
+			var parts = videoURL.replace(/[?&]+([^=&]+)=([^&]*)/gi, 
+				function(m,key,value) {
+					vars[key] = value;
+				});
+			return vars;
+		}
+
+	</script>
 </html>
 </apex:page>

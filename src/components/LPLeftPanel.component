@@ -2,13 +2,12 @@
 	<apex:attribute name="col" description="" type="String" required="false" default="none"/>
 	<aside class="left-panel">
 		<div class="user text-center">
-			<h4 class="user-name">{!$User.FirstName} {!$User.LastName}</h4>
+			<h4 class="user-name">{!UsersContact.FirstName} {!UsersContact.LastName}</h4>
 			<apex:outputPanel layout="none" rendered="{!profilePhotoUrl != NULL}">
 				<img src="{!profilePhotoUrl}" class="img-full-w" alt="{!$User.FirstName} {!$User.LastName} User Photo"/>
 			</apex:outputPanel>
 
 			<!--img src="{!$Resource.assets}/images/avtar/user.png" class="img-circle" alt="..."/-->
-			<!-- <h4 class="user-name">{!$User.FirstName} {!$User.LastName}</h4> -->
 			<!-- <div class="dropdown user-login">
 				<button class="btn btn-xs dropdown-toggle btn-rounded" type="button" data-toggle="dropdown" aria-expanded="true">
 					<i class="fa fa-circle status-icon available"></i> Available <i class="fa fa-angle-down"></i>
