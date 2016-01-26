@@ -32,27 +32,21 @@ public with sharing class LPUtils {
 
 	public static String getTemplate() {
 		LP_Template_Settings__c templCustomSettings = LP_Template_Settings__c.getOrgDefaults();
-		String namespacePrefix = '';
-		List<Apexpage> lst;
-		if (templCustomSettings.Site_Template_Label__c != NULL) {
-			String template = templCustomSettings.Site_Template_Label__c;
-			String namespacePrefixAfter = template.substringAfter('__');
-			if (namespacePrefixAfter.length() > 0) {
-				namespacePrefix = template.substringBefore('__');
+		String template = templCustomSettings.Site_Template_Label__c;
+		if (String.isNotBlank(template)) {
+			String prefix = template.contains('__') ? template.substringBefore('__') : '';
+			template = template.contains('__') ? template.substringAfter('__') : template;
+
+			List<Apexpage> lst;
+			if (String.isNotBlank(prefix) && String.isNotBlank(template)) {
+				lst = [SELECT Id, Name FROM Apexpage WHERE Name = :template AND NamespacePrefix = :prefix];
 			}
-			if (namespacePrefix.length() > 0) {
-				lst=[SELECT id,name FROM Apexpage WHERE name=:template AND namespacePrefix=:namespacePrefix];
-			} else {
-				lst=[SELECT id,name FROM Apexpage WHERE name=:template];
+			else {
+				lst = [SELECT Id, Name FROM Apexpage WHERE Name = :template];
 			}
-			if (lst.size() > 0) {
-				return template;
-			} else {
-				return Site.getTemplate().getUrl().replace('/site/','').replace('.apexp','');
-			}
-		} else {
-			return Site.getTemplate().getUrl().replace('/site/','').replace('.apexp','');
+			return lst.isEmpty() ? Site.getTemplate().getUrl().replace('/site/','').replace('.apexp','') : templCustomSettings.Site_Template_Label__c;
 		}
+		return Site.getTemplate().getUrl().replace('/site/','').replace('.apexp','');
 	}
 
 }
