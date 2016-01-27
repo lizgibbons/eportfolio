@@ -30,23 +30,27 @@ public with sharing class LPUtils {
 		return inUrl;
 	}
 
-	public static String getTemplate() {
-		LP_Template_Settings__c templCustomSettings = LP_Template_Settings__c.getOrgDefaults();
-		String template = templCustomSettings.Site_Template_Label__c;
-		if (String.isNotBlank(template)) {
-			String prefix = template.contains('__') ? template.substringBefore('__') : '';
-			template = template.contains('__') ? template.substringAfter('__') : template;
+	public static PageReference getSiteTemplatePage() {
+		LP_Template_Settings__c setting = LP_Template_Settings__c.getOrgDefaults();
+		String customPage = setting != null ? setting.Site_Template_Label__c : '';
+		if (String.isNotBlank(customPage)) {
+			customPage = customPage.contains('__') ? customPage : 'c__' + customPage;
 
-			List<Apexpage> lst;
-			if (String.isNotBlank(prefix) && String.isNotBlank(template)) {
-				lst = [SELECT Id, Name FROM Apexpage WHERE Name = :template AND NamespacePrefix = :prefix];
+			String queryPrefix = customPage.contains('__') ? customPage.substringBefore('__') : '';
+			String queryPage = customPage.contains('__') ? customPage.substringAfter('__') : customPage;
+
+			List<Apexpage> lst = new List<Apexpage>();
+			if (String.isNotBlank(queryPrefix) && !queryPrefix.equalsIgnoreCase('c')) {
+				lst = [SELECT Id FROM Apexpage WHERE Name = :queryPage AND NamespacePrefix = :queryPrefix];
 			}
 			else {
-				lst = [SELECT Id, Name FROM Apexpage WHERE Name = :template];
+				lst = [SELECT Id FROM Apexpage WHERE Name = :queryPage];
 			}
-			return lst.isEmpty() ? Site.getTemplate().getUrl().replace('/site/','').replace('.apexp','') : templCustomSettings.Site_Template_Label__c;
+			if (!lst.isEmpty()) {
+				return new PageReference('/apex/' + customPage);
+			}
 		}
-		return Site.getTemplate().getUrl().replace('/site/','').replace('.apexp','');
+		return Site.getTemplate();
 	}
 
 }
