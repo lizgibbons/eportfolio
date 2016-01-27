@@ -1,5 +1,5 @@
 <apex:page showHeader="false" controller="LPUtils" sideBar="false" standardStylesheets="false" docType="html-5.0" applyBodyTag="false" applyHtmlTag="false">
-<apex:composition template="{!Template}">
+<apex:composition template="{!siteTemplatePage}">
 <apex:define name="title">404</apex:define>
 <apex:define name="body">
 	<div class="container">

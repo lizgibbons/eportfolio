@@ -180,8 +180,8 @@ public with sharing class LPLearnerProfileController {
 		}
 	}
 
-	public String getTemplate() {
-		return LPUtils.getTemplate();
+	public PageReference getSiteTemplatePage() {
+		return LPUtils.getSiteTemplatePage();
 	}
 
 	public PageReference submitAddRemove() {

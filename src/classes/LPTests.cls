@@ -110,7 +110,7 @@ private class LPTests {
 	static testMethod void test_LPUtils() {
 		LPUtils.convertFileSize(1048575);
 		LPUtils.convertFileSize(1073741823);
-		LPUtils.getTemplate();
+		LPUtils.getSiteTemplatePage();
 		System.assert(LPUtils.convertFileSize(1073741824) == '1.00 GB', true);
 	}
 
