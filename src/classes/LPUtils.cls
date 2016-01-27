@@ -50,6 +50,12 @@ public with sharing class LPUtils {
 				return new PageReference('/apex/' + customPage);
 			}
 		}
+		String siteTemplatePage = Site.getTemplate().getUrl();
+		if (String.isNotBlank(siteTemplatePage)) {
+			siteTemplatePage = siteTemplatePage.contains('/') ? siteTemplatePage.substringAfterLast('/') : siteTemplatePage;
+			siteTemplatePage = siteTemplatePage.contains('__') ? siteTemplatePage : 'c__' + siteTemplatePage;
+			return new PageReference('/apex/' + siteTemplatePage);
+		}
 		return Site.getTemplate();
 	}
 
