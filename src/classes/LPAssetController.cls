@@ -36,6 +36,11 @@ public without sharing class LPAssetController {
 	public Boolean isDel { get { return isDel == true; } set; }
 	public String attachmentId { get; set; }
 	public Boolean fileIndicator { get; set; }
+	public String LBL_Welcome_to_Portfolio {
+		get {
+			return string.format(Label.LBL_Welcome_to_Portfolio_c, new List<String>{PortfolioOwnerName});
+		}
+	}
 
 	public void initFromEdit() {
 		init();
