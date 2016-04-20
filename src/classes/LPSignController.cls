@@ -40,8 +40,8 @@ public without sharing class LPSignController {
 		}
 	}
 
-	public String getTemplate() {
-		return LPUtils.getTemplate();
+	public PageReference getSiteTemplatePage() {
+		return LPUtils.getSiteTemplatePage();
 	}
 
 	public PageReference createUser() {

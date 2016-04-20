@@ -30,29 +30,33 @@ public with sharing class LPUtils {
 		return inUrl;
 	}
 
-	public static String getTemplate() {
-		LP_Template_Settings__c templCustomSettings = LP_Template_Settings__c.getOrgDefaults();
-		String namespacePrefix = '';
-		List<Apexpage> lst;
-		if (templCustomSettings.Site_Template_Label__c != NULL) {
-			String template = templCustomSettings.Site_Template_Label__c;
-			String namespacePrefixAfter = template.substringAfter('__');
-			if (namespacePrefixAfter.length() > 0) {
-				namespacePrefix = template.substringBefore('__');
+	public static PageReference getSiteTemplatePage() {
+		LP_Template_Settings__c setting = LP_Template_Settings__c.getOrgDefaults();
+		String customPage = setting != null ? setting.Site_Template_Label__c : '';
+		if (String.isNotBlank(customPage)) {
+			customPage = customPage.contains('__') ? customPage : 'c__' + customPage;
+
+			String queryPrefix = customPage.contains('__') ? customPage.substringBefore('__') : '';
+			String queryPage = customPage.contains('__') ? customPage.substringAfter('__') : customPage;
+
+			List<Apexpage> lst = new List<Apexpage>();
+			if (String.isNotBlank(queryPrefix) && !queryPrefix.equalsIgnoreCase('c')) {
+				lst = [SELECT Id FROM Apexpage WHERE Name = :queryPage AND NamespacePrefix = :queryPrefix];
 			}
-			if (namespacePrefix.length() > 0) {
-				lst=[SELECT id,name FROM Apexpage WHERE name=:template AND namespacePrefix=:namespacePrefix];
-			} else {
-				lst=[SELECT id,name FROM Apexpage WHERE name=:template];
+			else {
+				lst = [SELECT Id FROM Apexpage WHERE Name = :queryPage];
 			}
-			if (lst.size() > 0) {
-				return template;
-			} else {
-				return Site.getTemplate().getUrl().replace('/site/','').replace('.apexp','');
+			if (!lst.isEmpty()) {
+				return new PageReference('/apex/' + customPage);
 			}
-		} else {
-			return Site.getTemplate().getUrl().replace('/site/','').replace('.apexp','');
 		}
+		String siteTemplatePage = Site.getTemplate().getUrl();
+		if (String.isNotBlank(siteTemplatePage)) {
+			siteTemplatePage = siteTemplatePage.contains('/') ? siteTemplatePage.substringAfterLast('/') : siteTemplatePage;
+			siteTemplatePage = siteTemplatePage.contains('__') ? siteTemplatePage : 'c__' + siteTemplatePage;
+			return new PageReference('/apex/' + siteTemplatePage);
+		}
+		return Site.getTemplate();
 	}
 
 }

@@ -109,6 +109,14 @@ public without sharing class LPAssetController {
 					Attachment attachContact = attachContactList[0];
 					Attachment attachAsset = new Attachment(Name=attachContact.Name, Body=attachContact.Body, ParentId=tesla.Id, ContentType=attachContact.ContentType, Description='CreatedByAsset');
 					insert attachAsset;
+					//LP-87 ----->
+					Asset__c temporaryAsset = [SELECT id FROM Asset__c WHERE Name = :'Temporary Asset' AND User__c = :UserInfo.getUserId()];
+					try {
+						delete temporaryAsset;
+					} catch(Exception e) {
+						System.debug('Delete problem!');
+					}
+					//LP-87 <-----
 				}
 			} else if (fileIndicator) {
 				tesla.Link__c = NULL;
@@ -478,8 +486,8 @@ public without sharing class LPAssetController {
 		return (lpts == NULL || String.isBlank(lpts.Header_Logo__c)) ? NULL : lpts.Header_Logo__c;
 	}
 
-	public String getTemplate() {
-		return LPUtils.getTemplate();
+	public PageReference getSiteTemplatePage() {
+		return LPUtils.getSiteTemplatePage();
 	}
 
 	// WRAPPER CLASSES

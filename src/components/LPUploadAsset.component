@@ -270,9 +270,19 @@
 				function getParentIdAttachment() {
 					if (LPCREATEMODE && ('{!idAsset}' === 'false')) {
 						sforce.connection.sessionId = '{!GETSESSIONID()}';
-						var contactId = sforce.connection.query("SELECT ContactId FROM User WHERE id =" + "'{!$User.Id}'");
-						parentIdAttachment = contactId.getArray("records")[0]["ContactId"];
-						hasParentAttachmentContact = true;
+						Asset = new sforce.SObject('Asset__c');
+						Asset.Name = 'Temporary Asset';
+						Asset.Description__c = 'Support entity';
+						Asset.User__c = '{!$User.Id}';
+						sforce.connection.create([Asset], {
+							onSuccess : function(result, source) {
+								parentIdAttachment = result[0].id;
+								hasParentAttachmentContact = true;
+							},
+							onFailure : function(error, source) {
+								console.log("An error has occurred " + error);
+							}
+						});
 					} else {
 						parentIdAttachment = '{!idAsset}';
 					}
