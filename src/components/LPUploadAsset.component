@@ -83,7 +83,7 @@
 			</div>
 			<div id="updb" class="modal-footer" style="display:none;">
 				<button type="button" class="btn-u btn-primary" onclick="submitDialog();return false;">{!$Label.BTN_Save}</button>
-				<button type="button" class="btn-u btn-warning" onclick="cancelDialog();return false;" data-dismiss="modal">{!$Label.BTN_Cancel}</button>
+				<button type="button" class="btn-u btn-warning" onclick="cancelDialog('param');return false;" data-dismiss="modal">{!$Label.BTN_Cancel}</button>
 			</div>
 			<script>
 				var att;
@@ -120,7 +120,7 @@
 					//jQuery('input[id*="updfit265"]')[0].files = new fileList();
 					dragAndDrop = false;
 				}
-				function cancelDialog() {
+				function cancelDialog(param) {
 					$('.progress-bar')[0].style.width = '0%';
 					$('section[id*=upd]').hide();
 					$('#updb').hide();
@@ -130,7 +130,13 @@
 					clearError();
 					$('[id$=it265]').removeAttr('required').val('');
 					if (LPCREATEMODE) {
+						if (param == null) {
+							getParentIdAttachment();
+						} else {
+							deleteTempAsset();
+						}
 						$('#reslname').text('');
+						//deleteTempAsset();
 					}
 					return false;
 				}
@@ -139,10 +145,25 @@
 						if (dragAndDrop) {
 							dragAndDropFileUpload();
 						} else {
-							LPCREATEMODE ? $('#closemodal').click() : submitAsset();
+							if (LPCREATEMODE) {
+								$('#closemodal').click();
+								deleteTempAsset();
+							} else {
+								submitAsset();
+							}
 						}
 					}
 				}
+
+				function deleteTempAsset() {
+					if (attachmentObject.Name == null) {
+						var deletedItems = sforce.connection.deleteIds([parentIdAttachment]);
+						var tmp = 1;
+						parentIdAttachment = null;
+						hasParentAttachmentContact = false;
+					}
+				}
+
 				function validateInput() {
 					var cr = $('[id$=it265][required=required]');
 					var lnk = jQuery('input[id*="updlit265"]')[0].value;
@@ -270,19 +291,22 @@
 				function getParentIdAttachment() {
 					if (LPCREATEMODE && ('{!idAsset}' === 'false')) {
 						sforce.connection.sessionId = '{!GETSESSIONID()}';
-						Asset = new sforce.SObject('Asset__c');
-						Asset.Name = 'Temporary Asset';
-						Asset.Description__c = 'Support entity';
-						Asset.User__c = '{!$User.Id}';
-						sforce.connection.create([Asset], {
-							onSuccess : function(result, source) {
-								parentIdAttachment = result[0].id;
-								hasParentAttachmentContact = true;
-							},
-							onFailure : function(error, source) {
-								console.log("An error has occurred " + error);
-							}
-						});
+						if (!hasParentAttachmentContact) {
+							Asset = new sforce.SObject('Asset__c');
+							Asset.Name = 'Temporary Asset';
+							Asset.Description__c = 'Support entity';
+							Asset.User__c = '{!$User.Id}';
+							sforce.connection.create([Asset], {
+								onSuccess : function(result, source) {
+									parentIdAttachment = result[0].id;
+									hasParentAttachmentContact = true;
+									document.cookie = 'apex__AssetIdToDelete=' + parentIdAttachment;
+								},
+								onFailure : function(error, source) {
+									console.log("An error has occurred " + error);
+								}
+							});
+						}
 					} else {
 						parentIdAttachment = '{!idAsset}';
 					}
@@ -300,7 +324,7 @@ jQuery(document).ready(function($) {
 		$('.ie-message').show();
 	}
 
-	getParentIdAttachment();
+	//getParentIdAttachment();
 
 	//set up event listeners for the drop item
 	function setUpEventListeners() {
