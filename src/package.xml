@@ -11,6 +11,8 @@
         <members>LPSignController</members>
         <members>LPTests</members>
         <members>LPUtils</members>
+		<members>LPScheduledLPTemporaryAssetDeletingBatch</members>
+        <members>LPTemporaryAssetDeletingBatch</members>
         <name>ApexClass</name>
     </types>
     <types>
@@ -143,6 +145,7 @@
 		<members>LBL_Drag_and_Drop_Files_here</members>
 		<members>LBL_Admin_Title_Page</members>
 		<members>LBL_Upload_Progress</members>
+		<members>LBL_Asset_Will_Not_Be_Saved</members>
 		<members>ERR_Upload_Only_One_File</members>		 
         <name>CustomLabel</name>
     </types>
