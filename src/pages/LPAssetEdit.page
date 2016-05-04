@@ -59,10 +59,12 @@
 				</apex:outputPanel>
 				<button type="button" class="btn-u btn-primary" onclick="submitAsset(false);return false;">{!$Label.BTN_Save}</button>
 				&nbsp;
-				<apex:outputLink onclick="clearAttachAction();return false;" styleClass="btn-u btn-warning">{!$Label.BTN_Cancel}</apex:outputLink>
+				<apex:outputLink onclick="clearAttach();return false;" styleClass="btn-u btn-warning">{!$Label.BTN_Cancel}</apex:outputLink>
 			</div>
 		</div>
 		<script>
+			var submitActionIndicator = false;
+			var cancelActionIndicator = false;
 			function submitAsset(ij) {
 				if ($('#reslname').text().trim() == '') {
 					if ($('#reserr').length == 0) {
@@ -76,9 +78,15 @@
 					$('#atlp3').modal('show');
 				}
 				else {
+					submitActionIndicator = true;
 					submitAssetAction();
 				}
 			}
+			function clearAttach() {
+				cancelActionIndicator = true;
+				clearAttachAction();
+			}
+
 			if ($('#reslname').text().trim() == '') {
 				$('#reslname').text($('[id$=it265]')[2].value);
 			}
@@ -91,6 +99,13 @@
 						$('#sadbtn').removeAttr('disabled').css('opacity','1');
 					}
 				});
+			}
+			window.onbeforeunload = function () {
+				if (isFileAttached != null) {
+					if (parentIdAttachment != null && !submitActionIndicator && !cancelActionIndicator && isFileAttached) {
+						return '{!$Label.LBL_Asset_Will_Not_Be_Saved}';
+					}
+				}
 			}
 		</script>
 	</div>

@@ -543,7 +543,7 @@
         <shortDescription>LBL Upload Progress</shortDescription>
         <value>Upload Progress</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>ERR_Upload_Only_One_File</fullName>
         <categories>LPAssetEdit</categories>
         <language>en_US</language>
@@ -551,4 +551,12 @@
         <shortDescription>ERR Upload Only One File</shortDescription>
         <value>You can only upload one file</value>
     </labels>
+    <labels>
+        <fullName>LBL_Asset_Will_Not_Be_Saved</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Asset Will Not Be Saved</shortDescription>
+        <value>Your asset will not be saved. Please hit Save to save your asset.</value>
+    </labels>		
+	
 </CustomLabels>
