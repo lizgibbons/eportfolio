@@ -35,7 +35,7 @@
 					<div class="col-xs-12 col-sm-2"></div>
 				</div>
 				<section id="updf" style="display:none;" class="form-group has-feedback fileupload">
-					
+
 					<article class="dnd-onto-website cf">
 						<label class="ie-message">You are using Internet Explorer. IE only supports the 'text' and 'URL' transfer types so your experience may be limited. Also IE9 and below have no support for dragging images from your desktop to the page</label>
 						<div class="container-drop drop">
@@ -83,7 +83,7 @@
 			</div>
 			<div id="updb" class="modal-footer" style="display:none;">
 				<button type="button" class="btn-u btn-primary" onclick="submitDialog();return false;">{!$Label.BTN_Save}</button>
-				<button type="button" class="btn-u btn-warning" onclick="cancelDialog();return false;" data-dismiss="modal">{!$Label.BTN_Cancel}</button>
+				<button type="button" class="btn-u btn-warning" onclick="cancelDialog('param');return false;" data-dismiss="modal">{!$Label.BTN_Cancel}</button>
 			</div>
 			<script>
 				var att;
@@ -103,6 +103,7 @@
 				var attachmentObject = {};
 				var countFileError = false;
 				var createdAttachId;
+				var isFileAttached = false;
 				function showSection(sid) {
 					clearError();
 					$('.progress-bar')[0].style.width = '0%';
@@ -120,7 +121,7 @@
 					//jQuery('input[id*="updfit265"]')[0].files = new fileList();
 					dragAndDrop = false;
 				}
-				function cancelDialog() {
+				function cancelDialog(param) {
 					$('.progress-bar')[0].style.width = '0%';
 					$('section[id*=upd]').hide();
 					$('#updb').hide();
@@ -130,7 +131,13 @@
 					clearError();
 					$('[id$=it265]').removeAttr('required').val('');
 					if (LPCREATEMODE) {
+						if (param == null) {
+							getParentIdAttachment();
+						} else {
+							deleteTempAsset();
+						}
 						$('#reslname').text('');
+						//deleteTempAsset();
 					}
 					return false;
 				}
@@ -139,10 +146,25 @@
 						if (dragAndDrop) {
 							dragAndDropFileUpload();
 						} else {
-							LPCREATEMODE ? $('#closemodal').click() : submitAsset();
+							if (LPCREATEMODE) {
+								$('#closemodal').click();
+								deleteTempAsset();
+							} else {
+								submitAsset();
+							}
 						}
 					}
 				}
+
+				function deleteTempAsset() {
+					if (attachmentObject.Name == null) {
+						var deletedItems = sforce.connection.deleteIds([parentIdAttachment]);
+						var tmp = 1;
+						parentIdAttachment = null;
+						hasParentAttachmentContact = false;
+					}
+				}
+
 				function validateInput() {
 					var cr = $('[id$=it265][required=required]');
 					var lnk = jQuery('input[id*="updlit265"]')[0].value;
@@ -176,7 +198,7 @@
 							} else {
 								et = FSERROR;
 							}
-						} 
+						}
 						else {
 							et = REQERROR;
 							ei = 'rf265';
@@ -240,6 +262,7 @@
 										jQuery('input[id*="attachmentId"]').val('');
 									}
 									statusProgressBar = 100;
+									isFileAttached = true;
 									if (!LPCREATEMODE) {
 										submitAsset();
 									}
@@ -270,9 +293,22 @@
 				function getParentIdAttachment() {
 					if (LPCREATEMODE && ('{!idAsset}' === 'false')) {
 						sforce.connection.sessionId = '{!GETSESSIONID()}';
-						var contactId = sforce.connection.query("SELECT ContactId FROM User WHERE id =" + "'{!$User.Id}'");
-						parentIdAttachment = contactId.getArray("records")[0]["ContactId"];
-						hasParentAttachmentContact = true;
+						if (!hasParentAttachmentContact) {
+							Asset = new sforce.SObject('Asset__c');
+							Asset.Name = 'Temporary Asset';
+							Asset.Description__c = 'Support entity';
+							Asset.User__c = '{!$User.Id}';
+							sforce.connection.create([Asset], {
+								onSuccess : function(result, source) {
+									parentIdAttachment = result[0].id;
+									hasParentAttachmentContact = true;
+									document.cookie = 'apex__AssetIdToDelete=' + parentIdAttachment;
+								},
+								onFailure : function(error, source) {
+									console.log("An error has occurred " + error);
+								}
+							});
+						}
 					} else {
 						parentIdAttachment = '{!idAsset}';
 					}
@@ -290,7 +326,7 @@ jQuery(document).ready(function($) {
 		$('.ie-message').show();
 	}
 
-	getParentIdAttachment();
+	//getParentIdAttachment();
 
 	//set up event listeners for the drop item
 	function setUpEventListeners() {
@@ -438,6 +474,7 @@ jQuery(document).ready(function($) {
 		}
 	}
 });
+
 </script>
 		</div>
 	</div>

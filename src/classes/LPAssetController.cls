@@ -36,6 +36,11 @@ public without sharing class LPAssetController {
 	public Boolean isDel { get { return isDel == true; } set; }
 	public String attachmentId { get; set; }
 	public Boolean fileIndicator { get; set; }
+	public String LBL_Welcome_to_Portfolio {
+		get {
+			return string.format(Label.LBL_Welcome_to_Portfolio_c, new List<String>{PortfolioOwnerName});
+		}
+	}
 
 	public void initFromEdit() {
 		init();
@@ -109,6 +114,17 @@ public without sharing class LPAssetController {
 					Attachment attachContact = attachContactList[0];
 					Attachment attachAsset = new Attachment(Name=attachContact.Name, Body=attachContact.Body, ParentId=tesla.Id, ContentType=attachContact.ContentType, Description='CreatedByAsset');
 					insert attachAsset;
+
+					//LP-87 ----->
+					System.debug('ParentId ' + attachContact.ParentId);
+					List<Asset__c> temporaryAsset = [SELECT id FROM Asset__c WHERE id = :attachContact.ParentId];
+					System.debug('tempAsset ' + temporaryAsset);
+					try {
+						delete temporaryAsset;
+					} catch(Exception e) {
+						System.debug('Delete problem!');
+					}
+					//LP-87 <-----
 				}
 			} else if (fileIndicator) {
 				tesla.Link__c = NULL;
@@ -116,7 +132,6 @@ public without sharing class LPAssetController {
 			} else {
 				upsert tesla;
 			}
-			clearAttachSave();
 			pr = Page.LPAssetDetail;
 			pr.getParameters().put('id', tesla.Id);
 			pr.setRedirect(true);
@@ -128,8 +143,17 @@ public without sharing class LPAssetController {
 	}
 
 	public PageReference clearAttach() {
-		clearAttachContact();
-		clearAttachAsset(true);
+		//LP-87 ----->
+		Cookie assetCook = ApexPages.currentPage().getCookies().get('AssetIdToDelete');
+		String cookieValue = assetCook.getValue();
+		
+		List<Asset__c> temporaryAsset = [SELECT id FROM Asset__c WHERE id = :cookieValue];
+		try {
+			delete temporaryAsset;
+		} catch(Exception e) {
+			System.debug('Delete problem!');
+		}
+		
 		String retURLParametr = ApexPages.currentPage().getParameters().get('retURL');
 		if (retURLParametr != NULL) {
 			PageReference pr = new PageReference(retURLParametr);
@@ -139,6 +163,7 @@ public without sharing class LPAssetController {
 		} else {
 			return null;
 		}
+		//LP-87 <-----
 	}
 	
 	public void clearAttachSave() {

@@ -11,6 +11,8 @@
         <members>LPSignController</members>
         <members>LPTests</members>
         <members>LPUtils</members>
+		<members>LPScheduledLPTemporaryAssetDeletingBatch</members>
+        <members>LPTemporaryAssetDeletingBatch</members>
         <name>ApexClass</name>
     </types>
     <types>
@@ -136,6 +138,7 @@
         <members>LBL_Sign_up_Title</members>
         <members>LBL_Type_it_again</members>
         <members>LBL_URL</members>
+		<members>LBL_Welcome_to_Portfolio_c</members>
         <members>LBL_Upload</members>
         <members>LBL_Upload_File</members>
 		<members>LBL_Upload_One_File</members>
@@ -143,6 +146,7 @@
 		<members>LBL_Drag_and_Drop_Files_here</members>
 		<members>LBL_Admin_Title_Page</members>
 		<members>LBL_Upload_Progress</members>
+		<members>LBL_Asset_Will_Not_Be_Saved</members>
 		<members>ERR_Upload_Only_One_File</members>		 
         <name>CustomLabel</name>
     </types>

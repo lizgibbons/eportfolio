@@ -507,6 +507,13 @@
         <value>URL</value>
     </labels>
     <labels>
+        <fullName>LBL_Welcome_to_Portfolio_c</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL_Welcome_to_Portfolio__c</shortDescription>
+        <value>Welcome to the Portfolio of {0}</value>
+    </labels>	
+    <labels>
         <fullName>LBL_Upload</fullName>
         <language>en_US</language>
         <protected>true</protected>
@@ -536,7 +543,7 @@
         <shortDescription>LBL Upload Progress</shortDescription>
         <value>Upload Progress</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>ERR_Upload_Only_One_File</fullName>
         <categories>LPAssetEdit</categories>
         <language>en_US</language>
@@ -544,4 +551,12 @@
         <shortDescription>ERR Upload Only One File</shortDescription>
         <value>You can only upload one file</value>
     </labels>
+    <labels>
+        <fullName>LBL_Asset_Will_Not_Be_Saved</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Asset Will Not Be Saved</shortDescription>
+        <value>Your asset will not be saved. Please hit Save to save your asset.</value>
+    </labels>		
+	
 </CustomLabels>
