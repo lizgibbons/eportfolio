@@ -138,6 +138,7 @@
         <members>LBL_Sign_up_Title</members>
         <members>LBL_Type_it_again</members>
         <members>LBL_URL</members>
+		<members>LBL_Welcome_to_Portfolio_c</members>
         <members>LBL_Upload</members>
         <members>LBL_Upload_File</members>
 		<members>LBL_Upload_One_File</members>
