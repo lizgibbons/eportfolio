@@ -138,6 +138,8 @@
 						}
 						$('#reslname').text('');
 						//deleteTempAsset();
+					} else {
+						getParentIdAttachment();
 					}
 					return false;
 				}
