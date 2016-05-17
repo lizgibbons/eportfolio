@@ -138,9 +138,9 @@
 						}
 						$('#reslname').text('');
 						//deleteTempAsset();
-					} else {
+					} else { //lp87
 						getParentIdAttachment();
-					}
+					} //lp87
 					return false;
 				}
 				function submitDialog() {
