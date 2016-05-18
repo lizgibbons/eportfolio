@@ -20,7 +20,7 @@ public without sharing class LPAssetController {
 		if (String.isNotBlank(cParam)) {
 			String categoryNotFiltred = cParam.toLowerCase();
 			for (Schema.PicklistEntry pe : SObjectType.Asset__c.fields.Category__c.getPicklistValues()) {
-				if(pe.getValue().toLowerCase() == categoryNotFiltred) {
+				if (pe.getValue().toLowerCase() == categoryNotFiltred) {
 					result = pe;
 					break;
 				}
@@ -482,14 +482,14 @@ public without sharing class LPAssetController {
 				WHERE Id = :lpParamId
 					AND (Status__c = 'Active' OR (Status__c = 'Draft' AND OwnerId = :UserInfo.getUserId()))
 			];
-			String contactId = [SELECT ContactId FROM User WHERE id = :UserInfo.getUserId()][0].ContactId;
-			List<Contact> contactList = [SELECT Id, FirstName, LastName FROM Contact WHERE id = :contactId];
-			if (contactList.size() > 0) {
-				portfolioOwnerName = contactList[0].FirstName + ' ' + contactList[0].LastName;
-			}
-			else {
-				portfolioOwnerName = checklp.Owner.Name;
-			}
+
+			List<User> uList = [
+				SELECT Id, Contact.Id, Contact.FirstName, Contact.LastName
+				FROM User
+				WHERE Id = :UserInfo.getUserId()
+					AND ContactId != null
+			];
+			portfolioOwnerName = uList.isEmpty() ? checklp.Owner.Name : uList[0].Contact.FirstName + ' ' + uList[0].Contact.LastName;
 			portfolioDescription = checklp.Description__c;
 			portfolioFound = true;
 		}
@@ -505,7 +505,7 @@ public without sharing class LPAssetController {
 			Id lpParamId = Id.valueOf(ApexPages.currentPage().getParameters().get('lp'));
 			for (Asset__c aItem : [
 						SELECT Id, Name, Link__c, Description__c, Type__c, Status__c, Category__c, CreatedDate,
-							(SELECT Id, Name, BodyLength From Attachments ORDER BY CreatedDate DESC LIMIT 1)
+							(SELECT Id, Name, BodyLength FROM Attachments ORDER BY CreatedDate DESC LIMIT 1)
 						FROM Asset__c
 						WHERE Id IN (SELECT Asset__c FROM Asset_Learner_Profile__c WHERE Learner_Profile__c = :lpParamId)
 				]) {
