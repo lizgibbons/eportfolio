@@ -8,6 +8,7 @@ public without sharing class LPAssetController {
 	}
 
 	private ApexPages.StandardController stdctrl;
+
 	public LPAssetController(ApexPages.StandardController stdController) {
 		stdctrl = stdController;
 	}
@@ -108,6 +109,7 @@ public without sharing class LPAssetController {
 			else if (imgBody != NULL && String.isNotBlank(imgFileName)) {
 				tesla.Link__c = NULL;
 				upsert tesla;
+
 				insert new Attachment(
 					Name = imgFileName,
 					Body = imgBody,
@@ -115,24 +117,24 @@ public without sharing class LPAssetController {
 					ContentType = imgContentType
 				);
 			}
-			else if (attachmentId != 'false' && attachmentId != NULL && String.isNotBlank(attachmentId)) {
+			else if (attachmentId != 'false' && String.isNotBlank(attachmentId)) {
 				tesla.Link__c = NULL;
 				upsert tesla;
-				List<Attachment> attachContactList = [SELECT Id, Name, Body, ContentType, ParentId FROM Attachment WHERE Id = :attachmentId];
-				if (attachContactList.size() > 0) {
-					Attachment attachContact = attachContactList[0];
-					Attachment attachAsset = new Attachment(
-						Name = attachContact.Name,
-						Body = attachContact.Body,
+
+				List<Attachment> acList = [SELECT Id, Name, Body, ContentType, ParentId FROM Attachment WHERE Id = :attachmentId];
+				if (acList.size() > 0) {
+					Attachment ac = acList[0];
+					insert new Attachment(
+						Name = ac.Name,
+						Body = ac.Body,
 						ParentId = tesla.Id,
-						ContentType = attachContact.ContentType,
+						ContentType = ac.ContentType,
 						Description = 'CreatedByAsset'
 					);
-					insert attachAsset;
 					
 					//LP-87 ----->
 					try {
-						delete [SELECT Id FROM Asset__c WHERE Id = :attachContact.ParentId];
+						delete [SELECT Id FROM Asset__c WHERE Id = :ac.ParentId];
 					}
 					catch(Exception e) {
 						System.debug('Delete problem!');
@@ -224,14 +226,14 @@ public without sharing class LPAssetController {
 				Asset__c = tesla.Id,
 				Learner_Profile__c = lpParamId
 			);
-			String ruParam = ApexPages.currentPage().getParameters().get('retUrl');
-			if (String.isBlank(ruParam)) {
+			String retURLParametr = ApexPages.currentPage().getParameters().get('retUrl');
+			if (String.isBlank(retURLParametr)) {
 				pr = Page.LPAssets;
 				pr.getParameters().put('lp', lpParamId);
 				pr.setRedirect(true);
 			}
 			else {
-				pr = new PageReference(ruParam);
+				pr = new PageReference(retURLParametr);
 			}
 		}
 		return pr;
@@ -360,7 +362,7 @@ public without sharing class LPAssetController {
 	}
 
 	public String getLPStatusColorStyle() {
-		Map<String,String> tm = new Map<String,String> { 'Active' => 'text-success', 'Draft' => 'text-warning', 'Inactive' => 'text-danger' };
+		Map<String, String> tm = new Map<String, String> { 'Active' => 'text-success', 'Draft' => 'text-warning', 'Inactive' => 'text-danger' };
 		return tm.get(currentLearnerProfile.Status__c);
 	}
 
@@ -446,7 +448,7 @@ public without sharing class LPAssetController {
 	public List<Tessa> getAssets() {
 		List<Tessa> resultList = new List<Tessa>();
 		if (categoryMode == true && !wrongProfile) {
-			String aQuery = 'SELECT Id, Name, Link__c, Description__c, Type__c, Status__c, CreatedDate, (SELECT Id, Name, BodyLength From Attachments ORDER BY CreatedDate DESC LIMIT 1)';
+			String aQuery = 'SELECT Id, Name, Link__c, Description__c, Type__c, Status__c, CreatedDate, (SELECT Id, Name, BodyLength FROM Attachments ORDER BY CreatedDate DESC LIMIT 1)';
 			aQuery += ' FROM Asset__c WHERE Category__c = \'' + String.escapeSingleQuotes(ApexPages.currentPage().getParameters().get('c')) + '\'';
 			aQuery += ' AND User__c =\'' + UserInfo.getUserId() + '\'';
 			if (lpMode) {
