@@ -7,6 +7,7 @@
 <apex:attribute name="idAsset" type="String" required="false" default="false" description="Asset id" />
 <apex:attribute name="attachmentId" type="String" required="false" default="false" description="Attachment id to transfer to controller" />
 <apex:attribute name="fileIndicator" type="Boolean" required="false" default="false" description="File Indicator" />
+<apex:attribute name="prefix" type="String" required="false" default="" description="Package prefix" />
 
 <script type="text/javascript">
 	var __sfdcSessionId = '{!GETSESSIONID()}';
@@ -296,10 +297,10 @@
 					if (LPCREATEMODE && ('{!idAsset}' === 'false')) {
 						sforce.connection.sessionId = '{!GETSESSIONID()}';
 						if (!hasParentAttachmentContact) {
-							Asset = new sforce.SObject('Asset__c');
+							Asset = new sforce.SObject('{!prefix}Asset__c');
 							Asset.Name = 'Temporary Asset';
-							Asset.Description__c = 'Support entity';
-							Asset.User__c = '{!$User.Id}';
+							Asset['{!prefix}Description__c'] = 'Support entity';
+							Asset['{!prefix}User__c'] = '{!$User.Id}';
 							sforce.connection.create([Asset], {
 								onSuccess : function(result, source) {
 									parentIdAttachment = result[0].id;
