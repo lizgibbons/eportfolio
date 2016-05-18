@@ -1,5 +1,9 @@
 public without sharing class LPAssetController {
 
+	public String getPrefix() {
+		return LPUtils.getPackagePrefix();
+	}
+
 	public LPAssetController() {
 	}
 

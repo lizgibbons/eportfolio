@@ -42,7 +42,7 @@
 									<button id="resbname" class="btn btn-default btn-circle" data-toggle="modal" data-target="#uploadAssetDialog" onclick="cancelDialog();return false;">{!$Label.BTN_Upload_Asset}</button>
 								</div>
 							</div>
-							<c:LPUploadAsset lt="{!linkText}" fn="{!imgFileName}" ft="{!imgContentType}" fb="{!imgBody}" idAsset="{!Asset__c.id}" cm="true" attachmentId="{!attachmentId}" fileIndicator="{!fileIndicator}"/>
+							<c:LPUploadAsset lt="{!linkText}" fn="{!imgFileName}" ft="{!imgContentType}" fb="{!imgBody}" idAsset="{!Asset__c.id}" cm="true" attachmentId="{!attachmentId}" fileIndicator="{!fileIndicator}" prefix="{!prefix}"/>
 							<apex:actionFunction name="submitAssetAction" action="{!saveAsset}"/>
 							<apex:actionFunction name="submitAndAddAssetAction" action="{!saveAndAddAsset}"/>
 							<apex:actionFunction name="clearAttachAction" action="{!clearAttach}" immediate="true"/>
