@@ -14,6 +14,7 @@ private class LPTests {
 
 		System.runAs(u) {
 			LPAssetController lpac = new LPAssetController(new ApexPages.StandardController(new Asset__c()));
+			lpac.getPrefix();
 			lpac.initFromEdit();
 			lpac.tesla.Name = 't';
 			lpac.tesla.Category__c = 'Resume';
@@ -173,6 +174,7 @@ private class LPTests {
 		String photoUrl = lpc.getProfilePhotoUrl();
 		String expectedUrl = Schema.sObjectType.User.fields.getMap().containsKey('FullPhotoUrl') ? photoUrl : NULL;
 		System.assert(photoUrl == expectedUrl);
+		lpc.getCurrentContact();
 	}
 
 }
