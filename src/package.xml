@@ -7,11 +7,11 @@
         <members>LPAssetController</members>
         <members>LPFieldLayout</members>
         <members>LPLearnerProfileController</members>
-		<members>LPLeftPanelController</members>
+        <members>LPLeftPanelController</members>
         <members>LPSignController</members>
         <members>LPTests</members>
         <members>LPUtils</members>
-		<members>LPScheduledLPTemporaryAssetDeletingBatch</members>
+        <members>LPScheduledLPTemporaryAssetDeletingBatch</members>
         <members>LPTemporaryAssetDeletingBatch</members>
         <name>ApexClass</name>
     </types>
@@ -24,7 +24,7 @@
         <members>LPLeftPanel</members>
         <members>LPPreloader</members>
         <members>LPUploadAsset</members>
-		<members>LPVideoPopUp</members>
+        <members>LPVideoPopUp</members>
         <name>ApexComponent</name>
     </types>
     <types>
@@ -62,7 +62,7 @@
         <members>LP_Template_Settings__c.Header_Logo__c</members>
         <members>LP_Template_Settings__c.Hero_Image__c</members>
         <members>LP_Template_Settings__c.Registration_Page_Logo__c</members>
-		<members>LP_Template_Settings__c.Site_Template_Label__c</members>
+        <members>LP_Template_Settings__c.Site_Template_Label__c</members>
         <members>Learner_Profile__c.Description__c</members>
         <members>Learner_Profile__c.Status__c</members>
         <name>CustomField</name>
@@ -72,7 +72,7 @@
         <members>BTN_Add_Remove_from_MyAssets_in_this_Category</members>
         <members>BTN_Browse</members>
         <members>BTN_Cancel</members>
-        <members>BTN_Change_password</members>    
+        <members>BTN_Change_password</members>
         <members>BTN_Create_New_Asset</members>
         <members>BTN_Delete</members>
         <members>BTN_OK</members>
@@ -81,24 +81,27 @@
         <members>BTN_Save_Add_Learner_Profile</members>
         <members>BTN_Upload_Asset</members>
         <members>ERR_Password_no_match</members>
+        <members>ERR_Upload_Only_One_File</members>
         <members>LBL_Active</members>
         <members>LBL_Add_Remove_Asset</members>
         <members>LBL_Add_Remove_Learner_Profile_Title</members>
-		<members>LBL_Admin_Title_Page</members>
+        <members>LBL_Admin_Title_Page</members>
         <members>LBL_All_Assets</members>
         <members>LBL_All_Learner_Profiles</members>
         <members>LBL_Asset_Detail_Title</members>
+        <members>LBL_Asset_Will_Not_Be_Saved</members>
         <members>LBL_Categories</members>
-        <members>LBL_Check_Uncheck_Assets</members>
         <members>LBL_Check_email_message</members>
+        <members>LBL_Check_Uncheck_Assets</members>
         <members>LBL_Check_your_email</members>
+        <members>LBL_Create_and_Add_Asset</members>
         <members>LBL_Create_Asset</members>
         <members>LBL_Create_Learner_Profile</members>
-        <members>LBL_Create_and_Add_Asset</members>
-        <members>LBL_Draft</members>
-        <members>LBL_Delete_Asset_message</members>
         <members>LBL_Delete_Asset</members>
+        <members>LBL_Delete_Asset_message</members>
         <members>LBL_Deselect_All</members>
+        <members>LBL_Draft</members>
+        <members>LBL_Drag_and_Drop_Files_here</members>
         <members>LBL_Edit</members>
         <members>LBL_Edit_Asset</members>
         <members>LBL_Edit_Asset_Required_Field</members>
@@ -107,21 +110,22 @@
         <members>LBL_File_Browser_Page_Title</members>
         <members>LBL_File_Upload_Size_Limit</members>
         <members>LBL_Forgot_Password</members>
-        <members>LBL_Inactive_Asset</members>
         <members>LBL_Inactive</members>
+        <members>LBL_Inactive_Asset</members>
         <members>LBL_Item_Items</members>
-        <members>LBL_LP_Link</members>
         <members>LBL_Learner_Proflie_Message_1</members>
         <members>LBL_Link</members>
+        <members>LBL_LP_Link</members>
         <members>LBL_My_Learner_Profiles</members>
         <members>LBL_New_password</members>
-        <members>LBL_No_Portfolio</members>
         <members>LBL_No_assets_found</members>
+        <members>LBL_No_Portfolio</members>
         <members>LBL_Page_Title</members>
         <members>LBL_Pick_new_password</members>
         <members>LBL_Save_Add_Learner_Profile_Message</members>
         <members>LBL_Search_Asset</members>
         <members>LBL_Select_All</members>
+        <members>LBL_Select_Files_from_Computer</members>
         <members>LBL_Show_Hide_All</members>
         <members>LBL_Sign_In</members>
         <members>LBL_Sign_In_Email</members>
@@ -137,17 +141,12 @@
         <members>LBL_Sign_up_Profile_Error</members>
         <members>LBL_Sign_up_Title</members>
         <members>LBL_Type_it_again</members>
-        <members>LBL_URL</members>
-		<members>LBL_Welcome_to_Portfolio_c</members>
         <members>LBL_Upload</members>
         <members>LBL_Upload_File</members>
-		<members>LBL_Upload_One_File</members>
-		<members>LBL_Select_Files_from_Computer</members>
-		<members>LBL_Drag_and_Drop_Files_here</members>
-		<members>LBL_Admin_Title_Page</members>
-		<members>LBL_Upload_Progress</members>
-		<members>LBL_Asset_Will_Not_Be_Saved</members>
-		<members>ERR_Upload_Only_One_File</members>		 
+        <members>LBL_Upload_One_File</members>
+        <members>LBL_Upload_Progress</members>
+        <members>LBL_URL</members>
+        <members>LBL_Welcome_to_Portfolio_c</members>
         <name>CustomLabel</name>
     </types>
     <types>
