@@ -112,7 +112,7 @@
         <shortDescription>LBL Add Remove Learner Profile Title</shortDescription>
         <value>Add or Remove from Learner Profile</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>LBL_Admin_Title_Page</fullName>
         <language>en_US</language>
         <protected>true</protected>
@@ -139,6 +139,13 @@
         <protected>true</protected>
         <shortDescription>LBL Asset Detail Title</shortDescription>
         <value>Asset Details</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Asset_Will_Not_Be_Saved</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Asset Will Not Be Saved</shortDescription>
+        <value>Your asset will not be saved. Please hit Save to save your asset.</value>
     </labels>
     <labels>
         <fullName>LBL_Categories</fullName>
@@ -217,7 +224,7 @@
         <shortDescription>LBL Draft</shortDescription>
         <value>Draft</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>LBL_Drag_and_Drop_Files_here</fullName>
         <categories>LPAssetEdit</categories>
         <language>en_US</language>
@@ -386,7 +393,7 @@
         <shortDescription>LBL Select All</shortDescription>
         <value>Select All</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>LBL_Select_Files_from_Computer</fullName>
         <categories>LPAssetEdit</categories>
         <language>en_US</language>
@@ -512,7 +519,7 @@
         <protected>true</protected>
         <shortDescription>LBL_Welcome_to_Portfolio__c</shortDescription>
         <value>Welcome to the Portfolio of {0}</value>
-    </labels>	
+    </labels>
     <labels>
         <fullName>LBL_Upload</fullName>
         <language>en_US</language>
@@ -527,7 +534,7 @@
         <shortDescription>LBL Upload File</shortDescription>
         <value>Upload File</value>
     </labels>
-	<labels>
+    <labels>
         <fullName>LBL_Upload_One_File</fullName>
         <categories>LPAssetEdit</categories>
         <language>en_US</language>
@@ -551,12 +558,4 @@
         <shortDescription>ERR Upload Only One File</shortDescription>
         <value>You can only upload one file</value>
     </labels>
-    <labels>
-        <fullName>LBL_Asset_Will_Not_Be_Saved</fullName>
-        <language>en_US</language>
-        <protected>true</protected>
-        <shortDescription>LBL Asset Will Not Be Saved</shortDescription>
-        <value>Your asset will not be saved. Please hit Save to save your asset.</value>
-    </labels>		
-	
 </CustomLabels>
