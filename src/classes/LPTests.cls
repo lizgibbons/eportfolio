@@ -14,6 +14,7 @@ private class LPTests {
 
 		System.runAs(u) {
 			LPAssetController lpac = new LPAssetController(new ApexPages.StandardController(new Asset__c()));
+			lpac.getPrefix();
 			lpac.initFromEdit();
 			lpac.tesla.Name = 't';
 			lpac.tesla.Category__c = 'Resume';
@@ -115,7 +116,55 @@ private class LPTests {
 	}
 
 	static testMethod void test_Labels() {
-		String str = Label.LBL_Page_Title;
+		String addOrRemoveFromMyAssets = Label.BTN_Add_or_Remove_from_My_Assets;
+		String addRemoveFromMyAssetsInThisCategory = Label.BTN_Add_Remove_from_MyAssets_in_this_Category;
+		String saveAddLearnerProfile = Label.BTN_Save_Add_Learner_Profile;
+		String uploadAsset = Label.BTN_Upload_Asset;
+		String passwordNoMatch = Label.ERR_Password_no_match;
+		String uploadOnlyOneFile = Label.ERR_Upload_Only_One_File;
+		String active = Label.LBL_Active;
+		String addRemoveAsset = Label.LBL_Add_Remove_Asset;
+		String addRemoveLearnerProfileTitle = Label.LBL_Add_Remove_Learner_Profile_Title;
+		String adminTitlePage = Label.LBL_Admin_Title_Page;
+		String allAssets = Label.LBL_All_Assets;
+		String allLearnerProfiles = Label.LBL_All_Learner_Profiles;
+		String assetDetailTitle = Label.LBL_Asset_Detail_Title;
+		String assetWillNotBeSaved = Label.LBL_Asset_Will_Not_Be_Saved;
+		String deselectAll = Label.LBL_Deselect_All;
+		String dragAndDropFilesHere = Label.LBL_Drag_and_Drop_Files_here;
+		String editAssetRequiredField = Label.LBL_Edit_Asset_Required_Field;
+		String editAssetSelectResource = Label.LBL_Edit_Asset_Select_Resource;
+		String emailForReset = Label.LBL_Email_for_reset;
+		String fileBrowserPageTitle = Label.LBL_File_Browser_Page_Title;
+		String fileUploadSizeLimit = Label.LBL_File_Upload_Size_Limit;
+		String learnerProflieMessage1 = Label.LBL_Learner_Proflie_Message_1;
+		String link = Label.LBL_Link;
+		String lPLink = Label.LBL_LP_Link;
+		String myLearnerProfiles = Label.LBL_My_Learner_Profiles;
+		String noAssetsFound = Label.LBL_No_assets_found;
+		String noPortfolio = Label.LBL_No_Portfolio;
+		String pageTitle = Label.LBL_Page_Title;
+		String pickNewPassword = Label.LBL_Pick_new_password;
+		String saveAddLearnerProfileMessage = Label.LBL_Save_Add_Learner_Profile_Message;
+		String searchAsset = Label.LBL_Search_Asset;
+		String selectAll = Label.LBL_Select_All;
+		String selectFilesFromComputer = Label.LBL_Select_Files_from_Computer;
+		String showHideAll = Label.LBL_Show_Hide_All;
+		String signIn = Label.LBL_Sign_in;
+		String signInEmail = Label.LBL_Sign_In_Email;
+		String signInPassword = Label.LBL_Sign_In_Password;
+		String signInTitle = Label.LBL_Sign_In_Title;
+		String signOut = Label.LBL_Sign_Out;
+		String signUp = Label.LBL_Sign_up;
+		String signUpFirstName = Label.LBL_Sign_up_First_Name;
+		String signUpHaveAccount = Label.LBL_Sign_up_Have_Account;
+		String signUpLastName = Label.LBL_Sign_up_Last_Name;
+		String signUpTitle = Label.LBL_Sign_up_Title;
+		String typeItAgain = Label.LBL_Type_it_again;
+		String upload = Label.LBL_Upload;
+		String uploadFile = Label.LBL_Upload_File;
+		String uploadOneFile = Label.LBL_Upload_One_File;
+		String url = Label.LBL_URL;
 	}
 
 	static testMethod void test_LPAdminController() {
@@ -173,6 +222,7 @@ private class LPTests {
 		String photoUrl = lpc.getProfilePhotoUrl();
 		String expectedUrl = Schema.sObjectType.User.fields.getMap().containsKey('FullPhotoUrl') ? photoUrl : NULL;
 		System.assert(photoUrl == expectedUrl);
+		lpc.getCurrentContact();
 	}
 
 }

@@ -11,9 +11,8 @@ public with sharing class LPLeftPanelController {
 		return result;
 	}
 
-	public Contact getUsersContact() {
-		String contactId = [SELECT ContactId FROM User WHERE Id = :UserInfo.getUserId()][0].ContactId;
-		List<Contact> contactList = [SELECT Id, FirstName, LastName FROM Contact WHERE Id = :contactId];
-		return contactList.isEmpty() ? NULL : contactList[0];
+	public Contact getCurrentContact() {
+		List<User> uList = [SELECT Id, Contact.Id, Contact.FirstName, Contact.LastName FROM User WHERE Id = :UserInfo.getUserId() AND ContactId != NULL];
+		return uList.isEmpty() ? NULL : uList[0].Contact;
 	}
 }
