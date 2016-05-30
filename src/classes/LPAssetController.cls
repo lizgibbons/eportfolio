@@ -161,27 +161,32 @@ public without sharing class LPAssetController {
 
 	public PageReference clearAttach() {
 		// delete asset when "cancel"
-		String createdAsset = ApexPages.currentPage().getCookies().get('CreatedAsset').getValue();
+		Cookie createdAsset = ApexPages.currentPage().getCookies().get('CreatedAsset');
+
 		if (createdAsset != null) {
-			System.debug('coooooc ' + createdAsset);
-			createdAsset = String.escapeSingleQuotes(createdAsset);
-			try {
-				delete [SELECT Id FROM Attachment WHERE Id = :createdAsset];
-			} catch(Exception e) {
-				System.debug('Delete problem! ' + e);
+			String createdAssetValue = createdAsset.getValue();
+			if (String.isNotBlank(createdAssetValue) || createdAssetValue != 'null') {
+				createdAssetValue = String.escapeSingleQuotes(createdAssetValue);
+				try {
+					delete [SELECT Id FROM Attachment WHERE Id = :createdAssetValue];
+				} catch(Exception e) {
+					System.debug('Delete problem! ' + e);
+				}
 			}
 		}
 		//LP-87 ----->
 		Cookie assetCook = ApexPages.currentPage().getCookies().get('AssetIdToDelete');
-		String cookieValue = assetCook.getValue();
 
-		if (String.isNotBlank(cookieValue)) {
-			String escapeCookieValue = String.escapeSingleQuotes(cookieValue);
-			try {
-				delete [SELECT Id FROM Asset__c WHERE Id = :escapeCookieValue];
-			}
-			catch(Exception e) {
-				System.debug('Delete problem! ' + e);
+		if (assetCook != null) {
+			String cookieValue = assetCook.getValue();
+			if (String.isNotBlank(cookieValue) || cookieValue != 'null') {
+				String escapeCookieValue = String.escapeSingleQuotes(cookieValue);
+				try {
+					delete [SELECT Id FROM Asset__c WHERE Id = :escapeCookieValue];
+				}
+				catch(Exception e) {
+					System.debug('Delete problem! ' + e);
+				}
 			}
 		}
 
