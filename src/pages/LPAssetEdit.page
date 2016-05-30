@@ -84,6 +84,11 @@
 			}
 			function clearAttach() {
 				cancelActionIndicator = true;
+				document.cookie = 'apex__CreatedAsset=' + null;
+				clearAttachAction();
+				if (createdAttachId != null) {
+					document.cookie = 'apex__CreatedAsset=' + createdAttachId;
+				}
 				clearAttachAction();
 			}
 

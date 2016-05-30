@@ -161,10 +161,11 @@
 
 				function deleteTempAsset() {
 					if (attachmentObject.Name == null) {
-						var deletedItems = sforce.connection.deleteIds([parentIdAttachment]);
-						var tmp = 1;
-						parentIdAttachment = null;
-						hasParentAttachmentContact = false;
+						if ("{!idAsset}" != parentIdAttachment) {
+							var deletedItems = sforce.connection.deleteIds([parentIdAttachment]);
+							parentIdAttachment = null;
+							hasParentAttachmentContact = false;
+						}
 					}
 				}
 
