@@ -196,7 +196,7 @@ public without sharing class LPAssetController {
 			pr.setRedirect(true);
 			return pr;
 		}
-		PageReference pr = new PageReference('/LPAssets');
+		PageReference pr = Page.LPAssets;
 		pr.setRedirect(true);
 		return pr;
 		//LP-87 <-----
