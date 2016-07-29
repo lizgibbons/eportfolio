@@ -155,6 +155,7 @@
         <members>LBL_Upload_File</members>
         <members>LBL_Upload_One_File</members>
         <members>LBL_Upload_Progress</members>
+        <members>LBL_Upload_Profile_Photo</members>
         <members>LBL_URL</members>
         <members>LBL_Welcome_to_Portfolio_c</members>
         <name>CustomLabel</name>

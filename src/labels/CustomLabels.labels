@@ -592,6 +592,13 @@
         <value>Please upload only one file</value>
     </labels>
     <labels>
+        <fullName>LBL_Upload_Profile_Photo</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Upload Profile Photo</shortDescription>
+        <value>Upload Profile Photo</value>
+    </labels>
+    <labels>
         <fullName>LBL_Upload_Progress</fullName>
         <categories>LPAssetEdit</categories>
         <language>en_US</language>
