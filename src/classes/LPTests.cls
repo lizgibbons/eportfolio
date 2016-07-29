@@ -28,7 +28,7 @@ private class LPTests {
 			lpac3.initFromList();
 			List<LPAssetController.Yrogetac> gh = lpac3.getCategories();
 			String sm = gh.size() > 0 ? gh[0].getItemString() : '';
-
+			
 			ApexPages.currentPage().getParameters().put('c','Resume');
 			LPAssetController lpac2 = new LPAssetController(new ApexPages.StandardController(new Asset__c()));
 			lpac2.initFromEdit();
@@ -38,6 +38,10 @@ private class LPTests {
 			lpac2.imgContentType = 'image/jpg';
 			lpac2.saveAsset();
 			lpac2.initFromEdit();
+			lpac2.clearAttachContact();
+			lpac2.clearAttach();
+			lpac2.getInitialActiveStatus();
+			lpac2.getSiteTemplatePage();
 			System.debug('\n**:' + json.serialize(lpac2.tesla));
 			List<String> tl2 = lpac2.getAssetLink();
 			System.assert(tl2.size() > 0, true);
@@ -52,6 +56,7 @@ private class LPTests {
 			System.assert(lpac6.getDelRedirectParam() != NULL);
 			lpac6.linkText = 'www.tut.by';
 			lpac6.saveAndAddAsset();
+			lpac6.clearAttachAsset(true);
 
 			LPAssetController lpac4 = new LPAssetController();
 			lpac4.initFromList();
@@ -106,12 +111,14 @@ private class LPTests {
 		lpsc.password = 'test236Passwrd';
 		lpsc.verifyPassword = lpsc.password;
 		lpsc.changePassword();
+		lpsc.getSiteTemplatePage();
 	}
 
 	static testMethod void test_LPUtils() {
 		LPUtils.convertFileSize(1048575);
 		LPUtils.convertFileSize(1073741823);
 		LPUtils.getSiteTemplatePage();
+		LPUtils.checkUrl('someUrl');
 		System.assert(LPUtils.convertFileSize(1073741824) == '1.00 GB', true);
 	}
 
@@ -201,6 +208,7 @@ private class LPTests {
 			LPLearnerProfileController lplpc2 = new LPLearnerProfileController(new ApexPages.StandardController(lp));
 			lplpc2.initFromEdit();
 			lplpc2.saveLearnerProfile();
+			lplpc2.getSiteTemplatePage();
 
 			ApexPages.currentPage().getParameters().put('f','active');
 			lplpc2.getLPcrowd();
@@ -225,4 +233,24 @@ private class LPTests {
 		lpc.getCurrentContact();
 	}
 
+	static testMethod void test_LPHeaderController() {
+		LPHeaderController controller = new LPHeaderController();
+		String urlLogo = controller.getLogoUrl();
+	}
+
+	@IsTest(SeeAllData=true)
+	static void test_LPMyPhotoController() {
+		LPMyPhotoController controller = new LPMyPhotoController();
+		String ctrPhotoUrl = controller.ctrPhotoUrl;
+		//String actionPhotoLabel = controller.actionPhotoLabel; 
+		Test.setCurrentPage(Page.LPMyPhoto);
+		controller.photoName = 'name';
+		controller.photoContentType = 'type';
+		controller.cropX = '10';
+		controller.cropY = '10';
+		controller.cropSize = '10';
+		Test.startTest();
+		controller.photoaction();
+		Test.stopTest();
+	}
 }
