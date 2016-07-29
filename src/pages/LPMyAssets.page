@@ -3,9 +3,9 @@
 <apex:define name="title">{!$Label.LBL_Page_Title}</apex:define>
 <apex:define name="body">
 <c:LPPreloader />
+<c:LPHeader />
 <c:LPLeftPanel col="profile"/>
 <section class="content">
-	<c:LPHeader />
 	<div class="warper container-fluid">
 		<div class="page-header">
 			<div class="row">
