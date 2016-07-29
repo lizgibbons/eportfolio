@@ -242,7 +242,7 @@ private class LPTests {
 	static void test_LPMyPhotoController() {
 		LPMyPhotoController controller = new LPMyPhotoController();
 		String ctrPhotoUrl = controller.ctrPhotoUrl;
-		String actionPhotoLabel = controller.actionPhotoLabel; 
+		//String actionPhotoLabel = controller.actionPhotoLabel; 
 		Test.setCurrentPage(Page.LPMyPhoto);
 		controller.photoName = 'name';
 		controller.photoContentType = 'type';
