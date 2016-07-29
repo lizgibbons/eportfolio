@@ -17,6 +17,14 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>LPMyPhotoController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>LPHeaderController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>LPSignController</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -145,6 +153,10 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>LPMyLearnerProfiles</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>LPMyPhoto</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
     <pageAccesses>

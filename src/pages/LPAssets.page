@@ -3,10 +3,9 @@
 <apex:define name="title">{!$Label.LBL_Page_Title}</apex:define>
 <apex:define name="body">
 <c:LPPreloader />
+<c:LPHeader />
 <c:LPLeftPanel col="{!IF(lpMode,'profile','asset')}"/>
-
 <section class="content">
-	<c:LPHeader />
 	<apex:outputPanel layout="block" styleClass="warper container-fluid" rendered="{!!wrongProfile}">
 		<div class="page-header">
 			<div class="row">

@@ -6,7 +6,7 @@
 			<apex:outputPanel layout="none" rendered="{!profilePhotoUrl != NULL}">
 				<img src="{!profilePhotoUrl}" class="img-full-w" alt="{!$User.FirstName} {!$User.LastName} User Photo"/>
 			</apex:outputPanel>
-
+			<apex:outputPanel layout="block"><apex:outputLink value="{!$Page.LPMyPhoto}">{!$Label.LBL_Change_Photo}</apex:outputLink></apex:outputPanel>
 			<!--img src="{!$Resource.assets}/images/avtar/user.png" class="img-circle" alt="..."/-->
 			<!-- <div class="dropdown user-login">
 				<button class="btn btn-xs dropdown-toggle btn-rounded" type="button" data-toggle="dropdown" aria-expanded="true">
