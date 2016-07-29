@@ -3,7 +3,6 @@
 <apex:define name="title">{!$Label.LBL_Page_Title}</apex:define>
 <apex:define name="body">
 <c:LPPreloader />
-<c:LPLeftPanel col="asset"/>
 <apex:outputPanel layout="none" rendered="{!isDel}" >
 	<script type="text/javascript">
 		(function() {
@@ -13,8 +12,9 @@
 		})();
 	</script>
 </apex:outputPanel>
+<c:LPHeader />
+<c:LPLeftPanel col="asset"/>
 <section class="content">
-	<c:LPHeader />
 	<div class="warper container-fluid">
 		<div class="page-header">
 			<div class="row">

@@ -78,6 +78,13 @@
         <value>Save &amp; Add to Learner Profile</value>
     </labels>
     <labels>
+        <fullName>BTN_Update</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>BTN Update</shortDescription>
+        <value>Update</value>
+    </labels>
+    <labels>
         <fullName>BTN_Upload_Asset</fullName>
         <language>en_US</language>
         <protected>true</protected>
@@ -97,6 +104,13 @@
         <protected>true</protected>
         <shortDescription>LBL Active</shortDescription>
         <value>Active</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Add_Photo</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Add Photo</shortDescription>
+        <value>Add Photo</value>
     </labels>
     <labels>
         <fullName>LBL_Add_Remove_Asset</fullName>
@@ -147,6 +161,13 @@
         <shortDescription>LBL Asset Will Not Be Saved</shortDescription>
         <value>Your asset will not be saved. Please hit Save to save your asset.</value>
     </labels>
+    <labels>
+        <fullName>LBL_Change_Photo</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Change Photo</shortDescription>
+        <value>Change Photo</value>
+    </labels>	
     <labels>
         <fullName>LBL_Categories</fullName>
         <language>en_US</language>
@@ -261,6 +282,13 @@
         <value>&lt;strong&gt;Error:&lt;/strong&gt; You must upload a link or file</value>
     </labels>
     <labels>
+        <fullName>LBL_Edit_Required_Field</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Edit Required Field</shortDescription>
+        <value>This is a required field</value>
+    </labels>	
+    <labels>
         <fullName>LBL_Email_for_reset</fullName>
         <language>en_US</language>
         <protected>true</protected>
@@ -371,6 +399,20 @@
         <protected>true</protected>
         <shortDescription>LBL Pick new password</shortDescription>
         <value>Pick a new password</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Picture_Size_Max</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Picture Size Max</shortDescription>
+        <value>You can upload a JPG, GIF, or PNG file. Maximum size is 8MB.</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Profile_Picture_Title</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Profile Picture Title</shortDescription>
+        <value>Profile Picture</value>
     </labels>
     <labels>
         <fullName>LBL_Save_Add_Learner_Profile_Message</fullName>
@@ -500,6 +542,13 @@
         <value>Sign up for your Learner Profile</value>
     </labels>
     <labels>
+        <fullName>LBL_Thumbnail</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Thumbnail</shortDescription>
+        <value>To make adjustments to your thumbnail image, drag and resize the dotted lines in your profile photo above.</value>
+    </labels>	
+    <labels>
         <fullName>LBL_Type_it_again</fullName>
         <language>en_US</language>
         <protected>true</protected>
@@ -541,6 +590,13 @@
         <protected>true</protected>
         <shortDescription>LBL Upload One File</shortDescription>
         <value>Please upload only one file</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Upload_Profile_Photo</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Upload Profile Photo</shortDescription>
+        <value>Upload Profile Photo</value>
     </labels>
     <labels>
         <fullName>LBL_Upload_Progress</fullName>
