@@ -6,8 +6,10 @@
         <members>LPAdminController</members>
         <members>LPAssetController</members>
         <members>LPFieldLayout</members>
+        <members>LPHeaderController</members>
         <members>LPLearnerProfileController</members>
         <members>LPLeftPanelController</members>
+        <members>LPMyPhotoController</members>
         <members>LPSignController</members>
         <members>LPTests</members>
         <members>LPUtils</members>
@@ -36,6 +38,7 @@
         <members>LPLearnerProfileEdit</members>
         <members>LPMyAssets</members>
         <members>LPMyLearnerProfiles</members>
+        <members>LPMyPhoto</members>
         <members>LPPickNewPassword</members>
         <members>LPRegistration</members>
         <members>LPSignIn</members>
@@ -79,10 +82,12 @@
         <members>BTN_Reset_Password</members>
         <members>BTN_Save</members>
         <members>BTN_Save_Add_Learner_Profile</members>
+        <members>BTN_Update</members>
         <members>BTN_Upload_Asset</members>
         <members>ERR_Password_no_match</members>
         <members>ERR_Upload_Only_One_File</members>
         <members>LBL_Active</members>
+        <members>LBL_Add_Photo</members>
         <members>LBL_Add_Remove_Asset</members>
         <members>LBL_Add_Remove_Learner_Profile_Title</members>
         <members>LBL_Admin_Title_Page</members>
@@ -90,6 +95,7 @@
         <members>LBL_All_Learner_Profiles</members>
         <members>LBL_Asset_Detail_Title</members>
         <members>LBL_Asset_Will_Not_Be_Saved</members>
+        <members>LBL_Change_Photo</members>
         <members>LBL_Categories</members>
         <members>LBL_Check_email_message</members>
         <members>LBL_Check_Uncheck_Assets</members>
@@ -106,6 +112,7 @@
         <members>LBL_Edit_Asset</members>
         <members>LBL_Edit_Asset_Required_Field</members>
         <members>LBL_Edit_Asset_Select_Resource</members>
+        <members>LBL_Edit_Required_Field</members>
         <members>LBL_Email_for_reset</members>
         <members>LBL_File_Browser_Page_Title</members>
         <members>LBL_File_Upload_Size_Limit</members>
@@ -122,6 +129,8 @@
         <members>LBL_No_Portfolio</members>
         <members>LBL_Page_Title</members>
         <members>LBL_Pick_new_password</members>
+        <members>LBL_Picture_Size_Max</members>
+        <members>LBL_Profile_Picture_Title</members>
         <members>LBL_Save_Add_Learner_Profile_Message</members>
         <members>LBL_Search_Asset</members>
         <members>LBL_Select_All</members>
@@ -140,11 +149,13 @@
         <members>LBL_Sign_up_Last_Name</members>
         <members>LBL_Sign_up_Profile_Error</members>
         <members>LBL_Sign_up_Title</members>
+        <members>LBL_Thumbnail</members>
         <members>LBL_Type_it_again</members>
         <members>LBL_Upload</members>
         <members>LBL_Upload_File</members>
         <members>LBL_Upload_One_File</members>
         <members>LBL_Upload_Progress</members>
+        <members>LBL_Upload_Profile_Photo</members>
         <members>LBL_URL</members>
         <members>LBL_Welcome_to_Portfolio_c</members>
         <name>CustomLabel</name>
