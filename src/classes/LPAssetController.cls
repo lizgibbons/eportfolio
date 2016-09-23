@@ -506,7 +506,7 @@ public without sharing class LPAssetController {
 			List<User> uList = [
 				SELECT Id, Contact.Id, Contact.FirstName, Contact.LastName
 				FROM User
-				WHERE Id = :UserInfo.getUserId()
+				WHERE Id = :checklp.Owner.Id
 					AND ContactId != null
 			];
 			portfolioOwnerName = uList.isEmpty() ? checklp.Owner.Name : uList[0].Contact.FirstName + ' ' + uList[0].Contact.LastName;
