@@ -1,0 +1,202 @@
+<apex:page controller="ListViewController" showHeader="false" sideBar="false" standardStylesheets="false" docType="html-5.0" applyBodyTag="false" applyHtmlTag="false">
+<head>
+	<c:LPHead />
+</head>
+<body>
+<!-- START LIST VIEW -->
+<div class="view" id="list">
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-lg-2">
+				<div class="form-group">
+					<input type="text" class="form-control input-sm form-control-flat" placeholder="{!$Label.LBL_Search_Asset}" onkeyup="checksearch(this);"/>
+				</div>
+				</div>
+			</div>
+			<apex:form id="tableAssets">
+				<table id="basic-datatable" class="table table-bordered">
+					<thead>
+						<tr>
+							<th id="first-th" class="click-header" onclick="toogleall(this);"><i class="fa fa-plus-square-o" title="{!$Label.LBL_Show_Hide_All}"></i></th>
+							<th width="60%">{!$ObjectType.Asset__c.Fields.Name.Label}</th>
+							<th>{!$ObjectType.Asset__c.Fields.LastModifiedDate.Label}</th>
+						</tr>
+					</thead>
+					<tbody>
+						<apex:repeat value="{!assetCatMap}" var="cat">
+							<tr class="category-row" id="{!cat}" onclick="togglerows(this);">
+								<td class="hidden"><label></label></td>
+								<td colspan="3"><i class="fa fa-plus-square-o"></i>&nbsp;&nbsp;<span class="name">{!cat}</span></td>
+								<td class="hidden"><span></span></td>
+							</tr>
+							<apex:repeat value="{!assetCatMap[cat]}" var="a">
+								<tr class="category-in">
+									<td></td>
+									<td class="asset-name"><span>{!assetCatMap[cat][a].Name}</span></td>
+									<td><span>{!assetCatMap[cat][a].LastModifiedDate}</span></td>
+								</tr>
+							</apex:repeat>
+						</apex:repeat>
+					</tbody>
+				</table>
+			</apex:form>
+		</div>
+	</div>
+</div>
+<!-- END LIST VIEW -->
+	
+</body>
+	<!-- START LIST JS -->
+		<script>
+		function toogleall(el) {
+			var r = $(el).find('i.fa-plus-square-o').length > 0;
+			if (r) {
+				$(el).find('i.fa-plus-square-o').removeClass('fa-plus-square-o').addClass('fa-minus-square-o');
+			}
+			else {
+				$(el).find('i.fa-minus-square-o').removeClass('fa-minus-square-o').addClass('fa-plus-square-o');
+			}
+			$('tr.category-row').each(function(index,el2) {
+				togglerows(el2,true,r);
+			});
+		}
+		function togglerows(el,fm,fp) {
+			if ((fm != true && $(el).find('i.fa-plus-square-o').length > 0) || fp == true) {
+				$(el).find('i.fa-plus-square-o').removeClass('fa-plus-square-o').addClass('fa-minus-square-o');
+				$('[id$=' + el.id + '].category-in').show();
+			}
+			else {
+				$(el).find('i.fa-minus-square-o').removeClass('fa-minus-square-o').addClass('fa-plus-square-o');
+				$('[id$=' + el.id + '].category-in').hide();
+			}
+		}
+		var searchMode = false;
+		var beforeSearchState = new Map();
+		function checksearch(el) {
+			var vl = el.value.trim();
+			var searchWords = vl.match(/(\w){2,}/g);
+			if (searchWords) {
+				var reText = '';
+				for (var i = 0; i < searchWords.length; i++) {
+					reText += '(?=.*'+searchWords[i]+')';
+				}
+				var re = new RegExp(reText, "ig");
+				$('tr.category-row').each(function(index,el2) {
+					if (!searchMode) {
+						beforeSearchState.set(el2.id, ($(el2).find('i.fa-plus-square-o').length == 0));
+					}
+					var shar = false;
+					if ($(el2).find('i.fa-plus-square-o').length > 0) {
+						$(el2).find('i.fa-plus-square-o').removeClass('fa-plus-square-o').addClass('fa-minus-square-o');
+					}
+					$('[id$=' + el2.id + '].category-in').each(function(index,el3) {
+						if ($(el3).find('td.asset-name').text().match(re) != null) {
+							shar = true;
+							$(el3).show();
+						}
+						else $(el3).hide();
+					});
+					shar ? $(el2).show() : $(el2).hide();
+				});
+				if (!searchMode) {
+					searchMode = true;
+				}
+			}
+			else if (searchMode && vl.length == 0) {
+				searchMode = false;
+				$('tr.category-row').show().each(function(index,el4) {
+					togglerows(el4,true,beforeSearchState.get(el4.id));
+				});
+				beforeSearchState = new Map();
+			}
+		}
+
+		function toogleTableResults() {
+			toogleall($('#first-th'));
+			var r = $($('#first-th')).find('i.fa-plus-square-o').length > 0;
+			if (r) {
+				toogleall($('#first-th'));
+			}
+		}
+
+		function loadColumnSort() {
+			$.fn.dataTable.ext.order['dom-text-label'] = function (setting, col) {
+				toogleTableResults();
+				return this.api().column(col, { order:'index' } ).nodes().map( function (td, i) {
+					var curElem = $('label', td)[0];
+					var tdElem = curElem.parentNode.parentNode;
+					return { className: tdElem.className, unique: tdElem.id, value: curElem.innerHTML };
+				});
+			};
+			$.fn.dataTable.ext.order['dom-text-span'] = function (setting, col) {
+				toogleTableResults();
+				return this.api().column(col, { order:'index' } ).nodes().map( function (td, i) {
+					var curElem = $('span', td)[0];
+					var tdElem = curElem.parentNode.parentNode;
+					return { className: tdElem.className, unique: tdElem.id, value: curElem.innerHTML };
+				});
+			};
+			$.extend( $.fn.dataTable.defaults, {
+				"searching": false,
+				"paging": false,
+				"info": false
+			} );
+
+			$.extend( $.fn.dataTableExt.oSort, {
+				"unique-html-asc": function (a, b) {
+					if (a.unique.replace(/[0-9]/g, '') != b.unique.replace(/[0-9]/g, '')
+						|| a.className.search('category-in') == -1 || b.className.search('category-in') == -1) {
+						return 0;
+					}
+					var a = a.value.toLowerCase();
+					var b = b.value.toLowerCase();
+					return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+				}, 
+				"unique-html-desc": function (a, b) {
+					if (a.unique.replace(/[0-9]/g, '') != b.unique.replace(/[0-9]/g, '')
+						|| a.className.search('category-in') == -1 || b.className.search('category-in') == -1) {
+						return 0;
+					}
+					var a = a.value.toLowerCase();
+					var b = b.value.toLowerCase();
+					return ((a < b) ? 1 : ((a > b) ? -1 : 0));
+				},
+				"unique-html-date-asc": function (a, b) {
+					if (a.unique.replace(/[0-9]/g, '') != b.unique.replace(/[0-9]/g, '')
+						|| a.className.search('category-in') == -1 || b.className.search('category-in') == -1) {
+						return 0;
+					}
+					var a = new Date(a.value);
+					var b = new Date(b.value);
+					return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+				}, 
+				"unique-html-date-desc": function (a, b) {
+					if (a.unique.replace(/[0-9]/g, '') != b.unique.replace(/[0-9]/g, '')
+						|| a.className.search('category-in') == -1 || b.className.search('category-in') == -1) {
+						return 0;
+					}
+					var a = new Date(a.value);
+					var b = new Date(b.value);
+					return ((a < b) ? 1 : ((a > b) ? -1 : 0));
+				}
+			} );
+
+			$("#basic-datatable").dataTable({
+				"order": [[ 1, "asc" ]],
+				"columnDefs": [ { "targets": 0, "orderable": false }],
+				"aoColumns": [
+					{ "orderDataType": "dom-text-label", "sType": "unique-html"},
+					{ "orderDataType": "dom-text-span", "sType": "unique-html"},
+					{ "orderDataType": "dom-text-span", "sType": "unique-html-date"}
+				]
+			});
+
+			//fix width first table header after dataTable fload
+			$("#first-th")[0].style.width = "";
+		}
+
+
+	</script>
+	<!-- END LIST JS -->
+</apex:page>

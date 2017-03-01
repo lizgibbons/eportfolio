@@ -1,0 +1,40 @@
+<apex:component >
+	<apex:attribute name="fl" description="" type="LPFieldLayout" required="true"/>
+	<apex:attribute name="so" description="" type="SObject" required="true"/>
+	<apex:repeat value="{!fl.flds}" var="fld">
+		<div class="form-group">
+			<label class="col-sm-2 control-label">
+				<apex:outputPanel layout="none" rendered="{!fld.tyrion}">
+					<i class="fa fa-asterisk require" title="required"></i>&nbsp;
+				</apex:outputPanel>
+				{!fld.label}
+			</label>
+			<div class="col-sm-7">
+
+				<!--INPUT-->
+				<apex:inputText value="{!so[fld.name]}" required="{!fld.tyrion}" styleClass="form-control" rendered="{!fld.ftype == 'input'}"/>
+
+				<!-- TEXTAREA -->
+				<apex:inputTextArea value="{!so[fld.name]}" required="{!fld.tyrion}" styleClass="form-control" rendered="{!fld.ftype == 'textarea'}"/>
+
+				<!-- CHECKBOX -->
+				<apex:outputPanel layout="none" rendered="{!fld.ftype == 'checkbox'}">
+					<label class="cr-styled">
+						 <apex:inputCheckbox value="{!so[fld.name]}" required="{!fld.tyrion}"/>
+						<i class="fa"></i> 
+					</label>
+				</apex:outputPanel>
+
+				<!-- PICKLIST -->
+				<apex:outputPanel layout="none" rendered="{!fld.ftype == 'picklist'}">
+					<apex:inputField value="{!so[fld.name]}" required="{!fld.tyrion}" styleClass="form-control chosen-select"/>
+				</apex:outputPanel>
+
+				<!-- LABEL (other, not updateable) -->
+				<apex:outputPanel layout="none" rendered="{!fld.ftype == 'label'}">
+					<p class="form-control-static"><apex:outputField value="{!so[fld.name]}"/></p>
+				</apex:outputPanel>
+			</div>
+		</div>
+	</apex:repeat>
+</apex:component>

@@ -1,0 +1,201 @@
+<apex:page controller="LPSignController" action="{!initFromAboutMe}" showHeader="false" sideBar="false" standardStylesheets="false" docType="html-5.0" applyBodyTag="false" applyHtmlTag="false">
+<apex:composition template="{!$Site.Template}">
+<apex:define name="title">{!$Label.LBL_Page_Title}</apex:define>
+<apex:define name="body" >
+
+<c:LPPreloader />
+<c:LPHeader />
+<c:LPLeftPanel col="aboutme" regMode="{!RegMode}"/>
+<section class="content">
+	
+	<div class="warper container-fluid">
+		<apex:form id="AboutMe">
+
+			<div class="page-header">
+				<div class="row">
+					<div class="col-sm-8 text-left">
+						<h1>{!$Label.LBL_About_Me_Page_Title}</h1>
+					</div>
+					<div class="col-sm-4 text-right">
+						<apex:outputPanel id="topbtns" rendered="{!RegMode}">
+							<apex:outputPanel >
+								<apex:commandButton id="subtnt" styleClass="btn-u btn-primary" value="{!IF(aboutMeSubmit, $Label.BTN_Submit, $Label.BTN_Next)}" action="{!updateAboutMe}" reRender="AboutMe,terms,topbtns,botbtns,pageMessages"/>
+							</apex:outputPanel>
+							<!-- <apex:outputPanel>
+								<a class="btn-u btn-sm btn-primary disabled" href="{!$Page.LPMyPhoto}?reg=true">{!$Label.BTN_Next}</a>
+							</apex:outputPanel> -->
+						</apex:outputPanel>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="form-group">
+								<div class="a-mess col-sm-12">
+									<apex:pageMessages id="pageMessages"/>
+								</div>
+							</div>
+
+							<apex:outputPanel layout="none" rendered="{!!RegMode && !editMode}">
+								<apex:repeat value="{!flds}" var="fld">
+									<div class="col-sm-{!IF(fld.name == 'MailingState', '4', IF(fld.name == 'MailingPostalCode', '2', '6'))}">
+										<div class="form-group">
+											<label>
+												{!fld.label}
+											</label>
+											<apex:outputPanel layout="none">
+												<p class="form-control-static"><apex:outputField rendered="{!co[fld.name] != NULL && co[fld.name] != ''}" value="{!co[fld.name]}"/>
+												<apex:outputText rendered="{!co[fld.name] == NULL || co[fld.name] == ''}" value="-" /></p>
+											</apex:outputPanel>
+										</div>
+									</div>
+								</apex:repeat>
+							</apex:outputPanel>
+
+							<apex:outputPanel layout="none" rendered="{!RegMode || editMode}">
+								
+								<apex:repeat value="{!flds}" var="fld">
+
+									<div class="col-sm-{!IF(fld.name == 'MailingState', '4', IF(fld.name == 'MailingPostalCode', '2', '6'))}">
+										<div class="form-group no-l-r-mrgn">
+											<label>
+												{!fld.label}
+												<apex:outputPanel layout="none" rendered="{!fld.tyrion}">
+													<i class="fa fa-asterisk require" title="required"></i>&nbsp;
+												</apex:outputPanel>
+											</label>
+
+											<apex:outputPanel rendered="{!fld.tyrion}">
+												<apex:inputText id="ff" value="{!co[fld.name]}" required="{!fld.tyrion}" styleClass="form-control" html-placeholder="{!fld.label}" rendered="{!fld.ftype == 'input' || fld.ftype == 'textarea' || fld.ftype == 'email'}" onkeyup="checkfields();"/>
+											</apex:outputPanel>
+											<apex:outputPanel rendered="{!!fld.tyrion}">
+												<apex:inputText value="{!co[fld.name]}" required="{!fld.tyrion}" styleClass="form-control" html-placeholder="{!fld.label}" rendered="{!fld.ftype == 'input' || fld.ftype == 'textarea' || fld.ftype == 'email'}"/>
+											</apex:outputPanel>
+
+											<!--DATE/DATETIME-->
+											<apex:outputPanel rendered="{!fld.tyrion}">
+												<apex:inputField id="ffd" value="{!co[fld.name]}" required="{!fld.tyrion}" styleClass="form-control {!IF(fld.ftype == 'date', 'cs-date', '')} {!IF(fld.ftype == 'datetime', 'cs-datetime', '')}" html-placeholder="{!fld.label}" rendered="{!fld.ftype == 'date' || fld.ftype == 'datetime'}" onkeyup="checkfields();"/>
+											</apex:outputPanel>
+											<apex:outputPanel rendered="{!!fld.tyrion}">
+												<apex:inputField value="{!co[fld.name]}" required="{!fld.tyrion}" styleClass="form-control {!IF(fld.ftype == 'date', 'cs-date', '')} {!IF(fld.ftype == 'datetime', 'cs-datetime', '')}" html-placeholder="{!fld.label}" rendered="{!fld.ftype == 'date' || fld.ftype == 'datetime'}"/>
+											</apex:outputPanel>
+
+											<apex:outputPanel layout="none" rendered="{!fld.ftype == 'checkbox'}">
+												<label class="cr-styled">
+													 <apex:inputCheckbox value="{!co[fld.name]}" required="{!fld.tyrion}"/>
+													<i class="fa"></i> 
+												</label>
+											</apex:outputPanel>
+
+											<apex:outputPanel rendered="{!fld.ftype == 'picklist' && fld.tyrion}" >
+												<apex:inputField id="pff" value="{!co[fld.name]}" styleClass="form-control chosen-select" onchange="checkfields();"/>
+											</apex:outputPanel>
+											<apex:outputPanel rendered="{!fld.ftype == 'picklist' && !fld.tyrion}">
+												<apex:inputField value="{!co[fld.name]}" styleClass="form-control chosen-select"/>
+											</apex:outputPanel>
+											
+											<apex:outputPanel layout="none" rendered="{!fld.ftype == 'label'}">
+												<p class="form-control-static"><apex:outputField value="{!co[fld.name]}"/></p>
+											</apex:outputPanel>
+
+										</div>
+									</div>
+								</apex:repeat>
+							</apex:outputPanel>
+							<apex:outputPanel >
+								<script>
+									//datetime
+									if($('.cs-datetime')) {
+										var currentdate = new Date(); 
+										var format = ucDateFormat() + ' ' + ucTimeFormat();
+										$('.cs-datetime').datetimepicker({
+											format: format,
+											step:30,
+											closeOnTimeSelect: true,
+											lang: 'en'
+										});
+									}
+									//date
+									if($('.cs-date')) {
+										var format = ucDateFormat();
+										$('.cs-date').datetimepicker({
+											timepicker:false,
+											format: format,
+											closeOnDateSelect: true,
+											lang: 'en'
+										});
+									}
+									function ucDateFormat() {
+										return !(UserContext && UserContext.dateFormat) ? 'n/d/Y'
+												: UserContext.dateFormat.replace('yyyy','Y').replace('yy','y').replace('MM','m').replace('M','n').replace('dd','d').replace('d','j');
+									}
+									function ucTimeFormat() {
+										return !(UserContext && UserContext.timeFormat) ? 'h:m a'
+												: UserContext.timeFormat.replace('mm','i').replace('a','A').replace('hh','g').replace('h','g').replace('HH','G').replace('H','G');
+									}
+								</script>
+							</apex:outputPanel>
+						</div>
+					</div>
+					<apex:outputPanel rendered="{!!RegMode}">
+						<div class="row">
+							<div class="col-md-12 text-center">
+								<apex:commandButton id="editbtn" styleClass="btn-u btn-primary" rendered="{!!editMode}" value="{!$Label.BTN_Edit}" action="{!editAboutMe}"/>
+								
+								<apex:outputPanel layout="none" rendered="{!editMode}">
+									<apex:commandButton id="savebtn" styleClass="btn-u btn-primary" value="{!$Label.BTN_Save}" action="{!updateAboutMe}" reRender="AboutMe,topbtns,botbtns,pageMessages"/>
+									&nbsp;
+									<!-- <apex:commandButton styleClass="btn-u btn-warning" rendered="{!editMode}" value="{!$Label.BTN_Cancel}" action="{!cancelAboutMe}" reRender="AboutMe,topbtns,botbtns"/> -->
+									<apex:commandLink styleClass="btn-u btn-warning" value="{!$Label.BTN_Cancel}" immediate="true" action="{!cancelAboutMe}" reRender="AboutMe,topbtns,botbtns"/>
+								</apex:outputPanel>
+							</div>
+						</div>
+					</apex:outputPanel>
+				</div>
+
+			</div>
+
+			<apex:outputPanel id="botbtns" rendered="{!RegMode}">
+				<div class="row">
+					<div class="col-sm-12 text-right">
+						<apex:outputPanel >
+							<apex:commandButton id="subtn" styleClass="btn-u btn-primary" value="{!IF(aboutMeSubmit, $Label.BTN_Submit, $Label.BTN_Next)}" action="{!updateAboutMe}" reRender="AboutMe,terms,topbtns,botbtns,pageMessages"/>
+						</apex:outputPanel>
+						<!-- <apex:outputPanel>
+							<a class="btn-u btn-sm btn-primary disabled" href="{!$Page.LPMyPhoto}?reg=true">{!$Label.BTN_Next}</a>
+						</apex:outputPanel> -->
+					</div>
+				</div>
+			</apex:outputPanel>
+		</apex:form>
+	</div>
+
+	<script>
+		//add placeholder for dropdowns
+		$(document).ready(function(){
+			$(".chosen-select").chosen({ width: "100%"});
+			$("select").each( function(index, element){
+				if ($(element).selectedIndex == 0) {
+					$(element).append($('<option class="hidden" value="" selected disabled>{!$Label.LBL_Please_Select}</option>'));
+				}
+			});
+		});
+		function checkfields() {
+			var vv = true;
+			$("[id$=ff]").each(function(index) {
+				vv = $(this).val().trim() == '' ? false : vv;
+			});
+			vv ? $("[id$=subtn]").removeAttr('disabled') : $("[id$=subtn]").attr('disabled','disabled');
+			vv ? $("[id$=subtnt]").removeAttr('disabled') : $("[id$=subtnt]").attr('disabled','disabled');
+			vv ? $("[id$=savebtn]").removeAttr('disabled') : $("[id$=savebtn]").attr('disabled','disabled');
+		}
+		checkfields();
+		$("[id$=pwff]").attr('required','required');
+	</script>
+	<c:LPFooter />
+</section>
+</apex:define>
+</apex:composition>
+</apex:page>

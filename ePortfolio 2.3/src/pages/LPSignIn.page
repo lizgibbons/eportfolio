@@ -1,0 +1,116 @@
+<apex:page controller="LPSignController" showHeader="false" sideBar="false" standardStylesheets="false" docType="html-5.0" applyBodyTag="false" applyHtmlTag="false">
+<apex:composition template="{!$Site.Template}">
+<apex:define name="title">{!$Label.LBL_Page_Title}</apex:define>
+<apex:define name="body">
+<!--<apex:outputLink value="" rendered="{!!ISBLANK(LogoUrl)}">
+	<img src="{!$Site.Prefix}/servlet/servlet.ImageServer?oid={!$Organization.Id}&id={!LogoUrl}" alt=""/>
+</apex:outputLink>-->
+	<div class="container">
+		<div class="row">
+		<div class="col-lg-4 col-lg-offset-4">
+			<h3 class="text-center">
+				<apex:image value="{!$Site.Prefix}/servlet/servlet.ImageServer?oid={!$Organization.Id}&id={!$Setup.LP_Template_Settings__c.Registration_Page_Logo__c}" rendered="{!!ISBLANK($Setup.LP_Template_Settings__c.Registration_Page_Logo__c)}"/>
+				<apex:outputPanel layout="none" rendered="{!ISBLANK($Setup.LP_Template_Settings__c.Registration_Page_Logo__c)}"><i class="fa fa-unlock-alt"></i></apex:outputPanel>
+			</h3>
+			<p class="text-center">{!$Label.LBL_Sign_In_Title}</p>
+			<hr class="clean"/>
+			<apex:form html-role="form">
+				<div class="form-group input-group">
+					<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+					<apex:inputText value="{!username}" styleClass="form-control" html-placeholder="{!$Label.LBL_Sign_In_Email}"/>
+				</div>
+				<div class="form-group input-group">
+					<span class="input-group-addon"><i class="fa fa-key"></i></span>
+					<apex:inputSecret value="{!password}" styleClass="form-control" html-placeholder="{!$Label.LBL_Sign_In_Password}"/>
+				</div>
+				<!--div class="form-group">
+					<label class="cr-styled">
+						<input type="checkbox"/>
+						<i class="fa"></i>
+					</label>
+					Remember me
+				</div-->
+				<apex:commandButton value="{!$Label.LBL_Sign_In}" action="{!login}" styleClass="btn btn-default btn-block"/>
+				<span class="a-mess">
+					<div class="message" id="messageContainer"  style="display:none">
+					<!--apex:pageMessages id="pageMessages"/-->
+						<apex:outputText id="message" value="{!pageErrors}"/>
+					</div>
+				</span>
+			</apex:form>
+			<hr/>
+			<div class="text-center">
+				<a href="#resetPassword" data-toggle="modal" title="Reset Password" onclick="resetAction(1,'');return false;">{!$Label.LBL_Forgot_Password}</a>
+			</div>
+			<!--p class="text-center text-gray">Dont have account yet!</p>
+			<button type="submit" class="btn btn-default btn-block">Create Account</button-->
+		</div>
+		</div>
+	</div>
+	<div class="modal fade" id="resetPassword" aria-live="assertive" role="dialog" tabindex="-1" aria-labelledby="confirmCreatePortfolioLabel" aria-hidden="true">
+		<apex:outputPanel id="resetmodal" layout="block" styleClass="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button id="closemodal" aria-hidden="true" data-dismiss="modal" class="close" type="button">&times;</button>
+					<h4 id="confirmCreatePortfolioLabel" class="modal-title">
+						<apex:actionStatus id="statusLoad">
+							<apex:facet name="start"><i class="fa fa-spinner fa-pulse"></i></apex:facet>
+						</apex:actionStatus>&nbsp;
+					</h4>
+				</div>
+				<apex:outputPanel layout="none" rendered="{!resetPasswordMode == 1}">
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="exampleInputPassword1">{!$Label.LBL_Email_for_reset}</label>
+						</div>
+						<div class="form-group input-group">
+							<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+							<input type="email" class="form-control" id="emailtoreset" placeholder="{!$Label.LBL_Sign_In_Email}" onkeyup="checkbtn();" onpaste="checkbtn(event);" oncut="checkbtn();"/>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button id="etrbtn" type="button" class="btn-u btn-primary" onclick="resetAction(2,$('#emailtoreset').val());return false;" disabled="disabled">{!$Label.BTN_Reset_Password}</button>
+						<button type="button" class="btn-u btn-warning" data-dismiss="modal">{!$Label.BTN_Cancel}</button>
+					</div>
+					<script>
+						function checkbtn(e) {
+							var tt = e ? e.clipboardData.getData('text/plain') : $('#emailtoreset').val();
+							validateEmail(tt) ? $("#etrbtn").removeAttr('disabled') : $("#etrbtn").attr('disabled','disabled');
+						}
+						function validateEmail(email) {
+							var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+							return re.test(email);
+						}
+					</script>
+				</apex:outputPanel>
+				<apex:outputPanel layout="none" rendered="{!resetPasswordMode == 2}">
+					<div class="modal-body">
+						<h4>{!$Label.LBL_Check_your_email}</h4>
+						<p>{!$Label.LBL_Check_email_message}</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn-u btn-primary" data-dismiss="modal">{!$Label.BTN_OK}</button>
+					</div>
+				</apex:outputPanel>
+			</div>
+		</apex:outputPanel>
+	</div>
+	<apex:form >
+		<apex:actionFunction action="{!resetPasswordAction}" name="resetAction" rerender="resetmodal" status="statusLoad">
+			<apex:param name="rpm" assignTo="{!resetPasswordMode}" value="" />
+			<apex:param name="em" assignTo="{!emailToReset}" value="" />
+		</apex:actionFunction>
+	</apex:form>
+</apex:define>
+</apex:composition>
+<script>
+	$( document ).ready(function() {
+		var msgText = $('#messageContainer')[0].childNodes[0].innerText;
+		if (msgText == "") {
+			$('#messageContainer')[0].style.display = "none";
+		} else {
+			$('#messageContainer')[0].style.display = "block";
+		}
+	});
+</script>
+</apex:page>

@@ -1,0 +1,105 @@
+<apex:page controller="LPSignController" action="{!initFromTerms}" showHeader="false" sideBar="false" standardStylesheets="false" docType="html-5.0" applyBodyTag="false" applyHtmlTag="false">
+<apex:composition template="{!$Site.Template}">
+<apex:define name="title">{!$Label.LBL_Page_Title}</apex:define>
+<apex:define name="body" >
+
+<style>
+	.richtext-justify, .sfdc_richtext {
+		text-align: justify;
+	}
+</style>
+<c:LPPreloader />
+<c:LPHeader />
+<c:LPLeftPanel col="terms" regMode="{!RegMode}"/>
+<section class="content">
+	<apex:form id="terms">
+		<div class="warper container-fluid">
+			<div class="page-header">
+				<div class="row">
+					<div class="col-sm-8 text-left">
+						<h1>{!$Label.LBL_Terms_Conditions}</h1>
+					</div>
+					<div class="col-sm-4 text-right">
+						<apex:outputPanel rendered="{!RegMode}">
+							<a class="btn-u btn-sm btn-primary" href="{!$Page.LPMyPhoto}?reg=true">{!$Label.BTN_Previous}</a>
+							&nbsp;
+							<apex:outputPanel >
+								<apex:commandButton id="tsubtn" styleClass="btn-u btn-primary" value="{!$Label.BTN_Submit}" action="{!acceptTerms}" reRender="terms,topbtns,botbtns"/>
+							</apex:outputPanel>
+						</apex:outputPanel>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="form-group">
+								<div class="a-mess col-sm-12">
+									<apex:pageMessages id="pageMessages"/>
+								</div>
+							</div>
+
+							<apex:outputPanel layout="none" rendered="{!termsLPAdmin != NULL}">
+								<apex:outputField styleClass="richtext-justify" value="{!termsLPAdmin.Terms_Body__c}" rendered="true"/>
+								<hr/>
+								<apex:outputPanel rendered="{!!termsIsAccepted}">
+									<div class="text-center" >
+										<apex:inputCheckbox rendered="{!!termsIsAccepted}" value="{!termsIsAccepted}" id="terms-checkbox" onchange="chkchkb(this);" styleClass="vertical-align-top"/>
+										&nbsp;<label>{!$Label.LBL_AgreeToTerms}</label>
+										<script>
+											$(document).ready(function(){
+												chkchkb($('[id$=terms-checkbox]'));
+											});
+											function chkchkb(el) {
+												if (el.checked) {
+													$('[id$=subtn]').css('opacity','1').removeAttr('disabled');
+												}
+												else {
+													$('[id$=subtn]').css('opacity','0.65').attr('disabled','disabled');
+												}
+											}
+										</script>
+
+										<apex:outputPanel rendered="{!!RegMode}">
+											<div class="row">
+											<apex:commandButton id="csubtn" styleClass="btn-u btn-primary" value="{!$Label.BTN_Submit}" action="{!acceptTerms}" reRender="terms,topbtns,botbtns"/>
+											<!-- &nbsp;
+											<apex:commandButton id="cancelbtn" styleClass="btn-u btn-warning" value="{!$Label.BTN_Cancel}" action="{!initFromTerms}" reRender="terms,topbtns,botbtns"/> -->
+											</div>
+										</apex:outputPanel>
+									</div>
+								</apex:outputPanel>
+
+								<apex:outputPanel rendered="{!termsIsAccepted}">
+									<div class="text-center" >
+										<apex:inputCheckbox rendered="{!termsIsAccepted}" value="{!termsIsAccepted}" disabled="{!termsIsAccepted}" id="terms-checkbox-checked" styleClass="vertical-align-top"/>
+										&nbsp;<label>{!$Label.LBL_AgreeToTerms}</label>
+									</div>
+								</apex:outputPanel>
+
+							</apex:outputPanel>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<apex:outputPanel rendered="{!RegMode}">
+				<div class="row">
+					<div class="col-sm-12 text-right">
+						<a class="btn-u btn-sm btn-primary" href="{!$Page.LPMyPhoto}?reg=true">{!$Label.BTN_Previous}</a>
+						&nbsp;
+						<apex:outputPanel >
+							<apex:commandButton id="bsubtn" styleClass="btn-u btn-primary" value="{!$Label.BTN_Submit}" action="{!acceptTerms}" reRender="terms,topbtns,botbtns"/>
+						</apex:outputPanel>
+					</div>
+				</div>
+			</apex:outputPanel>
+		</div>
+	</apex:form>
+
+	<c:LPFooter />
+</section>
+</apex:define>
+</apex:composition>
+</apex:page>

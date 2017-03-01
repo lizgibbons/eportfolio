@@ -1,0 +1,686 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>BTN_Add_Remove_from_MyAssets_in_this_Category</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>BTN Add Remove from MyAssets in this Category</shortDescription>
+        <value>Add or Remove from My Assets in this Category</value>
+    </labels>
+    <labels>
+        <fullName>BTN_Add_or_Remove_from_My_Assets</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>BTN Add or Remove from My Assets</shortDescription>
+        <value>Add or Remove from My Assets</value>
+    </labels>
+    <labels>
+        <fullName>BTN_Browse</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>BTN Browse</shortDescription>
+        <value>Browse</value>
+    </labels>
+    <labels>
+        <fullName>BTN_Cancel</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>BTN Cancel</shortDescription>
+        <value>Cancel</value>
+    </labels>
+    <labels>
+        <fullName>BTN_Change_password</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>BTN Change password</shortDescription>
+        <value>Change password</value>
+    </labels>
+    <labels>
+        <fullName>BTN_Edit</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>BTN Edit</shortDescription>
+        <value>Edit</value>
+    </labels>
+    <labels>
+        <fullName>BTN_Next</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>BTN Next</shortDescription>
+        <value>Next</value>
+    </labels>
+    <labels>
+        <fullName>BTN_OK</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>BTN OK</shortDescription>
+        <value>OK</value>
+    </labels>
+    <labels>
+        <fullName>BTN_Previous</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>BTN Previous</shortDescription>
+        <value>Previous</value>
+    </labels>
+    <labels>
+        <fullName>BTN_Reset_Password</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>BTN Reset Password</shortDescription>
+        <value>Reset Password</value>
+    </labels>
+    <labels>
+        <fullName>BTN_Save</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>BTN_Save</shortDescription>
+        <value>Save</value>
+    </labels>
+    <labels>
+        <fullName>BTN_Save_Add_Learner_Profile</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>BTN Save Add Learner Profile</shortDescription>
+        <value>Save &amp; Add to Learner Profile</value>
+    </labels>
+    <labels>
+        <fullName>BTN_Submit</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>BTN Submit</shortDescription>
+        <value>Submit</value>
+    </labels>
+    <labels>
+        <fullName>BTN_Update</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>BTN Update</shortDescription>
+        <value>Update</value>
+    </labels>
+    <labels>
+        <fullName>BTN_Upload_Asset</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>BTN Upload Asset</shortDescription>
+        <value>Upload Asset</value>
+    </labels>
+    <labels>
+        <fullName>ERR_Password_no_match</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ERR Password no match</shortDescription>
+        <value>Passwords do not match</value>
+    </labels>
+    <labels>
+        <fullName>ERR_Passwords_Mismatch</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ERR Passwords Mismatch</shortDescription>
+        <value>Passwords do not match</value>
+    </labels>
+    <labels>
+        <fullName>ERR_Upload_Only_One_File</fullName>
+        <categories>LPAssetEdit</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ERR Upload Only One File</shortDescription>
+        <value>You can only upload one file</value>
+    </labels>
+    <labels>
+        <fullName>LBL_About_Me</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL About Me</shortDescription>
+        <value>About Me</value>
+    </labels>
+    <labels>
+        <fullName>LBL_About_Me_Page_Title</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL About Me Page Title</shortDescription>
+        <value>About Me</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Active</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Active</shortDescription>
+        <value>Active</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Add_Photo</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Add Photo</shortDescription>
+        <value>Add Photo</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Add_Remove_Asset</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Add Remove Asset</shortDescription>
+        <value>Add or Remove this Asset from Learner Profiles</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Add_Remove_Learner_Profile_Title</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Add Remove Learner Profile Title</shortDescription>
+        <value>Add or Remove from Learner Profile</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Address</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Address</shortDescription>
+        <value>Street Address</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Admin_Title_Page</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Admin Title Page</shortDescription>
+        <value>Learner Profile Admin</value>
+    </labels>
+    <labels>
+        <fullName>LBL_AgreeToTerms</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL AgreeToTerms</shortDescription>
+        <value>I agree to these Terms and Conditions.</value>
+    </labels>
+    <labels>
+        <fullName>LBL_All_Assets</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL All Assets</shortDescription>
+        <value>All Assets</value>
+    </labels>
+    <labels>
+        <fullName>LBL_All_Learner_Profiles</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL All Learner Profiles</shortDescription>
+        <value>All Learner Profiles</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Asset_Detail_Title</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Asset Detail Title</shortDescription>
+        <value>Asset Details</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Asset_Will_Not_Be_Saved</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Asset Will Not Be Saved</shortDescription>
+        <value>Your asset will not be saved. Please hit Save to save your asset.</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Cell_Phone</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Cell Phone</shortDescription>
+        <value>Mobile Phone</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Check_email_message</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Check email message</shortDescription>
+        <value>Please check your email account for instructions on resetting your password.  Remember to check your spam folder!</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Check_your_email</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Check your email</shortDescription>
+        <value>Now, check your mail</value>
+    </labels>
+    <labels>
+        <fullName>LBL_City</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL City</shortDescription>
+        <value>City</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Create_Learner_Profile</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Create Learner Profile</shortDescription>
+        <value>Create Learner Profile</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Delete_Asset</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Delete Asset</shortDescription>
+        <value>Your Asset is part of a Learner Profile. If you delete the asset, it will also be removed from your Learner Profile.</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Delete_Asset_message</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL_Delete_Asset_message</shortDescription>
+        <value>Are you sure you want to delete this Asset? This action cannot be undone.</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Deselect_All</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Deselect All</shortDescription>
+        <value>Deselect All</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Drag_and_Drop_Files_here</fullName>
+        <categories>LPAssetEdit</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Drag and Drop Files here</shortDescription>
+        <value>Drag and Drop Files here</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Edit_Asset_Required_Field</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Edit Asset Required Field</shortDescription>
+        <value>This is a required field</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Edit_Asset_Select_Resource</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Edit Asset Select Resource</shortDescription>
+        <value>&lt;strong&gt;Error:&lt;/strong&gt; You must upload a link or file</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Edit_Required_Field</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Edit Required Field</shortDescription>
+        <value>This is a required field</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Email_for_reset</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Email for reset</shortDescription>
+        <value>Please enter your email address associated with your Learner Profile account and we will send you instructions on how to reset your password</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Employment_Status</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Employment Status</shortDescription>
+        <value>What is your employment status?</value>
+    </labels>
+    <labels>
+        <fullName>LBL_File_Browser_Page_Title</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL File Browser Page Title</shortDescription>
+        <value>My Assets</value>
+    </labels>
+    <labels>
+        <fullName>LBL_File_Upload_Size_Limit</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>File upload size limit</shortDescription>
+        <value>File size may not exceed 10 MB</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Forgot_Password</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Forgot Password</shortDescription>
+        <value>Forgot your password?</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Highest_Level_Education</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Highest Level Education</shortDescription>
+        <value>What is your highest level of Education?</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Item_Items</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Item Items</shortDescription>
+        <value>Item;Items</value>
+    </labels>
+    <labels>
+        <fullName>LBL_LP_Link</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL LP Link</shortDescription>
+        <value>Link to My Learner Profile</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Learner_Proflie_Message_1</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Learner Proflie Message 1</shortDescription>
+        <value>Learner Profile doesn&apos;t exists or have another owner</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Link</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Link</shortDescription>
+        <value>Link</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Locked_Account</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Locked Account</shortDescription>
+        <value>Your account is currently locked due to too many failed login attempts. Please contact info@digitalonramps.com for help with your account.</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Menu_c</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Menu__c</shortDescription>
+        <value>Menu</value>
+    </labels>
+    <labels>
+        <fullName>LBL_My_Learner_Profiles</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL My Learner Profiles</shortDescription>
+        <value>My Learner Profiles</value>
+    </labels>
+    <labels>
+        <fullName>LBL_My_Photo</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL My Photo</shortDescription>
+        <value>My Photo</value>
+    </labels>
+    <labels>
+        <fullName>LBL_My_Profile</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL My Profile</shortDescription>
+        <value>My Account</value>
+    </labels>
+    <labels>
+        <fullName>LBL_New_password</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL New password</shortDescription>
+        <value>New password</value>
+    </labels>
+    <labels>
+        <fullName>LBL_No_Portfolio</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL No Portfolio</shortDescription>
+        <value>No Learner Profile found</value>
+    </labels>
+    <labels>
+        <fullName>LBL_No_assets_found</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL No assets found</shortDescription>
+        <value>It looks like this folder is empty! Add an item to this category to help complete your Learner Profile!</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Page_Title</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Page Title</shortDescription>
+        <value>Mosaic</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Pick_new_password</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Pick new password</shortDescription>
+        <value>Pick a new password</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Picture_Size_Max</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Picture Size Max</shortDescription>
+        <value>You can upload a JPG, GIF, or PNG file. Maximum size is 8MB.</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Please_Select</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Please Select</shortDescription>
+        <value>Please Select</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Profile_Picture_Title</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Profile Picture Title</shortDescription>
+        <value>Profile Picture</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Save_Add_Learner_Profile_Message</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Save Add Learner Profile Message</shortDescription>
+        <value>Are you sure you would like to save this asset and add it to your Learner Profile:</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Search_Asset</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Search Asset</shortDescription>
+        <value>Search asset here...</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Select_All</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Select All</shortDescription>
+        <value>Select All</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Select_Files_from_Computer</fullName>
+        <categories>LPAssetEdit</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Select Files from Computer</shortDescription>
+        <value>Or Select Files from your Computer</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Show_Hide_All</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Show Hide All</shortDescription>
+        <value>Show/Hide All</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Sign_In</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Sign In</shortDescription>
+        <value>Sign in</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Sign_In_Confirm_Password</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Sign In Confirm Password</shortDescription>
+        <value>Confirm Password</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Sign_In_Email</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Sign In Email</shortDescription>
+        <value>Email Address</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Sign_In_Password</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Sign In Password</shortDescription>
+        <value>Password</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Sign_In_Title</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Sign In Title</shortDescription>
+        <value>Sign In to your Learner Profile</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Sign_Out</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Sign Out</shortDescription>
+        <value>Logout</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Sign_up</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Sign up</shortDescription>
+        <value>Sign up</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Sign_up_Account_Error</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Sign up Account Error</shortDescription>
+        <value>Account does not exist</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Sign_up_Email_Error</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Sign up Email Error</shortDescription>
+        <value>There is already a registered user with that email.  Please click the Sign In button to log in</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Sign_up_First_Name</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Sign up First Name</shortDescription>
+        <value>First Name</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Sign_up_Have_Account</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Sign up Have Account</shortDescription>
+        <value>Already have account</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Sign_up_Last_Name</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Sign up Last Name</shortDescription>
+        <value>Last Name</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Sign_up_Profile_Error</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Sign up Profile Error</shortDescription>
+        <value>Profile not exists or didn&apos;t enabled in Community</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Sign_up_Title</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Sign up Title</shortDescription>
+        <value>Sign up for your Learner Profile</value>
+    </labels>
+    <labels>
+        <fullName>LBL_State</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL State</shortDescription>
+        <value>State</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Student_Status</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Student Status</shortDescription>
+        <value>What is your student status?</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Terms_Conditions</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Terms Conditions</shortDescription>
+        <value>Terms &amp; Conditions</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Thumbnail</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Thumbnail</shortDescription>
+        <value>To make adjustments to your thumbnail image, drag and resize the dotted lines in your profile photo above.</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Type_it_again</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Type it again</shortDescription>
+        <value>Type it again</value>
+    </labels>
+    <labels>
+        <fullName>LBL_URL</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL URL</shortDescription>
+        <value>URL</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Upload</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Upload</shortDescription>
+        <value>Upload</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Upload_File</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Upload File</shortDescription>
+        <value>Upload File</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Upload_One_File</fullName>
+        <categories>LPAssetEdit</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Upload One File</shortDescription>
+        <value>Please upload only one file</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Upload_Profile_Photo</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Upload Profile Photo</shortDescription>
+        <value>Upload Profile Photo</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Welcome_to_Portfolio_c</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL_Welcome_to_Portfolio__c</shortDescription>
+        <value>Welcome to the Portfolio of {0}</value>
+    </labels>
+    <labels>
+        <fullName>LBL_Zip</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LBL Zip</shortDescription>
+        <value>Zip Code</value>
+    </labels>
+</CustomLabels>

@@ -1,0 +1,50 @@
+<apex:page controller="LPAdminController">
+
+<apex:form id="mainform">
+	<apex:sectionHeader title="{!$Label.LBL_Admin_Title_Page}"/>
+	<apex:pageBlock >
+		<apex:pageMessages id="pageMessages"/>
+		<apex:pageBlockSection id="tssection" title="{!$ObjectType.LP_Template_Settings__c.Label}" columns="1">
+			<apex:pageBlockSectionItem >
+				<apex:outputPanel layout="none"/>
+				<apex:outputPanel layout="none">
+					<apex:commandButton action="{!saveTS}" value="Save" rerender="tssection,pageMessages" rendered="{!tsEdit}" status="pleasewait"/>
+					<apex:commandButton action="{!cancelTS}" value="Cancel" rerender="tssection,pageMessages" rendered="{!tsEdit}" status="pleasewait" immediate="true"/>
+					<apex:commandButton action="{!editTS}" value="Edit" rerender="tssection,pageMessages" rendered="{!!tsEdit}" status="pleasewait"/>
+				</apex:outputPanel>
+			</apex:pageBlockSectionItem>
+			<apex:repeat value="{!FieldsTS}" var="fs">
+				<apex:inputField value="{!ts[fs]}" rendered="{!tsEdit}"/>
+				<apex:outputField value="{!ts[fs]}" rendered="{!!tsEdit}"/>
+			</apex:repeat>
+		</apex:pageBlockSection>
+	</apex:pageBlock>
+</apex:form>
+<style>
+	.b-status {
+		position: fixed;
+		bottom: 20px;
+		right: 20px;
+		background: #ECF0F8;
+		padding: 15px 20px;
+		font-size: 1.4em;
+		font-weight: bold;
+		color: #333;
+		-moz-border-radius: 15px;
+		-webkit-border-radius: 15px;
+		border-radius: 15px;
+		border: solid 1px; opacity:0.8;
+	}
+	.b-status img {
+		vertical-align:middle;
+	}
+</style>
+<apex:actionStatus id="pleasewait">
+	<apex:facet name="start">
+		<apex:outputPanel layout="block" styleClass="b-status">
+			Proccessing...&nbsp;&nbsp;
+			<apex:image value="/img/loading32.gif" width="32px" height="32px"/>
+		</apex:outputPanel>
+	</apex:facet>
+</apex:actionStatus>
+</apex:page>

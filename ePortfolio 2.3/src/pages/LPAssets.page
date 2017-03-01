@@ -1,0 +1,360 @@
+<apex:page controller="LPAssetController" action="{!initFromList}" showHeader="false" sideBar="false" standardStylesheets="false" docType="html-5.0" applyBodyTag="false" applyHtmlTag="false">
+<apex:composition template="{!siteTemplatePage}">
+<apex:define name="title">{!$Label.LBL_Page_Title}</apex:define>
+<apex:define name="body">
+<c:LPPreloader />
+<c:LPHeader />
+<c:LPLeftPanel col="{!IF(lpMode,'profile','asset')}"/>
+<section class="content">
+	<apex:outputPanel layout="block" styleClass="warper container-fluid" rendered="{!!wrongProfile}">
+		<div class="page-header">
+		<!-- <div class="row">
+					<div class="col-md-12 text-right">
+						<a href="{!$Site.Prefix}/secur/logout.jsp"><span>{!$Label.LBL_Sign_Out}</span></a>
+					</div>
+			</div> -->
+			<apex:outputPanel layout="block" styleClass="row" rendered="{!!lpMode}">
+				<div class="col-md-12 text-left">
+					<h1>{!$Label.LBL_File_Browser_Page_Title}</h1>
+				</div>
+			</apex:outputPanel>
+			<apex:outputPanel layout="block" styleClass="row" rendered="{!lpMode}">
+				<div class="col-md-12 text-left">
+					<h1>{!currentLearnerProfile.Name}</h1>
+				</div>
+			</apex:outputPanel>
+		</div>
+		<apex:outputPanel layout="block" styleClass="filemanager" rendered="{!$ObjectType.Asset__c.accessible}">
+			
+			<apex:outputPanel layout="block" styleClass="col-md-12 after-bot-mrgn" rendered="{!ShowLPbtns}">
+				<apex:outputPanel layout="block" styleClass="row" rendered="{!!inactiveProfile}">
+					<div class="col-md-3 text-left"><strong>{!$Label.LBL_LP_Link}</strong></div>
+					<div class="col-md-9 text-left"><a href="{!LearnerProfilePageLink}" target="_blank">{!LearnerProfilePageLink}</a></div>
+					<hr/>
+				</apex:outputPanel>
+				<div class="row">
+					<div class="col-md-3 text-left"><strong>Status</strong></div>
+					<div class="col-md-9 text-left"><strong class="{!LPStatusColorStyle}">{!currentLearnerProfile.Status__c}</strong></div>
+					<hr/>
+				</div>
+				<div class="row">
+					<div class="col-md-3 text-left"><strong>Description</strong></div>
+					<div class="col-md-9 text-left">{!currentLearnerProfile.Description__c}</div>
+					<hr/>
+				</div>
+			</apex:outputPanel>
+			<ol class="breadcrumb">
+				<!--<apex:outputPanel layout="none" rendered="{!!ISBLANK(CategoryParam)}">
+					<li><a href="{!$Page.LPAssets}?b=yes{!LearnerProfileLink}">{!$Label.LBL_Categories}</a></li>
+					<li class="active">{!CategoryParam.label}</li>
+				</apex:outputPanel>
+				<apex:outputPanel layout="none" rendered="{!ISBLANK(CategoryParam)}">
+					<li>{!$Label.LBL_Categories}</li>
+				</apex:outputPanel>-->
+				<li><a href="#" id="fview">Folder View</a> |
+				<a href="#" id="lview">List View</a></li>
+				
+			</ol>
+			<!-- apex:outputPanel layout="none" rendered="{!!inactiveProfile}"-->
+				<apex:outputPanel layout="block" styleClass="row" rendered="{!Categories.size > 0 || Assets.size > 0}">
+					<div class="col-md-12 text-center">
+						<apex:outputLink value="{!urlForNewAsset}" rendered="{!$ObjectType.Asset__c.createable && !inactiveProfile}" styleClass="btn-u btn-primary">
+							{!IF(lpMode,$Label.LBL_Create_and_Add_Asset,$Label.BTN_Create_New_Asset)}
+						</apex:outputLink>
+						<apex:outputPanel layout="none" rendered="{!AddFromCategoryBtn && !inactiveProfile}">
+							&nbsp;
+							<a href="{!UrlForAddFromCategory}" class="btn-u btn-primary">{!$Label.BTN_Add_Remove_from_MyAssets_in_this_Category}</a>
+						</apex:outputPanel>
+						<apex:outputPanel layout="none" rendered="{!ShowLPbtns}">
+							&nbsp;
+							<apex:outputLink value="{!$Page.LPMyAssets}?lp={!JSENCODE($CurrentPage.parameters.lp)}" rendered="{!$ObjectType.Asset_Learner_Profile__c.createable && !inactiveProfile}" styleClass="btn-u btn-primary">
+								{!$Label.BTN_Add_or_Remove_from_My_Assets}
+							</apex:outputLink>
+							&nbsp;
+							<apex:outputLink value="{!UrlForEditLearnerProfile}" rendered="{!$ObjectType.Learner_Profile__c.updateable}" styleClass="btn-u btn-primary">{!$Label.LBL_Edit}</apex:outputLink>
+						</apex:outputPanel>
+					</div>
+				</apex:outputPanel>
+				<!-- START FOLDER VIEW -->
+				<div class="views">
+					<div class="view" id="folder">
+					<ul class="data list-unstyled animated">
+						<apex:repeat value="{!Categories}" var="c">
+							<li class="folders">
+								<a href="{!$Page.LPAssets}?c={!URLENCODE(c.name)}{!LearnerProfileLink}" title="{!c.name}" class="folders">
+									<span class="icon folder full"></span>
+									<span class="name">{!c.name}</span>
+									<span class="details">{!c.ItemString}</span>
+								</a>
+							</li>
+						</apex:repeat>
+						<apex:repeat value="{!Assets}" var="a">
+							<li class="files">
+								<a href="{!$Page.LPAssetDetail}?id={!a.id}{!LearnerProfileLink}" title="{!a.status}" class="files">
+									<span class="icon file {!a.file}"><i class="fa {!a.icon}"></i></span>
+									<span class="name">{!a.name}</span>
+									<apex:outputPanel styleClass="details" rendered="{!!ISBLANK(a.size)}">{!a.size}</apex:outputPanel>
+								</a>
+							</li>
+						</apex:repeat>
+					 </ul>
+					 </div>
+					<!-- END FOLDER VIEW -->
+					<!-- START LIST VIEW -->
+					<div class="view" id="list">
+						<div class="panel panel-default">
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-lg-2">
+									<div class="form-group">
+										<input type="text" class="form-control input-sm form-control-flat" placeholder="{!$Label.LBL_Search_Asset}" onkeyup="checksearch(this);"/>
+									</div>
+									</div>
+								</div>
+								<apex:form id="tableAssets">
+									<table id="basic-datatable" class="table table-bordered">
+										<thead>
+											<tr>
+												<th id="first-th" class="click-header" onclick="toogleall(this);"><i class="fa fa-plus-square-o" title="{!$Label.LBL_Show_Hide_All}"></i></th>
+												<th width="60%">{!$ObjectType.Asset__c.Fields.Name.Label}</th>
+												<th>{!$ObjectType.Asset__c.Fields.LastModifiedDate.Label}</th>
+											</tr>
+										</thead>
+											<tbody>
+												<apex:repeat value="{!assetCatMap}" var="cat">
+													<tr class="category-row" id="{!cat}" onclick="togglerows(this);">
+														<td class="hidden"><label></label></td>
+														<td colspan="3"><i class="fa fa-plus-square-o"></i>&nbsp;&nbsp;<span class="name">{!cat}</span></td>
+														<td class="hidden"><span></span></td>
+													</tr>
+													<apex:repeat value="{!assetCatMap[cat]}" var="a">
+														<tr class="category-in" >
+															<td></td>
+															<td class="asset-name"><span>{!assetCatMap[cat][a].Name}</span></td>
+															<td><span>{!assetCatMap[cat][a].LastModifiedDate}</span></td>
+														</tr>
+													</apex:repeat>
+												</apex:repeat>
+											</tbody>
+									</table>
+								</apex:form>
+							</div>
+						</div>
+					</div>
+					<!-- END LIST VIEW -->
+				</div>
+			<!--/apex:outputPanel-->
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<apex:outputLink value="{!urlForNewAsset}" rendered="{!$ObjectType.Asset__c.createable && !inactiveProfile}" styleClass="btn-u btn-primary">
+						{!IF(lpMode,$Label.LBL_Create_and_Add_Asset,$Label.BTN_Create_New_Asset)}
+					</apex:outputLink>
+					<apex:outputPanel layout="none" rendered="{!AddFromCategoryBtn && !inactiveProfile}">
+						&nbsp;
+						<a href="{!UrlForAddFromCategory}" class="btn-u btn-primary">{!$Label.BTN_Add_Remove_from_MyAssets_in_this_Category}</a>
+					</apex:outputPanel>
+					<apex:outputPanel layout="none" rendered="{!ShowLPbtns}">
+						&nbsp;
+						<apex:outputLink value="{!$Page.LPMyAssets}?lp={!JSENCODE($CurrentPage.parameters.lp)}" rendered="{!$ObjectType.Asset_Learner_Profile__c.createable && !inactiveProfile}" styleClass="btn-u btn-primary">
+							{!$Label.BTN_Add_or_Remove_from_My_Assets}
+						</apex:outputLink>
+						&nbsp;
+						<apex:outputLink value="{!UrlForEditLearnerProfile}" rendered="{!$ObjectType.Learner_Profile__c.updateable}" styleClass="btn-u btn-primary">{!$Label.LBL_Edit}</apex:outputLink>
+					</apex:outputPanel>
+				</div>
+			</div>
+			<apex:outputPanel layout="block" styleClass="nothingfound" rendered="{!Categories.size == 0 && Assets.size == 0}" style="display:block;">
+				<br/><br/>
+				<i class="fa fa-folder-open-o fa-5x"></i>
+				<br/>
+				<span>{!$Label.LBL_No_assets_found}</span>
+			</apex:outputPanel>
+		</apex:outputPanel>
+		<hr/>
+	</apex:outputPanel>
+	<apex:outputPanel layout="block" styleClass="warper container-fluid" rendered="{!wrongProfile}">
+		<div class="filemanager">
+			<div class="nothingfound" style="display:block;">
+				<br/><br/>
+				<i class="fa fa-folder-open-o fa-5x"></i>
+				<br/>
+				<span>{!$Label.LBL_Learner_Proflie_Message_1}</span>
+			</div>
+		</div>
+	</apex:outputPanel>
+	<!-- START TOGGLE VIEWS -->
+	<script>
+		$(document).ready(function(){
+		    $("#list").hide();
+		    $("#fview").show();
+		    $("#lview").show();
+		    $('#fview').click(function(){
+		        $("#folder").show();
+		        $("#list").hide();
+		    });
+		    $('#lview').click(function(){
+		        $("#list").show();
+		        $("#folder").hide();
+		    });
+		
+		});
+	</script>
+	<!-- END TOGGLE VIEWS -->
+	<!-- START LIST JS -->
+		<script>
+		function toogleall(el) {
+			var r = $(el).find('i.fa-plus-square-o').length > 0;
+			if (r) {
+				$(el).find('i.fa-plus-square-o').removeClass('fa-plus-square-o').addClass('fa-minus-square-o');
+			}
+			else {
+				$(el).find('i.fa-minus-square-o').removeClass('fa-minus-square-o').addClass('fa-plus-square-o');
+			}
+			$('tr.category-row').each(function(index,el2) {
+				togglerows(el2,true,r);
+			});
+		}
+		function togglerows(el,fm,fp) {
+			if ((fm != true && $(el).find('i.fa-plus-square-o').length > 0) || fp == true) {
+				$(el).find('i.fa-plus-square-o').removeClass('fa-plus-square-o').addClass('fa-minus-square-o');
+				$('[id$=' + el.id + '].category-in').show();
+			}
+			else {
+				$(el).find('i.fa-minus-square-o').removeClass('fa-minus-square-o').addClass('fa-plus-square-o');
+				$('[id$=' + el.id + '].category-in').hide();
+			}
+		}
+		var searchMode = false;
+		var beforeSearchState = new Map();
+		function checksearch(el) {
+			var vl = el.value.trim();
+			var searchWords = vl.match(/(\w){2,}/g);
+			if (searchWords) {
+				var reText = '';
+				for (var i = 0; i < searchWords.length; i++) {
+					reText += '(?=.*'+searchWords[i]+')';
+				}
+				var re = new RegExp(reText, "ig");
+				$('tr.category-row').each(function(index,el2) {
+					if (!searchMode) {
+						beforeSearchState.set(el2.id, ($(el2).find('i.fa-plus-square-o').length == 0));
+					}
+					var shar = false;
+					if ($(el2).find('i.fa-plus-square-o').length > 0) {
+						$(el2).find('i.fa-plus-square-o').removeClass('fa-plus-square-o').addClass('fa-minus-square-o');
+					}
+					$('[id$=' + el2.id + '].category-in').each(function(index,el3) {
+						if ($(el3).find('td.asset-name').text().match(re) != null) {
+							shar = true;
+							$(el3).show();
+						}
+						else $(el3).hide();
+					});
+					shar ? $(el2).show() : $(el2).hide();
+				});
+				if (!searchMode) {
+					searchMode = true;
+				}
+			}
+			else if (searchMode && vl.length == 0) {
+				searchMode = false;
+				$('tr.category-row').show().each(function(index,el4) {
+					togglerows(el4,true,beforeSearchState.get(el4.id));
+				});
+				beforeSearchState = new Map();
+			}
+		}
+
+		function toogleTableResults() {
+			toogleall($('#first-th'));
+			var r = $($('#first-th')).find('i.fa-plus-square-o').length > 0;
+			if (r) {
+				toogleall($('#first-th'));
+			}
+		}
+
+		function loadColumnSort() {
+			$.fn.dataTable.ext.order['dom-text-label'] = function (setting, col) {
+				toogleTableResults();
+				return this.api().column(col, { order:'index' } ).nodes().map( function (td, i) {
+					var curElem = $('label', td)[0];
+					var tdElem = curElem.parentNode.parentNode;
+					return { className: tdElem.className, unique: tdElem.id, value: curElem.innerHTML };
+				});
+			};
+			$.fn.dataTable.ext.order['dom-text-span'] = function (setting, col) {
+				toogleTableResults();
+				return this.api().column(col, { order:'index' } ).nodes().map( function (td, i) {
+					var curElem = $('span', td)[0];
+					var tdElem = curElem.parentNode.parentNode;
+					return { className: tdElem.className, unique: tdElem.id, value: curElem.innerHTML };
+				});
+			};
+			$.extend( $.fn.dataTable.defaults, {
+				"searching": false,
+				"paging": false,
+				"info": false
+			} );
+
+			$.extend( $.fn.dataTableExt.oSort, {
+				"unique-html-asc": function (a, b) {
+					if (a.unique.replace(/[0-9]/g, '') != b.unique.replace(/[0-9]/g, '')
+						|| a.className.search('category-in') == -1 || b.className.search('category-in') == -1) {
+						return 0;
+					}
+					var a = a.value.toLowerCase();
+					var b = b.value.toLowerCase();
+					return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+				}, 
+				"unique-html-desc": function (a, b) {
+					if (a.unique.replace(/[0-9]/g, '') != b.unique.replace(/[0-9]/g, '')
+						|| a.className.search('category-in') == -1 || b.className.search('category-in') == -1) {
+						return 0;
+					}
+					var a = a.value.toLowerCase();
+					var b = b.value.toLowerCase();
+					return ((a < b) ? 1 : ((a > b) ? -1 : 0));
+				},
+				"unique-html-date-asc": function (a, b) {
+					if (a.unique.replace(/[0-9]/g, '') != b.unique.replace(/[0-9]/g, '')
+						|| a.className.search('category-in') == -1 || b.className.search('category-in') == -1) {
+						return 0;
+					}
+					var a = new Date(a.value);
+					var b = new Date(b.value);
+					return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+				}, 
+				"unique-html-date-desc": function (a, b) {
+					if (a.unique.replace(/[0-9]/g, '') != b.unique.replace(/[0-9]/g, '')
+						|| a.className.search('category-in') == -1 || b.className.search('category-in') == -1) {
+						return 0;
+					}
+					var a = new Date(a.value);
+					var b = new Date(b.value);
+					return ((a < b) ? 1 : ((a > b) ? -1 : 0));
+				}
+			} );
+
+			$("#basic-datatable").dataTable({
+				"order": [[ 1, "asc" ]],
+				"columnDefs": [ { "targets": 0, "orderable": false }],
+				"aoColumns": [
+					{ "orderDataType": "dom-text-label", "sType": "unique-html"},
+					{ "orderDataType": "dom-text-span", "sType": "unique-html"},
+					{ "orderDataType": "dom-text-span", "sType": "unique-html-date"}
+				]
+			});
+
+			//fix width first table header after dataTable fload
+			$("#first-th")[0].style.width = "";
+		}
+
+
+	</script>
+	<!-- END LIST JS -->
+	<c:LPFooter />
+</section>
+
+</apex:define>
+</apex:composition>
+</apex:page>

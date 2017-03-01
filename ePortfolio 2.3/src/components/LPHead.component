@@ -1,0 +1,63 @@
+<apex:component controller="LPHeadDORController" layout="none" access="global">
+
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+	<!-- Bootstrap core CSS -->
+	<link rel="stylesheet" href="{!$Resource.assets}/css/bootstrap/bootstrap.css"/>
+
+	<!-- Filebrowser Styling  -->
+	<link rel="stylesheet" href="{!$Resource.assets}/css/plugins/filebrowser/filebrowser.css"/>
+
+	<!-- DataTable Styling -->
+	<link rel="stylesheet" href="{!$Resource.assets}/css/plugins/datatables/jquery.dataTables.css"/>
+
+	<!-- Chosen Select -->
+	<link rel="stylesheet" href="{!$Resource.assets}/css/plugins/bootstrap-chosen/chosen.css"/>
+	<!-- Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700,300" rel="stylesheet" type="text/css"/>
+	
+	<!-- Base Styling  -->
+	<link rel="stylesheet" href="{!$Resource.assets}/css/app/app.v1.css"/>
+	<link rel="stylesheet" href="{!$Resource.assets}/css/app/custom.css"/>
+
+	<link rel="stylesheet" href="{!$Resource.LPResources}/css/custom.css"/>
+
+	<!-- Datetime picker -->
+	<link rel="stylesheet" href="{!$Resource.LPResources}/plugins/datetimepicker/jquery.datetimepicker.css"/>
+	<link rel="stylesheet" href="{!$Resource.LPResources}/css/custom.css"/>
+	<!-- Datetime picker -->
+	<script src="{!$Resource.LPResources}/plugins/datetimepicker/jquery.datetimepicker.js"></script>
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+	  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+	<apex:outputPanel rendered="{!AllowRedirect}">
+		<apex:outputPanel rendered="{!needAboutMe == TRUE}">
+			<script type="text/javascript"> 
+				(function() { window.location.href = '{!$Page.LPAboutMe}?reg=true&startURL={!URLENCODE($CurrentPage.URL)}';})(); 
+			</script>
+		</apex:outputPanel>
+		<apex:outputPanel rendered="{!needAboutMe != TRUE && needTerms == TRUE}">
+			<script type="text/javascript">
+				(function() { window.location.href = '{!$Page.LPTermsAndConditions}?reg=true&startURL={!URLENCODE($CurrentPage.URL)}';})(); 
+			</script>
+		</apex:outputPanel>
+	</apex:outputPanel>
+	<!-- <apex:outputPanel>
+		<script type="text/javascript">
+		(function(
+			var nonDor = $('header:not([class*="dor-header"])');
+			if (typeof nonDor !== "undefined" && nonDor !== null && nonDor.size() > 0) {
+				nonDor.hide();
+				$('header:[class*="dor-header"]').show();
+			}
+		) {};)();
+		</script>
+	</apex:outputPanel> -->
+
+</apex:component>

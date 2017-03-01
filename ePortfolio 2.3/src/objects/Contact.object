@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldSets>
+        <fullName>LPRegBioDemo</fullName>
+        <description>This will be used for the ePortfolio registration process</description>
+        <displayedFields>
+            <field>FirstName</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>true</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>LastName</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>true</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Email</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>true</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Birthdate</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>true</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>MobilePhone</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>MailingStreet</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>MailingCity</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>MailingState</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>MailingPostalCode</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Highest_Education__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Employment_Status__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Educational_Status__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>LPRegBioDemo</label>
+    </fieldSets>
+    <fields>
+        <fullName>Educational_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Educational Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>enrolled in High School</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>enrolled in College</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>in a Training Program/Apprenticeship</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>not currently enrolled</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Employment_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Employment Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Full Time</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Part Time</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Unemployed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Highest_Education__c</fullName>
+        <externalId>false</externalId>
+        <label>Highest Education</label>
+        <picklist>
+            <picklistValues>
+                <fullName>K-8th Grade</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-3 years of High School</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4 years of High School</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>High School Diploma</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GED</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Professional Certification</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Some College</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Associate&apos;s Degree</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Bachelor&apos;s Degree</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Master&apos;s Degree</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PhD Degree</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>LPLink__c</fullName>
+        <description>(deprecated) stores link to Learner Profile</description>
+        <externalId>false</externalId>
+        <label>zz_LPLink</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Reg_General_Info_Completed__c</fullName>
+        <description>date learner completed bio/demo info page in registration process</description>
+        <externalId>false</externalId>
+        <label>Reg General Info Completed</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Reg_Picture_Completed__c</fullName>
+        <description>the date/time the learner uploaded a photo in the registration process</description>
+        <externalId>false</externalId>
+        <label>Reg Picture Completed</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Reg_T_C_Completed__c</fullName>
+        <description>the date/time the learner agreed to the T&amp;C in the registration process</description>
+        <externalId>false</externalId>
+        <label>Reg T&amp;C Completed</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Registration_Completed__c</fullName>
+        <externalId>false</externalId>
+        <label>Registration Completed</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>DateTime</type>
+    </fields>
+</CustomObject>
